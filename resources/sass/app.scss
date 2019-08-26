@@ -6,3 +6,17 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.toasts-container {
+  top: 74px;
+  right: 0;
+  left: 0;
+  width: 100% !important;
+  z-index: $zindex-modal + 1;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+
+  position: absolute !important;
+}
