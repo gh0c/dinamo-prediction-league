@@ -19,13 +19,13 @@ Route::get('/zimbabve', function () {
     flash()->info('info 1')->important();
     flash()->warning('info 2');
     return redirect('/vanuatu');
-});
+})->name('index.zimbabve');
 
 Route::get('/vanuatu', function () {
     foreach (session('flash_notification', collect())->toArray() as $message) {
         dump($message);
     }
-});
+})->name('index.vanuatu');
 
 
 
