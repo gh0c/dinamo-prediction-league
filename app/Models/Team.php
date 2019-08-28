@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\Player[] $players
+ * @property string|null $sport
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereSport($value)
  */
 class Team extends Model
 {
