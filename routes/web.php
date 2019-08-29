@@ -32,3 +32,7 @@ Route::get('/vanuatu', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Require admin routes
+include_once __DIR__ . '/web/admin.php';
+include_once __DIR__ . '/web/mod.php';

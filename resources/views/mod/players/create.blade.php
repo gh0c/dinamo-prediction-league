@@ -8,11 +8,11 @@
 
             <div class="col-md-6 offset-md-3">
 
-                <h3>{{ __('forms.admin.seasons._headings.store') }}</h3>
+                <h3>{{ __('forms.mod.players._headings.store') }}</h3>
 
-                {!! Form::open(['route' => 'admin.seasons.store']) !!}
+                {!! Form::open(['route' => 'mod.players.store', 'class' => 'was-validated']) !!}
 
-                @include('admin.seasons.form')
+                @include('mod.players.form')
 
                 {!! Form::close() !!}
 

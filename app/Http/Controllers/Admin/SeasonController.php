@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\DeleteSeasonRequest;
 use App\Http\Requests\Admin\StoreSeasonRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\UpdateSeasonRequest;
+use App\Models\Games\Season;
 use App\Http\Controllers\Controller;
 
 class SeasonController extends Controller
@@ -15,7 +17,8 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        //
+        $seasons = Season::orderBy('name')->get();
+        return view('admin.seasons.index', compact('seasons'));
     }
 
     /**
@@ -31,45 +34,57 @@ class SeasonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreSeasonRequest  $request
+     * @param  StoreSeasonRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreSeasonRequest $request)
     {
-        dd($request);
+        $season = new Season($request->all());
+        $season->save();
+
+        flash()->success(__('requests.admin.season.successful_store', ['season' => $season->name]));
+        return redirect()->route('admin.seasons.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Season $season)
     {
-        //
+        return view('admin.seasons.edit', compact('season'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateSeasonRequest $request
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSeasonRequest $request, Season $season)
     {
-        //
+        $season->update($request->all());
+
+        flash()->success(__('requests.admin.season.successful_update', ['season' => $season->name]));
+        return redirect()->route('admin.seasons.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  DeleteSeasonRequest $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(DeleteSeasonRequest $request)
     {
-        //
+        $season = Season::find($request->input('season_id'));
+        $season->delete();
+
+        flash()->success(__('requests.admin.season.successful_destroy', ['season' => $season->name]));
+        return redirect()->route('admin.seasons.index');
     }
 }

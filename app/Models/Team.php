@@ -28,8 +28,50 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Team extends Model
 {
+    protected $fillable = [
+        'name', 'sport'
+    ];
+
     public function players()
     {
         return $this->hasMany(Player::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function sportName()
+    {
+        if ($this->sport === 'football') {
+            return 'Nogomet';
+        } elseif ($this->sport === 'futsal') {
+            return 'Futsal';
+        } else {
+            return '-';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoFolderName()
+    {
+        return 'uploads/teams/logos/' . $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function logoUrl()
+    {
+        return '/storage/' . $this->getLogoFolderName() . '/' . $this->featured_image;
+    }
+
+    /**
+     * @return string
+     */
+    public function logoThumbnailUrl()
+    {
+        return '/storage/' . $this->getLogoFolderName() . '/thumb_' . $this->featured_image;
     }
 }

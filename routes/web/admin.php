@@ -4,13 +4,23 @@ Route::get('/', function () {
     return 'admin';
 })->name('index');
 
-Route::namespace('Admin')->group(function () {
-    // Controllers within the "App\Http\Controllers\Admin" namespace
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'role:' . config('roles.names.super_admin') . ',' . config('roles.names.admin')])
+    ->group(function () {
+        // Routes are prefixed with /admin        -- e.g. admin/seasons/create
+        // Route names are prefixed with admin.   -- e.g. admin.teams.index
 
-    Route::resource('seasons', 'SeasonController')->except('show');
+        // Controllers within the "App\Http\Controllers\Admin" namespace
 
-    Route::resource('users', 'UserController')
-        ->middleware('role:' . config('roles.names.super_admin'));
-});
+        Route::resource('competitions', 'Admin\CompetitionController')->except('show');
+
+        Route::resource('seasons', 'Admin\SeasonController')->except('show');
+
+        Route::resource('teams', 'Admin\TeamController')->except('show');
+
+        Route::resource('users', 'Admin\UserController')
+            ->middleware('role:' . config('roles.names.super_admin'));
+    });
 
 

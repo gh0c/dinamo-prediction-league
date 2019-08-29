@@ -24,6 +24,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Season extends Model
 {
+    protected $fillable = [
+        'name', 'is_active'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *

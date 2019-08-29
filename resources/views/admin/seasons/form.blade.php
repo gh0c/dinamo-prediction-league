@@ -4,7 +4,7 @@
         {!! Form::text('name', null, [
             'id' => 'name-input',
             'placeholder' => __('forms.admin.seasons.name.placeholder'),
-            'class' => 'form-control',
+            'class' => 'form-control ' . ($errors->has('name') ? 'is-invalid' : ''),
             'required' => true
             ]) !!}
         @include('forms.input-error', ['name' => 'name'])
@@ -14,6 +14,7 @@
 <div class="form-row">
     <div class="form-group col-12">
         <div class="form-check">
+            <input type="hidden" name="is_active" value="0">
             {!! Form::checkbox('is_active', 1, null, [
                 'id' => 'is_active-input', 'class' => 'form-check-input'
                 ]) !!}

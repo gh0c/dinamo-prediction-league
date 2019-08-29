@@ -4,9 +4,9 @@ namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BasicPostRequest;
 
-class StoreSeasonRequest extends BasicPostRequest
+class DeleteTeamRequest extends BasicPostRequest
 {
-    protected $defaultMessageLangKey = 'requests.admin.season.store';
+    protected $defaultMessageLangKey = 'requests.admin.team.delete';
 
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +16,7 @@ class StoreSeasonRequest extends BasicPostRequest
     public function rules()
     {
         return [
-            'name'    => 'required|min:3|max:225|unique:seasons,name',
+            'team_id' => 'required|exists:teams,id',
         ];
     }
 }

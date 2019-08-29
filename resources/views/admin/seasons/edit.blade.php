@@ -8,9 +8,9 @@
 
             <div class="col-md-6 offset-md-3">
 
-                <h3>{{ __('forms.admin.seasons._headings.store') }}</h3>
+                <h3>{{ __('forms.admin.seasons._headings.update') }}</h3>
 
-                {!! Form::open(['route' => 'admin.seasons.store']) !!}
+                {!! Form::model($season, ['method' => 'PATCH', 'route' => ['admin.seasons.update', 'season' => $season->id]]) !!}
 
                 @include('admin.seasons.form')
 
