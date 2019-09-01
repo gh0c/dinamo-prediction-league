@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'admin'   => [
+    'admin' => [
         'competitions' => [
             'name'           => [
                 'label'       => 'Naziv natjecanja',
@@ -61,17 +61,59 @@ return [
         ],
     ],
     'mod'   => [
+        'games'   => [
+
+            'home_team'     => [
+                'label'       => 'Domaćin',
+                'placeholder' => '- Odaberi klub'
+            ],
+            'away_team'     => [
+                'label'       => 'Gost',
+                'placeholder' => '- Odaberi klub'
+            ],
+            'competition'   => [
+                'label'       => 'Natjecanje',
+                'placeholder' => '- Odaberi natjecanje',
+            ],
+            'season'        => [
+                'label'       => 'Sezona',
+                'placeholder' => '- Odaberi sezonu',
+            ],
+            'round'         => [
+                'label' => 'Kolo',
+            ],
+            'datetime'      => [
+                'label' => 'Termin',
+            ],
+            'datetime_date' => [
+                'label' => 'Datum',
+            ],
+            'datetime_time' => [
+                'label' => 'Vrijeme',
+            ],
+            '_submit'       => 'Spremi',
+            '_headings'     => [
+                'create'              => 'Dodaj novu utakmicu',
+                'store'               => 'Spremi novu utakmicu',
+                'update'              => 'Uredi postojeću utakmicu',
+                'destroy'             => 'Izbriši utakmicu',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu utakmicu?'
+            ],
+        ],
         'players' => [
-            'name'           => [
+            'name'            => [
                 'label'       => 'Ime igrača',
                 'placeholder' => 'Ime igrača'
             ],
-            'team'           => [
+            'team'            => [
                 'label'       => 'Klub',
                 'placeholder' => '- Odaberi klub'
             ],
-            '_submit'        => 'Spremi',
-            '_headings'      => [
+            'is_mod_approved' => [
+                'title' => 'Igrač zasad nije potvrđen od strane moderatora/administratora'
+            ],
+            '_submit'         => 'Spremi',
+            '_headings'       => [
                 'create'              => 'Dodaj novog igrača',
                 'store'               => 'Spremi novog igrača',
                 'update'              => 'Uredi postojećeg igrača',

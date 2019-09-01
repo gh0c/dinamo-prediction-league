@@ -37,6 +37,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Game extends Model
 {
+
+    protected $dates = ['datetime'];
+
+    protected $fillable = [
+        'home_team_id', 'away_team_id', 'round', 'competition_id', 'season_id'
+    ];
+
     public function awayTeam()
     {
         return $this->belongsTo(Team::class, 'away_team_id');
@@ -56,6 +63,5 @@ class Game extends Model
     {
         return $this->belongsTo(Season::class);
     }
-
 
 }

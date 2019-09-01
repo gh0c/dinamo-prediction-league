@@ -37,7 +37,8 @@
                             <td>
                                 {{ $player->name }}
                                 @if(!$player->is_mod_approved)
-                                    <i class="fa fa-fw fa-exclamation-circle text-danger"></i>
+                                    <i class="fa fa-fw fa-exclamation-circle text-danger"
+                                       title="{{ __('forms.mod.players.is_mod_approved.title') }}"></i>
                                 @endif
                             </td>
                             <td class="d-flex align-items-center">

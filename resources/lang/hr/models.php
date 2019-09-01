@@ -2,28 +2,39 @@
 
 return [
     'games' => [
-        'competition'   => [
+        'competition' => [
             'name'        => 'Natjecanje',
             '_attributes' => [
                 'name'  => 'Naziv natjecanja',
                 'sport' => 'Sport'
             ]
         ],
-        'player' => [
-            'name'        => 'Igrač',
+        'game'        => [
+            'name'        => 'Utakmica',
             '_attributes' => [
-                'name'      => 'Ime i prezime',
-                'team'      => 'Klub',
+                'home_team'   => 'Domaćin',
+                'away_team'   => 'Gost',
+                'datetime'    => 'Termin odigravanja',
+                'competition' => 'Natjecanje',
+                'season'      => 'Sezona',
+                'round'       => 'Kolo',
             ]
         ],
-        'season' => [
+        'player'      => [
+            'name'        => 'Igrač',
+            '_attributes' => [
+                'name' => 'Ime i prezime',
+                'team' => 'Klub',
+            ]
+        ],
+        'season'      => [
             'name'        => 'Sezona',
             '_attributes' => [
                 'name'      => 'Naziv sezone',
                 'is_active' => 'Aktivna sezona'
             ]
         ],
-        'team'   => [
+        'team'        => [
             'name'        => 'Klub',
             '_attributes' => [
                 'name'  => 'Naziv kluba',

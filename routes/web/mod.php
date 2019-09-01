@@ -9,6 +9,8 @@ Route::prefix('mod')
 
         // Controllers within the "App\Http\Controllers\Mod" namespace
 
+        Route::resource('games', 'Mod\GameController')->except('show');
+
         Route::resource('players', 'Mod\PlayerController')->except('show');
 
     });
