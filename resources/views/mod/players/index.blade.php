@@ -5,6 +5,7 @@
         .table > tbody > tr > td {
             vertical-align: middle;
         }
+
         .table > tbody > tr > th {
             vertical-align: middle;
         }
@@ -33,8 +34,25 @@
                     @foreach($players as $player)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $player->name }}</td>
-                            <td>@if($player->team) {{ $player->team->name }} @endif</td>
+                            <td>
+                                {{ $player->name }}
+                                @if(!$player->is_mod_approved)
+                                    <i class="fa fa-fw fa-exclamation-circle text-danger"></i>
+                                @endif
+                            </td>
+                            <td class="d-flex align-items-center">
+                                @if($player->team)
+                                    <span>
+                                        @if($player->team->featured_image)
+                                            <img src="{{ $player->team->logoThumbnailUrl() }}"
+                                                 style="width: 22px; height: 22px; object-fit: contain"
+                                                 alt="{{ $player->team->name }}"
+                                                 class="img-fluid m-auto">
+                                        @endif
+                                    </span>
+                                    <span class="ml-1">{{ $player->team->name }}</span>
+                                @endif
+                            </td>
 
                             <td class="text-center">
                                 <a href="{{ route('mod.players.edit', ['player' => $player->id]) }}"

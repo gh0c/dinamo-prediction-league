@@ -17,7 +17,7 @@
     <div class="form-group col-12">
         <label for="team_id">{{ __('forms.mod.players.team.label') }}</label>
         {!! Form::select('team_id', ['' => __('forms.mod.players.team.placeholder')] + $inputTeams, null, [
-            'class' => 'form-control ' . ($errors->has('name') ? 'is-invalid' : ''),
+            'class' => 'form-control ' . ($errors->has('team_id') ? 'is-invalid' : ''),
             ]) !!}
         @include('forms.input-error', ['name' => 'team_id'])
     </div>

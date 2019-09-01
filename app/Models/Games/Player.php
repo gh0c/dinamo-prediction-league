@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Team|null $team
+ * @property int $is_mod_approved
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereIsModApproved($value)
  */
 class Player extends Model
 {

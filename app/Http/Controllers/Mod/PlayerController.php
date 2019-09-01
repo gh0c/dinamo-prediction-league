@@ -18,7 +18,8 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::with('team')->orderBy('name')->get();
+        $players = Player::with('team')->leftJoin('teams', 'players.team_id', '=', 'teams.id')
+            ->orderBy('teams.sport')->orderBy('teams.name')->orderBy('players.name')->get('players.*');
         return view('mod.players.index', compact('players'));
     }
 
@@ -43,6 +44,7 @@ class PlayerController extends Controller
     public function store(StorePlayerRequest $request)
     {
         $player = new Player($request->all());
+        $player->is_mod_approved = true;
         $player->save();
 
         flash()->success(__('requests.mod.player.successful_store', ['player' => $player->name]));
@@ -72,6 +74,7 @@ class PlayerController extends Controller
      */
     public function update(UpdatePlayerRequest $request, Player $player)
     {
+        $player->is_mod_approved = true;
         $player->update($request->all());
 
         flash()->success(__('requests.mod.player.successful_update', ['player' => $player->name]));
