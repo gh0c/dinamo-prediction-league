@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Games\Competition|null $competition
  * @property-read \App\Models\Team|null $homeTeam
  * @property-read \App\Models\Games\Season|null $season
+ * @property-read \App\Models\Games\Result $result
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\GoalScorer[] $goalScorers
  */
 class Game extends Model
 {
@@ -62,6 +64,16 @@ class Game extends Model
     public function season()
     {
         return $this->belongsTo(Season::class);
+    }
+
+    public function result()
+    {
+        return $this->hasOne(Result::class);
+    }
+
+    public function goalScorers()
+    {
+        return $this->hasMany(GoalScorer::class);
     }
 
 }

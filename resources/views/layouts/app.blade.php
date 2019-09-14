@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('page_title', config('app.name', 'Laravel'))</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
@@ -102,5 +102,7 @@
     </div>
 </footer>
 </body>
+
+@stack('scripts-foot')
 
 </html>

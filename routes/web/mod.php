@@ -10,6 +10,8 @@ Route::prefix('mod')
         // Controllers within the "App\Http\Controllers\Mod" namespace
 
         Route::resource('games', 'Mod\GameController')->except('show');
+        Route::get('games/{game}/result', 'Mod\GameController@editResult')->name('games.result.edit');
+        Route::patch('games/{game}/result', 'Mod\GameController@updateResult')->name('games.result.update');
 
         Route::resource('players', 'Mod\PlayerController')->except('show');
 

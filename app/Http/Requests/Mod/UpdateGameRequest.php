@@ -4,9 +4,9 @@ namespace App\Http\Requests\Mod;
 
 use App\Http\Requests\BasicPostRequest;
 
-class StoreGameRequest extends BasicPostRequest
+class UpdateGameRequest extends BasicPostRequest
 {
-    protected $defaultMessageLangKey = 'requests.mod.game.store';
+    protected $defaultMessageLangKey = 'requests.mod.game.update';
 
     /**
      * Get the validation rules that apply to the request.

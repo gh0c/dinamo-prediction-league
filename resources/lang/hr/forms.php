@@ -63,41 +63,53 @@ return [
     'mod'   => [
         'games'   => [
 
-            'home_team'     => [
+            'home_team'         => [
                 'label'       => 'Domaćin',
                 'placeholder' => '- Odaberi klub'
             ],
-            'away_team'     => [
+            'away_team'         => [
                 'label'       => 'Gost',
                 'placeholder' => '- Odaberi klub'
             ],
-            'competition'   => [
+            'competition'       => [
                 'label'       => 'Natjecanje',
                 'placeholder' => '- Odaberi natjecanje',
             ],
-            'season'        => [
+            'season'            => [
                 'label'       => 'Sezona',
                 'placeholder' => '- Odaberi sezonu',
             ],
-            'round'         => [
+            'round'             => [
                 'label' => 'Kolo',
             ],
-            'datetime'      => [
+            'datetime'          => [
                 'label' => 'Termin',
             ],
-            'datetime_date' => [
+            'datetime_date'     => [
                 'label' => 'Datum',
             ],
-            'datetime_time' => [
+            'datetime_time'     => [
                 'label' => 'Vrijeme',
             ],
-            '_submit'       => 'Spremi',
-            '_headings'     => [
+            'goal_scorer'       => [
+                'placeholder' => ' - Odaberi strijelca'
+            ],
+            'first_goal_scorer' => [
+                'label' => 'Prvi gol'
+            ],
+            '_submit'           => 'Spremi',
+            '_add_goal_scorer'  => 'Dodaj strijelca',
+
+            '_headings' => [
                 'create'              => 'Dodaj novu utakmicu',
                 'store'               => 'Spremi novu utakmicu',
                 'update'              => 'Uredi postojeću utakmicu',
                 'destroy'             => 'Izbriši utakmicu',
-                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu utakmicu?'
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu utakmicu?',
+                'result'              => [
+                    'edit'   => 'Uredi rezultat utakmice',
+                    'update' => 'Spremi rezultat utakmice',
+                ],
             ],
         ],
         'players' => [

@@ -77,7 +77,7 @@ return [
         'array'   => 'The :attribute must not have more than :value items.',
     ],
     'max'                  => [
-        'numeric' => 'The :attribute may not be greater than :max.',
+        'numeric' => 'Vrijednost u polju :attribute ne smije biti veća od :min.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
         'string'  => 'Broj znakova u polju :attribute ne smije biti veći od :max.',
         'array'   => 'The :attribute may not have more than :max items.',
@@ -85,7 +85,7 @@ return [
     'mimes'                => 'The :attribute must be a file of type: :values.',
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
     'min'                  => [
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => 'Vrijednost u polju :attribute ne smije biti manja od :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
         'string'  => 'Broj znakova u polju :attribute ne smije biti manji od :min.',
         'array'   => 'The :attribute must have at least :min items.',

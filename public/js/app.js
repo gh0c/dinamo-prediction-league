@@ -36772,6 +36772,52 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var helpers = __webpack_require__(/*! ./helpers */ "./resources/js/helpers.js");
+
+function cloneAndAppendListItem($listContainer, counter, idPlaceholder) {
+  var requireInputs = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var $listItemCloned = cloneListItem($listContainer, counter, idPlaceholder, requireInputs);
+  $listItemCloned.removeClass('d-none');
+  $listItemCloned.appendTo($listContainer).slideDown(400, function () {
+    $listItemCloned.find(":input:not(button):visible:first").focus();
+  });
+  return $listItemCloned;
+}
+
+function deleteListItem($listItem) {
+  $listItem.css('min-height', 'initial');
+  $listItem.slideUp("slow", function () {
+    $listItem.remove();
+  });
+}
+
+function cloneListItem($listContainer, counter, idPlaceholder) {
+  var requireInputs = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var $listItemCloned = $listContainer.find('> li:first').clone(); // Use negative indexes for new (cloned) items
+
+  var newItemId = idPlaceholder.replace(/\[x]/, '[-' + counter + ']');
+  var placeholderRegex = new RegExp(helpers.escapeRegEx(idPlaceholder), 'i'); // update names, ids and label indexes
+
+  $listItemCloned.find('*[name^="' + idPlaceholder + '"]').each(function () {
+    $(this).prop('name', $(this).prop('name').replace(placeholderRegex, newItemId));
+
+    if (requireInputs === true) {
+      $(this).prop('required', true);
+    }
+  });
+  $listItemCloned.find('*[id^="' + idPlaceholder + '"]').each(function () {
+    $(this).prop('id', $(this).prop('id').replace(placeholderRegex, newItemId));
+    $(this).prop('disabled', false);
+  });
+  $listItemCloned.find('*[for^="' + idPlaceholder + '"]').each(function () {
+    $(this).prop('for', $(this).prop('for').replace(placeholderRegex, newItemId));
+  });
+  return $listItemCloned;
+}
+
+window.cloneAndAppendListItem = cloneAndAppendListItem;
+window.deleteListItem = deleteListItem;
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -36829,6 +36875,22 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/helpers.js":
+/*!*********************************!*\
+  !*** ./resources/js/helpers.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+function escapeRegEx(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+module.exports.escapeRegEx = escapeRegEx;
 
 /***/ }),
 

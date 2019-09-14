@@ -18,6 +18,9 @@ return [
                 'competition' => 'Natjecanje',
                 'season'      => 'Sezona',
                 'round'       => 'Kolo',
+                'result'      => [
+                    'name' => 'Rezultat'
+                ]
             ]
         ],
         'player'      => [

@@ -28,13 +28,17 @@ return [
         ],
     ],
     'mod'   => [
-        'game' => [
+        'game'   => [
             'store'              => 'Greška kod spremanja nove utakmice.',
             'update'             => 'Greška kod uređivanja postojeće utakmice.',
             'delete'             => 'Greška kod brisanja postojeće utakmice.',
             'successful_store'   => 'Utakmica <strong>:home_team - :away_team</strong> uspješno pohranjena.',
             'successful_update'  => 'Promjene na utakmici <strong>:home_team - :away_team</strong> uspješno pohranjene.',
             'successful_destroy' => 'Utakmica <strong>:home_team - :away_team</strong> uspješno isbrisana.',
+            'result'             => [
+                'update'            => 'Greška kod spremanja rezultata utakmice',
+                'successful_update' => 'Rezultat utakmice <strong>:home_team - :away_team</strong> uspješno pohranjen.',
+            ],
         ],
         'player' => [
             'store'              => 'Greška kod spremanja novog igrača.',

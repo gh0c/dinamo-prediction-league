@@ -27,9 +27,11 @@
 
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">{{ $round }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}</th>
+                            <th scope="col">{{ $round }}
+                                . {{ mb_strtolower(__('models.games.game._attributes.round')) }}</th>
                             <th scope="col">{{ __('models.games.game._attributes.home_team') }}</th>
                             <th scope="col">{{ __('models.games.game._attributes.away_team') }}</th>
+                            <th scope="col">{{ __('models.games.game._attributes.result.name') }}</th>
                             <th scope="col">{{ __('models.games.game._attributes.competition') }}</th>
                             <th class="text-center">@</th>
                         </tr>
@@ -66,6 +68,15 @@
                                         <span class="ml-1">{{ $game->awayTeam->name }}</span>
                                     @endif
                                 </td>
+
+                                <td>
+                                    @if($game->result)
+                                        @if(!is_null($game->result->home_team_score) && !is_null($game->result->away_team_score))
+                                            <span>{{ $game->result->home_team_score }}:{{ $game->result->away_team_score }}</span>
+                                        @endif
+                                    @endif
+                                </td>
+
                                 <td>
                                     @if($game->competition)
                                         @if($game->competition)
@@ -82,7 +93,14 @@
                                     @endif
                                 </td>
 
+
                                 <td class="text-center">
+                                    <a href="{{ route('mod.games.result.edit', ['game' => $game->id]) }}"
+                                       class="btn btn-sm btn-outline-info"
+                                       title="{{ __('forms.mod.games._headings.result.edit') }}">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </a>
+
                                     <a href="{{ route('mod.games.edit', ['game' => $game->id]) }}"
                                        class="btn btn-sm btn-outline-info">
                                         <i class="fa fa-edit"></i>
