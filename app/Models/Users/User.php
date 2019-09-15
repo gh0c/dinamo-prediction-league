@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Predictions\Prediction;
 use Illuminate\Notifications\Notifiable;
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,6 +32,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereUsername($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\Prediction[] $predictions
  */
 class User extends Authenticatable
 {
@@ -66,5 +68,10 @@ class User extends Authenticatable
     public function predictionSetting()
     {
         return $this->hasOne(PredictionSetting::class);
+    }
+
+    public function predictions()
+    {
+        return $this->hasMany(Prediction::class);
     }
 }

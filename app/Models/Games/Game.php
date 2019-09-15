@@ -2,6 +2,7 @@
 
 namespace App\Models\Games;
 
+use App\Models\Predictions\Prediction;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Games\Season|null $season
  * @property-read \App\Models\Games\Result $result
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\GoalScorer[] $goalScorers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\Prediction[] $predictions
  */
 class Game extends Model
 {
@@ -74,6 +76,11 @@ class Game extends Model
     public function goalScorers()
     {
         return $this->hasMany(GoalScorer::class);
+    }
+
+    public function predictions()
+    {
+        return $this->hasMany(Prediction::class);
     }
 
 }
