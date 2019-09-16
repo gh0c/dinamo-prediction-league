@@ -17,6 +17,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Games\Player $firstScorer
  * @property-read \App\Models\Games\Game $game
  * @property-read \App\Models\Users\User $user
+ * @property int $id
+ * @property int $user_id
+ * @property int $game_id
+ * @property int|null $first_scorer_id
+ * @property int $joker_used
+ * @property int|null $home_team_score
+ * @property int|null $away_team_score
+ * @property int|null $points
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereAwayTeamScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereFirstScorerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereHomeTeamScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereJokerUsed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction wherePoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUserId($value)
  */
 class Prediction extends Model
 {

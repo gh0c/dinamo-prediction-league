@@ -29,6 +29,8 @@ class CreatePredictionsTable extends Migration
             $table->integer('home_team_score')->nullable();
             $table->integer('away_team_score')->nullable();
 
+            $table->integer('points')->nullable();
+
             $table->timestamps();
         });
     }
