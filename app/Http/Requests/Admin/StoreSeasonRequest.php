@@ -16,7 +16,8 @@ class StoreSeasonRequest extends BasicPostRequest
     public function rules()
     {
         return [
-            'name'    => 'required|min:3|max:225|unique:seasons,name',
+            'name'             => 'required|min:3|max:225|unique:seasons,name',
+            'jokers_available' => 'required|integer|min:0'
         ];
     }
 }

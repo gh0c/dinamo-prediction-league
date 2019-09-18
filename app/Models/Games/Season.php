@@ -21,11 +21,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $jokers_available
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season whereJokersAvailable($value)
  */
 class Season extends Model
 {
     protected $fillable = [
-        'name', 'is_active'
+        'name', 'is_active', 'jokers_available'
     ];
 
     /**

@@ -19,7 +19,8 @@ class UpdateSeasonRequest extends BasicPostRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:225|unique:seasons,name,' . $this->season->id,
+            'name'             => 'required|min:3|max:225|unique:seasons,name,' . $this->season->id,
+            'jokers_available' => 'required|integer|min:0'
         ];
     }
 }

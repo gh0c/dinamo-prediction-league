@@ -12,7 +12,7 @@
 </div>
 
 <div class="form-row">
-    <div class="form-group col-12">
+    <div class="form-group col-5">
         <div class="form-check">
             <input type="hidden" name="is_active" value="0">
             {!! Form::checkbox('is_active', 1, null, [
@@ -21,6 +21,18 @@
             <label class="form-check-label"
                    for="is_active-input">{{ __('forms.admin.seasons.is_active.label') }}</label>
         </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-5">
+        <label for="jokers_available">{{ __('forms.admin.seasons.jokers_available.label') }}</label>
+        {!! Form::number('jokers_available', null, [
+            'class' => 'form-control',
+            'required' => true,
+            'min' => 0
+        ]) !!}
+        @include('forms.input-error', ['name' => 'jokers_available'])
     </div>
 </div>
 
