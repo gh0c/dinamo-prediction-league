@@ -23,6 +23,11 @@ class GameServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('mod.games.result.edit', 'App\Http\ViewComposers\GameComposer@inputPlayersForGame');
+        view()->composer('mod.games.result.edit', 'App\Http\ViewComposers\GameComposer@inputScorersForGame');
+
+        view()->composer('admin.predictions.form', 'App\Http\ViewComposers\UserComposer@inputUsers');
+        view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputGames');
+        view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputScorers');
+
     }
 }

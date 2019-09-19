@@ -101,8 +101,19 @@
         <span class="text-muted">Made with <i class="fa fa-heart" style="color: dodgerblue;"></i> by gh0c</span>
     </div>
 </footer>
-</body>
 
 @stack('scripts-foot')
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+</script>
+
+</body>
+
+
 
 </html>

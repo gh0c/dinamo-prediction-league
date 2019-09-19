@@ -21,6 +21,16 @@ Route::prefix('admin')
 
         Route::resource('users', 'Admin\UserController')
             ->middleware('role:' . config('roles.names.super_admin'));
+
+        Route::resource('predictions', 'Admin\PredictionController')->except('show');
+        Route::post('predictions/filter-scorers-by-game', 'Admin\PredictionController@filterScorersByGame')
+            ->name('predictions.filter.scorers-by-game');
+
+        Route::get('/pred/test', function () {
+            $predictions = new App\Repositories\Predictions();
+            $predictions->setPredictionOutcomesForRoundInActiveSeason(7);
+        });
+
     });
 
 

@@ -9,7 +9,6 @@ use App\Http\Requests\Mod\UpdateGameRequest;
 use App\Models\Games\Competition;
 use App\Models\Games\Game;
 use App\Models\Games\GoalScorer;
-use App\Models\Games\Player;
 use App\Models\Games\Result;
 use App\Models\Games\Season;
 use App\Models\Team;

@@ -27,6 +27,8 @@ Route::get('/vanuatu', function () {
     }
 })->name('index.vanuatu');
 
+Route::get('/results/{season}/round/{round}', 'ResultsController@showRoundResults')
+    ->name('results.round');
 
 
 Auth::routes();

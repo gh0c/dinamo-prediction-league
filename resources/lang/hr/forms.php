@@ -22,16 +22,54 @@ return [
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabrano natjecanje?'
             ],
         ],
+        'predictions'  => [
+            'name'         => [
+                'label'       => 'Prognoza',
+                'placeholder' => 'Prognoza'
+            ],
+            'user'         => [
+                'label'       => 'Član',
+                'placeholder' => '- Odaberi člana'
+            ],
+            'game'         => [
+                'label'       => 'Utakmica',
+                'placeholder' => '- Odaberi utakmicu'
+            ],
+            'first_scorer' => [
+                'label'       => 'Prvi strijelac',
+                'placeholder' => ' - Odaberi strijelca prvog gola'
+            ],
+            'home_team'    => [
+                'label' => 'Domaćin',
+            ],
+            'away_team'    => [
+                'label' => 'Gost',
+            ],
+            'joker_used'   => [
+                'label' => 'Joker?',
+            ],
+            '_submit'      => 'Spremi',
+            '_headings'    => [
+                'create'              => 'Dodaj novu prognozu',
+                'store'               => 'Spremi novu prognozu',
+                'update'              => 'Uredi postojeću prognozu',
+                'destroy'             => 'Izbriši prognozu',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu prognozu?'
+            ],
+        ],
         'seasons'      => [
-            'name'      => [
+            'name'             => [
                 'label'       => 'Naziv sezone',
                 'placeholder' => 'Sezona'
             ],
-            'is_active' => [
+            'is_active'        => [
                 'label' => 'Aktivna sezona?',
             ],
-            '_submit'   => 'Spremi',
-            '_headings' => [
+            'jokers_available' => [
+                'label' => 'Broj jokera po sezoni',
+            ],
+            '_submit'          => 'Spremi',
+            '_headings'        => [
                 'create'              => 'Dodaj novu sezonu',
                 'store'               => 'Spremi novu sezonu',
                 'update'              => 'Uredi postojeću sezonu',

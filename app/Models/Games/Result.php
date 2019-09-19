@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Result whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Games\Game $game
+ * @property-read mixed $result
  */
 class Result extends Model
 {
@@ -32,5 +33,10 @@ class Result extends Model
     public function game()
     {
         return $this->belongsTo(Game::class);
+    }
+
+    public function getResultAttribute()
+    {
+        return $this->home_team_score . ':' . $this->away_team_score;
     }
 }

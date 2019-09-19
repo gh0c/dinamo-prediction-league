@@ -44,5 +44,22 @@ return [
                 'sport' => 'Sport'
             ]
         ],
+    ],
+
+    'predictions' => [
+        'prediction' => [
+            'name'        => 'Prognoza',
+            'collection'  => 'Prognoze',
+            '_attributes' => [
+                'home_team_score' => 'Domaćin',
+                'away_team_score' => 'Gost',
+                'user'            => 'Član',
+                'game'            => [
+                    'name'  => 'utakmica',
+                    'round' => 'Kolo',
+                ],
+                'points'          => 'Bodovi'
+            ]
+        ]
     ]
 ];

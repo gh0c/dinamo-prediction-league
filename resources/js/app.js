@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 const helpers = require('./helpers');
+require('./ajax');
+require('./toasts');
 
 function cloneAndAppendListItem($listContainer, counter, idPlaceholder, requireInputs = false) {
     let $listItemCloned = cloneListItem($listContainer, counter, idPlaceholder, requireInputs);

@@ -36758,6 +36758,59 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/ajax.js":
+/*!******************************!*\
+  !*** ./resources/js/ajax.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ajaxCall(url, params) {
+  return new Promise(function (resolve) {
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: params
+    }).done(function (response) {
+      resolve(response);
+    }).fail(function (jqXHR) {
+      if (jqXHR['responseJSON'] && jqXHR['responseJSON']['error']) {
+        handleAjaxError(jqXHR['responseJSON']['error']);
+      }
+    });
+  });
+}
+
+function handleAjaxError(error) {
+  if (typeof error === 'string') {
+    $.toast({
+      type: 'error',
+      important: true,
+      title: 'Error',
+      content: error
+    });
+  } else if (_typeof(error) === 'object') {
+    for (var i = 0; i < error.length; i++) {
+      (function (i) {
+        setTimeout(function () {
+          $.toast({
+            type: 'error',
+            important: true,
+            title: 'Error',
+            content: error[i]
+          });
+        }, 600 * i);
+      })(i);
+    }
+  }
+}
+
+window.ajaxCall = ajaxCall;
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -36773,6 +36826,10 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var helpers = __webpack_require__(/*! ./helpers */ "./resources/js/helpers.js");
+
+__webpack_require__(/*! ./ajax */ "./resources/js/ajax.js");
+
+__webpack_require__(/*! ./toasts */ "./resources/js/toasts.js");
 
 function cloneAndAppendListItem($listContainer, counter, idPlaceholder) {
   var requireInputs = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -36891,6 +36948,66 @@ function escapeRegEx(str) {
 }
 
 module.exports.escapeRegEx = escapeRegEx;
+
+/***/ }),
+
+/***/ "./resources/js/toasts.js":
+/*!********************************!*\
+  !*** ./resources/js/toasts.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @original_author Script47 (https://github.com/Script47/Toast)
+ **/
+(function ($) {
+  $.toast = function (opts) {
+    var important = opts['important'] || false,
+        html,
+        bgHeaderClass = '',
+        fgHeaderClass = '',
+        title = opts['title'] || 'Error!',
+        content = opts['content'] || '',
+        type = opts['type'] || 'info',
+        delay = opts['delay'] || 5000;
+
+    switch (type) {
+      case 'info':
+        bgHeaderClass = 'bg-info';
+        fgHeaderClass = 'text-white';
+        break;
+
+      case 'success':
+        bgHeaderClass = 'bg-success';
+        fgHeaderClass = 'text-white';
+        break;
+
+      case 'warning':
+      case 'warn':
+        bgHeaderClass = 'bg-warning';
+        fgHeaderClass = '';
+        break;
+
+      case 'error':
+      case 'danger':
+        bgHeaderClass = 'bg-danger';
+        fgHeaderClass = 'text-white';
+        break;
+    }
+
+    html = '<div class="toast-header ' + bgHeaderClass + '">' + '<span class="mr-auto ' + fgHeaderClass + '">' + title + '</span>' + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>' + '<div class="toast-body">' + content + '</div>';
+
+    if (important === true) {
+      html = '<div class="toast bg-light ml-auto mt-3 mr-2" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">' + html + '</div>';
+    } else {
+      html = '<div class="toast bg-light ml-auto mt-3 mr-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="' + delay + '">' + html + '</div>';
+    }
+
+    $('.toasts-container').append(html);
+    $('.toasts-container .toast:last').toast('show');
+  };
+})(jQuery);
 
 /***/ }),
 

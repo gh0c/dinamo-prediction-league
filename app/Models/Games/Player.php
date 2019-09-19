@@ -25,15 +25,41 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Team|null $team
  * @property int $is_mod_approved
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereIsModApproved($value)
+ * @property int|null $is_own_goal_scorer
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereIsOwnGoalScorer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player ownGoalScorer()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player realPlayers()
  */
 class Player extends Model
 {
     protected $fillable = [
-        'name', 'team_id',
+        'name', 'team_id'
     ];
 
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Scope a query to only include real players (no -own goal "player").
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRealPlayers($query)
+    {
+        return $query->where('is_own_goal_scorer', false);
+    }
+
+    /**
+     * Scope a query to fetch only own goal scorer "player"
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOwnGoalScorer($query)
+    {
+        return $query->where('is_own_goal_scorer', true)->first();
     }
 }

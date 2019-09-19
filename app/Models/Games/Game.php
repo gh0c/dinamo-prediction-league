@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $season_id
  * @property int|null $competition_id
  * @property int|null $round
- * @property string|null $datetime
+ * @property \Illuminate\Support\Carbon|string|null $datetime
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Game newModelQuery()
@@ -38,6 +38,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Games\Result $result
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\GoalScorer[] $goalScorers
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\Prediction[] $predictions
+ * @property-read mixed $datetime_date
+ * @property-read mixed $datetime_time
+ * @property-read mixed $game_description
+ * @property-read mixed|Player|null $first_scorer
+ * @property-read mixed $away_team_score
+ * @property-read mixed $home_team_score
  */
 class Game extends Model
 {
@@ -73,14 +79,50 @@ class Game extends Model
         return $this->hasOne(Result::class);
     }
 
+    public function getHomeTeamScoreAttribute()
+    {
+        if ($this->result) {
+            return $this->result->home_team_score;
+        }
+        return null;
+    }
+
+    public function getAwayTeamScoreAttribute()
+    {
+        if ($this->result) {
+            return $this->result->away_team_score;
+        }
+        return null;
+    }
+
     public function goalScorers()
     {
         return $this->hasMany(GoalScorer::class);
     }
 
+    public function getFirstScorerAttribute()
+    {
+        return $this->goalScorers->where('is_first_goal', '=', true)->first()->player;
+    }
+
     public function predictions()
     {
         return $this->hasMany(Prediction::class);
+    }
+
+    public function getDatetimeDateAttribute()
+    {
+        return $this->datetime->format('Y-m-d');
+    }
+
+    public function getDatetimeTimeAttribute()
+    {
+        return $this->datetime->format('H:i');
+    }
+
+    public function getGameDescriptionAttribute()
+    {
+        return $this->datetime->format('d.m.Y. H:i') . ' ' . $this->homeTeam->name . ' - ' . $this->awayTeam->name;
     }
 
 }

@@ -10,6 +10,15 @@ return [
             'successful_update'  => 'Promjene na natjecanju <strong>:competition</strong> uspješno pohranjene.',
             'successful_destroy' => 'Natjecanje <strong>:competition</strong> uspješno isbrisano.',
         ],
+        'prediction'  => [
+            'store'              => 'Greška kod spremanja nove prognoze.',
+            'update'             => 'Greška kod uređivanja postojeće prognoze.',
+            'delete'             => 'Greška kod brisanja postojeće prognoze.',
+            'filter'             => ['scorers_by_game' => 'Greška kod filtriranja strijelaca prema utakmici.'],
+            'successful_store'   => 'Prognoza utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno pohranjena.',
+            'successful_update'  => 'Promjene na prognozi utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno pohranjene.',
+            'successful_destroy' => 'Prognoza utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno isbrisana.',
+        ],
         'season'      => [
             'store'              => 'Greška kod spremanja nove sezone.',
             'update'             => 'Greška kod uređivanja postojeće sezone.',

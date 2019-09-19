@@ -114,7 +114,7 @@
                         <div class="form-row align-items-center">
 
                             <div class="form-group col-8 mb-0">
-                                {!! Form::select('goalScorers[x][player_id]', $inputPlayers, null, [
+                                {!! Form::select('goalScorers[x][player_id]', $inputScorers, null, [
                                     'class' => 'form-control',
                                     ]) !!}
                             </div>
@@ -152,7 +152,7 @@
                                     <div class="form-row align-items-center">
 
                                         <div class="form-group col-8 mb-0">
-                                            {!! Form::select('goalScorers[' . $key . '][player_id]', $inputPlayers, null, [
+                                            {!! Form::select('goalScorers[' . $key . '][player_id]', $inputScorers, null, [
                                                 'class' => 'form-control',
                                                 'required' => 'true',
                                             ]) !!}
@@ -193,7 +193,7 @@
 
                                     <div class="form-group col-8 mb-0">
                                         {!! Form::hidden('goalScorers[' . $key . '][id]') !!}
-                                        {!! Form::select('goalScorers[' . $key . '][player_id]', $inputPlayers, null, [
+                                        {!! Form::select('goalScorers[' . $key . '][player_id]', $inputScorers, null, [
                                             'class' => 'form-control',
                                             'required' => 'true',
                                         ]) !!}

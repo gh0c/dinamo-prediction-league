@@ -3,34 +3,45 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Games\Game;
-use App\Models\Games\Player;
+use App\Models\Repositories\Games;
 use Illuminate\Contracts\View\View;
 
+/**
+ * Class GameComposer
+ * @package App\Http\ViewComposers
+ * @property Games $games
+ */
 class GameComposer
 {
-    public function inputPlayersForGame(View $view)
+    protected $games;
+
+    public function __construct(Games $games)
+    {
+        $this->games = $games;
+    }
+
+    public function inputScorersForGame(View $view)
     {
         /** @var Game $game */
         $game = request()->route()->parameter('game');
 
-        $inputPlayers = [];
-
-        $players = Player::with('team')
-            ->whereIn('team_id', [$game->home_team_id, $game->away_team_id])
-            ->orderBy('name')
-            ->get();
-
-        foreach ($players as $inputPlayer) {
-            if (!isset($inputPlayers[$inputPlayer->team->name])) {
-                $inputPlayers[$inputPlayer->team->name] = [];
-            }
-            $inputPlayers[$inputPlayer->team->name][$inputPlayer->id] = $inputPlayer->name;
-        }
-
-        $inputPlayers = ['' => __('forms.mod.games.goal_scorer.placeholder')] + $inputPlayers;
-
         $view->with([
-            'inputPlayers' => $inputPlayers,
+            'inputScorers' => $this->games->loadPlayersForGame($game),
         ]);
     }
+
+    public function inputGames(View $view)
+    {
+        $view->with([
+            'inputGames' => $this->games->loadGames(),
+        ]);
+    }
+
+    public function inputScorers(View $view)
+    {
+        $view->with([
+            'inputScorers' => $this->games->loadPlayers()
+        ]);
+    }
+
 }

@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $jokers_available
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season whereJokersAvailable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season active()
  */
 class Season extends Model
 {
@@ -38,4 +39,15 @@ class Season extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Scope a query to fetch only the active season
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)->first();
+    }
 }

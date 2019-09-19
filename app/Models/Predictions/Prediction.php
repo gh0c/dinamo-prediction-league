@@ -37,9 +37,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction wherePoints($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUserId($value)
+ * @property-read mixed $predicted_result
  */
 class Prediction extends Model
 {
+    protected $fillable = ['user_id', 'game_id', 'home_team_score', 'away_team_score', 'first_scorer_id', 'joker_used'];
+
+    protected $casts = [
+        'joker_used' => 'boolean',
+    ];
+
     public function game()
     {
         return $this->belongsTo(Game::class);
@@ -53,5 +60,10 @@ class Prediction extends Model
     public function firstScorer()
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function getPredictedResultAttribute()
+    {
+        return $this->home_team_score . ':' . $this->away_team_score;
     }
 }
