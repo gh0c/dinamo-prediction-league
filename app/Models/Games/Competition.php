@@ -2,7 +2,9 @@
 
 namespace App\Models\Games;
 
+use Cloudder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Games\Competition
@@ -49,7 +51,7 @@ class Competition extends Model
      */
     public function getLogoFolderName()
     {
-        return 'uploads/competitions/logos/' . $this->id;
+        return Str::snake(config('app.name'), '-') . '/uploads/competitions/logos/' . $this->id;
     }
 
     /**
@@ -57,7 +59,7 @@ class Competition extends Model
      */
     public function logoUrl()
     {
-        return '/storage/' . $this->getLogoFolderName() . '/' . $this->featured_image;
+        return Cloudder::secureShow($this->getLogoPublicId());
     }
 
     /**
@@ -65,6 +67,22 @@ class Competition extends Model
      */
     public function logoThumbnailUrl()
     {
-        return '/storage/' . $this->getLogoFolderName() . '/thumb_' . $this->featured_image;
+        return Cloudder::secureShow($this->getLogoThumbnailPublicId());
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoPublicId()
+    {
+        return $this->getLogoFolderName() . '/' . $this->featured_image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoThumbnailPublicId()
+    {
+        return $this->getLogoFolderName() . '/thumb_' . $this->featured_image;
     }
 }

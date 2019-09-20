@@ -7,10 +7,8 @@ use App\Http\Requests\Admin\DeleteCompetitionRequest;
 use App\Http\Requests\Admin\StoreCompetitionRequest;
 use App\Http\Requests\Admin\UpdateCompetitionRequest;
 use App\Models\Games\Competition;
-use File;
+use Cloudder;
 use Illuminate\Http\Request;
-use Image;
-use Storage;
 
 class CompetitionController extends Controller
 {
@@ -104,23 +102,21 @@ class CompetitionController extends Controller
         if ($data->hasFile('featured_image')) {
 
             $featuredImage = $data->file('featured_image');
-            $filenameToStore = time() . '.' . $featuredImage->getClientOriginalExtension();
+            $filenameToStore = time();
 
             $folder = $competition->getLogoFolderName();
-            Storage::disk('public')->makeDirectory($folder);
-
-            $image = Image::make($featuredImage);
 
             // resize the image to heights and widths of 250 and 28 and constrain the aspect ratio
-            $image->resize(250, 250, function ($constraint) {
-                /** @var \Intervention\Image\Constraint $constraint */
-                $constraint->aspectRatio();
-            })->save(Storage::disk('public')->path($folder) . '/' . $filenameToStore);
 
-            $image->resize(28, 28, function ($constraint) {
-                /** @var \Intervention\Image\Constraint $constraint */
-                $constraint->aspectRatio();
-            })->save(Storage::disk('public')->path($folder) . '/' . 'thumb_' . $filenameToStore);
+            Cloudder::upload($featuredImage->getRealPath(), $filenameToStore, [
+                'folder' => $folder,
+                'width'  => 250, 'height' => 250, 'crop' => 'fit',
+            ]);
+
+            Cloudder::upload($featuredImage->getRealPath(), 'thumb_' . $filenameToStore, [
+                'folder' => $folder,
+                'width'  => 28, 'height' => 28, 'crop' => 'fit',
+            ]);
 
             $this->deleteOldLogo($competition);
 
@@ -135,13 +131,9 @@ class CompetitionController extends Controller
      */
     public function deleteOldLogo($competition)
     {
-        $oldFilename = $competition->featured_image;
-
-        if ($oldFilename) {
-            $folder = $competition->getLogoFolderName();
-
-            File::delete(Storage::disk('public')->path($folder) . '/' . $oldFilename);
-            File::delete(Storage::disk('public')->path($folder) . '/' . '/thumb_' . $oldFilename);
+        if ($competition->featured_image) {
+            Cloudder::destroy($competition->getLogoPublicId());
+            Cloudder::destroy($competition->getLogoThumbnailPublicId());
         }
     }
 
@@ -150,9 +142,7 @@ class CompetitionController extends Controller
      */
     public function deleteLogoFolder($competition)
     {
-        $folder = $competition->getLogoFolderName();
-
-        File::deleteDirectory(Storage::disk('public')->path($folder));
+        $this->deleteOldLogo($competition);
     }
 
 }

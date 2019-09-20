@@ -7,10 +7,8 @@ use App\Http\Requests\Admin\StoreTeamRequest;
 use App\Http\Requests\Admin\UpdateTeamRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
-use File;
+use Cloudder;
 use Illuminate\Http\Request;
-use Image;
-use Storage;
 
 class TeamController extends Controller
 {
@@ -96,31 +94,29 @@ class TeamController extends Controller
     }
 
     /**
-     * @param Request $data
-     * @param Team $team
+     * @param  Request $data
+     * @param  Team $team
      */
     public function storeFeaturedImage($data, $team)
     {
         if ($data->hasFile('featured_image')) {
 
             $featuredImage = $data->file('featured_image');
-            $filenameToStore = time() . '.' . $featuredImage->getClientOriginalExtension();
+            $filenameToStore = time();
 
             $folder = $team->getLogoFolderName();
-            Storage::disk('public')->makeDirectory($folder);
-
-            $image = Image::make($featuredImage);
 
             // resize the image to heights and widths of 250 and 28 and constrain the aspect ratio
-            $image->resize(250, 250, function ($constraint) {
-                /** @var \Intervention\Image\Constraint $constraint */
-                $constraint->aspectRatio();
-            })->save(Storage::disk('public')->path($folder) . '/' . $filenameToStore);
 
-            $image->resize(28, 28, function ($constraint) {
-                /** @var \Intervention\Image\Constraint $constraint */
-                $constraint->aspectRatio();
-            })->save(Storage::disk('public')->path($folder) . '/' . 'thumb_' . $filenameToStore);
+            Cloudder::upload($featuredImage->getRealPath(), $filenameToStore, [
+                'folder' => $folder,
+                'width'  => 250, 'height' => 250, 'crop' => 'fit',
+            ]);
+
+            Cloudder::upload($featuredImage->getRealPath(), 'thumb_' . $filenameToStore, [
+                'folder' => $folder,
+                'width'  => 28, 'height' => 28, 'crop' => 'fit',
+            ]);
 
             $this->deleteOldLogo($team);
 
@@ -131,17 +127,13 @@ class TeamController extends Controller
     }
 
     /**
-     * @param Team $team
+     * @param  Team $team
      */
     public function deleteOldLogo($team)
     {
-        $oldFilename = $team->featured_image;
-
-        if ($oldFilename) {
-            $folder = $team->getLogoFolderName();
-
-            File::delete(Storage::disk('public')->path($folder) . '/' . $oldFilename);
-            File::delete(Storage::disk('public')->path($folder) . '/' . '/thumb_' . $oldFilename);
+        if ($team->featured_image) {
+            Cloudder::destroy($team->getLogoPublicId());
+            Cloudder::destroy($team->getLogoThumbnailPublicId());
         }
     }
 
@@ -150,9 +142,8 @@ class TeamController extends Controller
      */
     public function deleteLogoFolder($team)
     {
-        $folder = $team->getLogoFolderName();
-
-        File::deleteDirectory(Storage::disk('public')->path($folder));
+        $this->deleteOldLogo($team);
+        // No deleting folders on Cloudinary at this point
     }
 
 }

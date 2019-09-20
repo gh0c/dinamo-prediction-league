@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Games\Player;
+use Cloudder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Team
@@ -56,7 +58,7 @@ class Team extends Model
      */
     public function getLogoFolderName()
     {
-        return 'uploads/teams/logos/' . $this->id;
+        return Str::snake(config('app.name'), '-') .  '/uploads/teams/logos/' . $this->id;
     }
 
     /**
@@ -64,7 +66,7 @@ class Team extends Model
      */
     public function logoUrl()
     {
-        return '/storage/' . $this->getLogoFolderName() . '/' . $this->featured_image;
+        return Cloudder::secureShow($this->getLogoPublicId());
     }
 
     /**
@@ -72,6 +74,22 @@ class Team extends Model
      */
     public function logoThumbnailUrl()
     {
-        return '/storage/' . $this->getLogoFolderName() . '/thumb_' . $this->featured_image;
+        return Cloudder::secureShow($this->getLogoThumbnailPublicId());
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoPublicId()
+    {
+        return $this->getLogoFolderName() . '/' . $this->featured_image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoThumbnailPublicId()
+    {
+        return $this->getLogoFolderName() . '/thumb_' . $this->featured_image;
     }
 }
