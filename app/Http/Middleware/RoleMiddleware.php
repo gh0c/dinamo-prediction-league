@@ -89,35 +89,35 @@ class RoleMiddleware
     protected function validateUserHasRole($role)
     {
         if ($role === config('roles.names.super_admin')) {
-            if (Auth::user()->predictionSetting->is_prediction_league_super_admin) {
+            if (Auth::user()->userSetting->is_super_admin) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.super_admin'));
         }
 
         if ($role === config('roles.names.admin')) {
-            if (Auth::user()->predictionSetting->is_prediction_league_admin) {
+            if (Auth::user()->userSetting->is_admin) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.admin'));
         }
 
         if ($role === config('roles.names.mod')) {
-            if (Auth::user()->predictionSetting->is_prediction_league_admin) {
+            if (Auth::user()->userSetting->is_moderator) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.mod'));
         }
 
         if ($role === config('roles.names.disqualified')) {
-            if (Auth::user()->predictionSetting->is_disqualified_from_prediction_league) {
+            if (Auth::user()->userSetting->is_disqualified_from_prediction_league) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.disqualified'));
         }
 
         if ($role === config('roles.names.not_disqualified')) {
-            if (!Auth::user()->predictionSetting->is_disqualified_from_prediction_league) {
+            if (!Auth::user()->userSetting->is_disqualified_from_prediction_league) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.not_disqualified'));

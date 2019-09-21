@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed|Player|null $first_scorer
  * @property-read mixed $away_team_score
  * @property-read mixed $home_team_score
+ * @property-read int|null $goal_scorers_count
+ * @property-read int|null $predictions_count
  */
 class Game extends Model
 {

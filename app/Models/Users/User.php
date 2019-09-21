@@ -19,7 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read PredictionSetting $predictionSetting
+ * @property-read UserSetting $userSetting
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User query()
@@ -33,6 +33,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereUsername($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\Prediction[] $predictions
+ * @property-read int|null $notifications_count
+ * @property-read int|null $predictions_count
  */
 class User extends Authenticatable
 {
@@ -65,9 +67,9 @@ class User extends Authenticatable
 //        'email_verified_at' => 'datetime',
     ];
 
-    public function predictionSetting()
+    public function userSetting()
     {
-        return $this->hasOne(PredictionSetting::class);
+        return $this->hasOne(UserSetting::class);
     }
 
     public function predictions()

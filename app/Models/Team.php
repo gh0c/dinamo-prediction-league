@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\Player[] $players
  * @property string|null $sport
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team whereSport($value)
+ * @property-read int|null $players_count
  */
 class Team extends Model
 {

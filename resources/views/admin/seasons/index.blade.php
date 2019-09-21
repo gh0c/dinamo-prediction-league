@@ -36,7 +36,7 @@
                                     <i class="fa fa-edit"></i>
                                 </a>
 
-                                @if(Auth::user()->predictionSetting->is_prediction_league_super_admin)
+                                @if(Auth::user()->userSetting->is_super_admin)
                                     <button class="btn btn-sm btn-danger" data-toggle="modal"
                                             data-target="#delete-confirmation-modal" data-season_id="{{ $season->id }}">
                                         <i class="fa fa-times-circle"></i>
