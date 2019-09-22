@@ -22,10 +22,10 @@ Route::prefix('admin')
         Route::post('predictions/filter-scorers-by-game', 'Admin\PredictionController@filterScorersByGame')
             ->name('predictions.filter.scorers-by-game');
 
-        Route::get('/pred/test', function () {
-            $predictions = new App\Repositories\Predictions();
-            $predictions->setPredictionOutcomesForRoundInActiveSeason(7);
-        });
+        Route::get('/predictions/set-prediction-outcomes/active-season/round/{round}')
+            ->uses('Admin\PredictionController@setPredictionOutcomesForRoundInActiveSeason')
+            ->name('predictions.set-prediction-outcomes.active-season.rounds');
+
 
     });
 

@@ -10,19 +10,23 @@ use App\Models\Games\Game;
 use App\Models\Predictions\Prediction;
 use App\Models\Repositories\Games;
 use App\Models\Users\User;
+use App\Repositories\Predictions;
 
 /**
  * Class PredictionController
  * @package App\Http\Controllers\Admin
  * @property Games $games
+ * @property Predictions $predictions
  */
 class PredictionController
 {
     protected $games;
+    protected $predictions;
 
-    public function __construct(Games $games)
+    public function __construct(Games $games, Predictions $predictions)
     {
         $this->games = $games;
+        $this->predictions = $predictions;
     }
 
     /**
@@ -145,6 +149,20 @@ class PredictionController
         }
 
         return view('admin.predictions._scorers', ['inputScorers' => $inputPlayers])->render();
+    }
+
+    /**
+     * @param  int $round
+     * @throws \Exception
+     */
+    public function setPredictionOutcomesForRoundInActiveSeason($round)
+    {
+        $this->predictions->setPredictionOutcomesForRoundInActiveSeason($round);
+
+        flash()->success(__('requests.admin.prediction.successful_set_prediction_outcomes_for_round_in_active_season', [
+            'round' => $round
+        ]));
+        redirect()->route('results.round', ['round' => $round]);
     }
 
 }

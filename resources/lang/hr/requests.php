@@ -18,6 +18,8 @@ return [
             'successful_store'   => 'Prognoza utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno pohranjena.',
             'successful_update'  => 'Promjene na prognozi utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno pohranjene.',
             'successful_destroy' => 'Prognoza utakmice <strong>:home_team - :away_team</strong> za člana <strong>:user</strong> uspješno isbrisana.',
+
+            'successful_set_prediction_outcomes_for_round_in_active_season' => 'Ishodi prognoza za <strong>:round</strong>. kolo uspješno postavljeni',
         ],
         'season'      => [
             'store'              => 'Greška kod spremanja nove sezone.',
