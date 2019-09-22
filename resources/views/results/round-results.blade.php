@@ -21,7 +21,7 @@
     </style>
 @endpush
 
-@section('page_title', __('models.predictions.prediction.collection'))
+@section('page_title', __('models.predictions.prediction.collection_for_round', ['round' => $round]))
 
 @section('content')
 
@@ -31,14 +31,26 @@
 
             <div class="col-md-8 offset-md-2">
 
+                <h3>{{ __('models.predictions.prediction.collection_for_round', ['round' => $round]) }}</h3>
 
                 <table class="table table-sm table-hover">
 
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col" colspan="4">
-                            {{ $round }}
-                            . {{ mb_strtolower(__('models.predictions.prediction._attributes.game.round')) }}
+                        <th scope="col">
+                            {{ __('models.predictions.prediction._attributes.user') }}
+                        </th>
+                        <th scope="col">
+                            {{ __('models.predictions.prediction._attributes.points') }}
+                        </th>
+                        <th scope="col">
+                            {{ __('models.predictions.prediction._attributes.bonus_points') }}
+                        </th>
+                        <th scope="col">
+                            {{ __('models.predictions.prediction._attributes.total_points') }}
+                        </th>
+                        <th scope="col">
+                            {{ __('models.predictions.prediction._attributes.jokers_used') }}
                         </th>
                     </tr>
                     </thead>
@@ -65,7 +77,6 @@
                                          alt="" style="contain: content; width: 18px;">
                                 @endfor
                             </td>
-
 
                         </tr>
                     @endforeach

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\FilterScorersByGameRequest;
 use App\Http\Requests\Admin\StorePredictionRequest;
 use App\Http\Requests\Admin\UpdatePredictionRequest;
 use App\Models\Games\Game;
+use App\Models\Games\Season;
 use App\Models\Predictions\Prediction;
 use App\Models\Repositories\Games;
 use App\Models\Users\User;
@@ -153,16 +154,16 @@ class PredictionController
 
     /**
      * @param  int $round
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function setPredictionOutcomesForRoundInActiveSeason($round)
     {
         $this->predictions->setPredictionOutcomesForRoundInActiveSeason($round);
-
         flash()->success(__('requests.admin.prediction.successful_set_prediction_outcomes_for_round_in_active_season', [
             'round' => $round
         ]));
-        redirect()->route('results.round', ['round' => $round]);
+        return redirect()->route('results.round', ['season' => Season::active()->id, 'round' => $round]);
     }
 
 }

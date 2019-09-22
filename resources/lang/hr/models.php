@@ -48,9 +48,10 @@ return [
 
     'predictions' => [
         'prediction' => [
-            'name'        => 'Prognoza',
-            'collection'  => 'Prognoze',
-            '_attributes' => [
+            'name'                 => 'Prognoza',
+            'collection'           => 'Prognoze',
+            'collection_for_round' => 'Prognoze za :round. kolo',
+            '_attributes'          => [
                 'home_team_score' => 'Domaćin',
                 'away_team_score' => 'Gost',
                 'user'            => 'Član',
@@ -58,7 +59,10 @@ return [
                     'name'  => 'utakmica',
                     'round' => 'Kolo',
                 ],
-                'points'          => 'Bodovi'
+                'points'          => 'Bodovi',
+                'bonus_points'    => 'Bonus',
+                'total_points'    => 'Ukupno',
+                'jokers_used'     => 'Jokera',
             ]
         ]
     ]
