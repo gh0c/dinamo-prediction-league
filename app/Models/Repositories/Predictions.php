@@ -270,7 +270,7 @@ class Predictions
         // Award 1 point if predicted first goal scorer scored later in the game
 
         if ($prediction->home_team_score == 0 && $prediction->away_team_score == 0) {
-            if ($game->home_team_score == 0 && $game->away_team_score) {
+            if ($game->home_team_score == 0 && $game->away_team_score == 0) {
                 return 2;
             } else {
                 return 0;

@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/', function () {
-    return 'admin';
-})->name('index');
-
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'role:' . config('roles.names.super_admin') . ',' . config('roles.names.admin')])
