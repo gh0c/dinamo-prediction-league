@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\DeletePredictionRequest;
 use App\Http\Requests\Admin\FilterScorersByGameRequest;
 use App\Http\Requests\Admin\StorePredictionRequest;
+use App\Http\Requests\Admin\StorePredictionsForRoundRequest;
 use App\Http\Requests\Admin\UpdatePredictionRequest;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
@@ -57,6 +58,22 @@ class PredictionController
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @param  int $round
+     * @return \Illuminate\Http\Response
+     */
+    public function createForRound($round)
+    {
+        $games = Game::whereRound($round)
+            ->where('season_id', '=', Season::active()->id)
+            ->orderBy('datetime')
+            ->get();
+
+        return view('admin.predictions.create-for-round', compact('games', 'round'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  StorePredictionRequest $request
@@ -76,6 +93,37 @@ class PredictionController
             'away_team' => $game->awayTeam->name,
             'user'      => $user->username
         ]));
+        return redirect()->route('admin.predictions.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StorePredictionsForRoundRequest $request
+     * @param int $round
+     * @return \Illuminate\Http\Response
+     */
+    public function storeForRound(StorePredictionsForRoundRequest $request, $round)
+    {
+        $user = User::find($request->input('user_id'));
+
+        foreach($request->input('predictions') as $predictionData) {
+            $predictionData['user_id'] = $user->id;
+
+            $game = Game::find($predictionData['game_id']);
+
+            $prediction = new Prediction($predictionData);
+            $prediction->points = null;
+            $prediction->save();
+
+            flash()->success(__('requests.admin.prediction.successful_store', [
+                'home_team' => $game->homeTeam->name,
+                'away_team' => $game->awayTeam->name,
+                'user'      => $user->username
+            ]));
+
+        }
+
         return redirect()->route('admin.predictions.index');
     }
 

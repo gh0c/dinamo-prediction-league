@@ -155,7 +155,7 @@
             let $button = $(e.relatedTarget);
             let predictionId = $button.data('prediction_id');
 
-            $modal.find('.modal-body #predictionId').val(predictionId);
+            $modal.find('.modal-body #prediction_id').val(predictionId);
         });
     </script>
 

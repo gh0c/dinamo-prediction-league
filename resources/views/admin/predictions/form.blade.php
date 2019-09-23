@@ -5,6 +5,7 @@
         {!! Form::select('user_id', $inputUsers, null, [
             'class' => 'form-control',
             'autofocus' => true,
+            'required' => true,
             ]) !!}
         @include('forms.input-error', ['name' => 'user_id'])
     </div>
@@ -76,7 +77,6 @@
         let selectedGameValue = $(':input[name="game_id"]').val();
 
         let currentScorerSelection = $(':input[name="first_scorer_id"]').val();
-        console.log(currentScorerSelection);
 
         let $cont = $('#input-scorers-container');
         let params = {game_id: selectedGameValue};

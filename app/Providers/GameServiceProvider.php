@@ -29,5 +29,9 @@ class GameServiceProvider extends ServiceProvider
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputGames');
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputScorers');
 
+        view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\UserComposer@inputUsers');
+        view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputGames');
+        view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputScorers');
+
     }
 }
