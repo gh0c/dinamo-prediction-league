@@ -40,7 +40,9 @@ class PredictionController
     {
         $predictions = Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
             ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
+            ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
             ->orderBy('games.round')
+            ->orderBy('users.username')
             ->select('predictions.*')
             ->get();
 

@@ -104,7 +104,10 @@ class Game extends Model
 
     public function getFirstScorerAttribute()
     {
-        return $this->goalScorers->where('is_first_goal', '=', true)->first()->player;
+        if ($this->goalScorers->isNotEmpty()) {
+            return $this->goalScorers->where('is_first_goal', '=', true)->first()->player;
+        }
+        return null;
     }
 
     public function predictions()
