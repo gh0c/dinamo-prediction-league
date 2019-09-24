@@ -61,7 +61,7 @@ class Predictions
     {
         $results = PredictionOutcome::whereSeasonId($season->id)
             ->leftJoin('users', 'prediction_outcomes.user_id', '=', 'users.id')
-            ->groupBy('user_id')
+            ->groupBy(['user_id', 'users.username'])
             ->orderByRaw('SUM(total_points) desc')
 //            ->orderByRaw('SUM(points) desc')
             ->orderBy('users.username')
