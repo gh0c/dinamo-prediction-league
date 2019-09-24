@@ -42,6 +42,7 @@ class PredictionController
             ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
             ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
             ->orderBy('games.round')
+            ->orderBy('games.datetime')
             ->orderBy('users.username')
             ->select('predictions.*')
             ->get();

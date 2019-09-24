@@ -281,6 +281,11 @@ class Predictions
                 return 0;
             }
 
+            // Handle situations where game ended without scored goals
+            if ($game->goalScorers->isEmpty()) {
+                return 0;
+            }
+
             if ($prediction->first_scorer_id == $game->first_scorer->id) {
                 return 2;
             } elseif ($game->goalScorers->contains('player_id', '=', $prediction->first_scorer_id)) {
