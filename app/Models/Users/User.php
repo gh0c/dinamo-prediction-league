@@ -3,6 +3,7 @@
 namespace App\Models\Users;
 
 use App\Models\Predictions\Prediction;
+use App\Models\Predictions\PredictionOutcome;
 use Illuminate\Notifications\Notifiable;
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,6 +36,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\Prediction[] $predictions
  * @property-read int|null $notifications_count
  * @property-read int|null $predictions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\PredictionOutcome[] $predictionOutcomes
+ * @property-read int|null $prediction_outcomes_count
  */
 class User extends Authenticatable
 {
@@ -75,5 +78,10 @@ class User extends Authenticatable
     public function predictions()
     {
         return $this->hasMany(Prediction::class);
+    }
+
+    public function predictionOutcomes()
+    {
+        return $this->hasMany(PredictionOutcome::class)->orderBy('round');
     }
 }

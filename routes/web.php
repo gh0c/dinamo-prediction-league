@@ -30,6 +30,9 @@ Route::get('/vanuatu', function () {
 Route::get('/results/{season}/round/{round}', 'ResultsController@showRoundResults')
     ->name('results.round');
 
+Route::get('/results/overall', 'ResultsController@showOverallResultsForActiveSeason')
+    ->name('results.overall');
+
 
 Auth::routes();
 

@@ -54,6 +54,43 @@ class Predictions
     }
 
     /**
+     * @param  Season $season
+     * @return PredictionOutcome[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function getOverallResults($season)
+    {
+        $results = PredictionOutcome::whereSeasonId($season->id)
+            ->leftJoin('users', 'prediction_outcomes.user_id', '=', 'users.id')
+            ->groupBy('user_id')
+            ->orderByRaw('SUM(total_points) desc')
+//            ->orderByRaw('SUM(points) desc')
+            ->orderBy('users.username')
+            ->with('user.predictionOutcomes')
+            ->get([
+                'prediction_outcomes.user_id',
+                \DB::raw('sum(prediction_outcomes.points) as points'),
+                \DB::raw('sum(prediction_outcomes.bonus_points) as bonus_points'),
+                \DB::raw('sum(prediction_outcomes.total_points) as total_points'),
+                \DB::raw('sum(prediction_outcomes.jokers_used) as jokers_used'),
+            ]);
+
+        return $results;
+
+    }
+
+    /**
+     * @param  Season $season
+     * @return PredictionOutcome[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function getRoundsForSeason($season)
+    {
+        return PredictionOutcome::whereSeasonId($season->id)
+            ->orderBy('round')
+            ->select('round')->distinct()
+            ->pluck('round');
+    }
+
+    /**
      * @param  int|string $round
      * @param  Season $season
      * @param  bool $updateTables

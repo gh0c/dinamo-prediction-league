@@ -19,6 +19,20 @@ class ResultsController
         $this->predictions = $predictions;
     }
 
+    public function showOverallResultsForActiveSeason()
+    {
+        return $this->showOverallResults(Season::active());
+    }
+
+    public function showOverallResults(Season $season)
+    {
+        $results = $this->predictions->getOverallResults($season);
+        // Rounds for season
+        $rounds = $this->predictions->getRoundsForSeason($season);
+
+        return view('results.overall-results', compact('results', 'season', 'rounds'));
+    }
+
     public function showRoundResults(Season $season, $round)
     {
         $results = $this->predictions->getRoundResults($round, $season);

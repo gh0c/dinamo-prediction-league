@@ -65,5 +65,9 @@ return [
                 'jokers_used'     => 'Jokera',
             ]
         ]
-    ]
+    ],
+
+    'results' => [
+        'overall' => 'Ukupni poredak'
+    ],
 ];
