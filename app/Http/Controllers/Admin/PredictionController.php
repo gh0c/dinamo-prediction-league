@@ -182,7 +182,7 @@ class PredictionController
             'away_team' => $prediction->game->awayTeam->name,
             'user'      => $prediction->user->username
         ]));
-        return redirect()->route('mod.games.index');
+        return redirect()->route('admin.predictions.index');
     }
 
     /**
