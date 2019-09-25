@@ -55,7 +55,7 @@
                     <tbody>
                     @foreach($results as $outcomeGrouped)
 
-                        <tr>
+                        <tr @if(Auth::user() && Auth::user()->id == $outcomeGrouped->user->id) class="bg-primary text-white" @endif>
                             <td>{{ $loop->iteration }}.</td>
                             <td>
                                 {{ $outcomeGrouped->user->username }}

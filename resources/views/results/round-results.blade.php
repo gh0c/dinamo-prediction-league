@@ -59,7 +59,7 @@
                     <tbody>
                     @foreach($results as $outcome)
 
-                        <tr>
+                        <tr @if(Auth::user() && Auth::user()->id == $outcome->user->id) class="bg-primary text-white" @endif>
                             <td>{{ $loop->iteration }}.</td>
                             <td>
                                 {{ $outcome->user->username }}
