@@ -37,6 +37,7 @@
 
                     <thead class="thead-dark">
                     <tr>
+                        <th scope="col"></th>
                         <th scope="col">
                             {{ __('models.predictions.prediction._attributes.user') }}
                         </th>
@@ -59,6 +60,7 @@
                     @foreach($results as $outcome)
 
                         <tr>
+                            <td>{{ $loop->iteration }}.</td>
                             <td>
                                 {{ $outcome->user->username }}
                             </td>
