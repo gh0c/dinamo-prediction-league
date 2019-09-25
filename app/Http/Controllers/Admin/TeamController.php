@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeleteTeamRequest;
 use App\Http\Requests\Admin\StoreTeamRequest;
 use App\Http\Requests\Admin\UpdateTeamRequest;
-use App\Http\Controllers\Controller;
 use App\Models\Team;
 use Cloudder;
 use Illuminate\Http\Request;

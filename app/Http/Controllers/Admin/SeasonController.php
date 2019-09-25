@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeleteSeasonRequest;
 use App\Http\Requests\Admin\StoreSeasonRequest;
 use App\Http\Requests\Admin\UpdateSeasonRequest;
 use App\Models\Games\Season;
-use App\Http\Controllers\Controller;
 
 class SeasonController extends Controller
 {

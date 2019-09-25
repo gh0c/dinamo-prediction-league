@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeletePredictionRequest;
 use App\Http\Requests\Admin\FilterScorersByGameRequest;
 use App\Http\Requests\Admin\StorePredictionRequest;
@@ -20,7 +21,7 @@ use App\Repositories\Predictions;
  * @property Games $games
  * @property Predictions $predictions
  */
-class PredictionController
+class PredictionController extends Controller
 {
     protected $games;
     protected $predictions;
