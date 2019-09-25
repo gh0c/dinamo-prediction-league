@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Models\Repositories;
 
 use App\Models\Games\Game;
 use App\Models\Games\Result;
@@ -57,7 +57,7 @@ class Predictions
     }
 
     /**
-     * @param int|string $round
+     * @param  int|string $round
      * @return Prediction[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
      */
     public function loadPredictionsForRoundInActiveSeason($round)
@@ -109,6 +109,14 @@ class Predictions
     public function getOverallResults($season)
     {
         $results = PredictionOutcome::whereSeasonId($season->id)
+            // Ignore disqualified users
+            ->whereHas('user', function ($query) use ($season) {
+                /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
+                $query->whereDoesntHave('disqualifications', function ($query) use ($season) {
+                    /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
+                    $query->where('season_id', '=', $season->id);
+                });
+            })
             ->leftJoin('users', 'prediction_outcomes.user_id', '=', 'users.id')
             ->groupBy(['user_id', 'users.username'])
             ->orderByRaw('SUM(total_points) desc')
@@ -157,9 +165,13 @@ class Predictions
 
 
         $predictions = Prediction::whereHas('game', function ($query) use ($round) {
-            /** @var Builder $query */
-            $query->where('round', '=', $round);
+            /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
+            $query->where('round', '=', $round)->whereHas('result');
         })->get();
+
+        if ($predictions->isEmpty()) {
+            return;
+        }
 
         // Store user points for the given round
         // User(s) with the most points will receive extra bonus points

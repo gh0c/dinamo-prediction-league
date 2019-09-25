@@ -6,10 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeleteDisqualificationRequest;
 use App\Http\Requests\Admin\StoreDisqualificationRequest;
 use App\Http\Requests\Admin\UpdateDisqualificationRequest;
+use App\Models\Repositories\Disqualifications;
 use App\Models\Users\Disqualification;
 
+/**
+ * Class DisqualificationController
+ * @package App\Http\Controllers\Admin
+ * @property Disqualifications $disqualifications
+ */
 class DisqualificationController extends Controller
 {
+    protected $disqualifications;
+
+    public function __construct(Disqualifications $disqualifications)
+    {
+        $this->disqualifications = $disqualifications;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,13 +29,7 @@ class DisqualificationController extends Controller
      */
     public function index()
     {
-        $disqualifications = Disqualification::with(['season', 'user'])
-            ->leftJoin('seasons', 'seasons.id', '=', 'disqualifications.season_id')
-            ->leftJoin('users', 'users.id', '=', 'disqualifications.user_id')
-            ->orderBy('seasons.id', 'desc')
-            ->orderBy('users.username')
-            ->select('disqualifications.*')
-            ->get();
+        $disqualifications = $this->disqualifications->loadAllDisqualificationsInActiveSeason();
 
         return view('admin.disqualifications.index', compact('disqualifications'));
     }

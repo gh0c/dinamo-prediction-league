@@ -7,10 +7,6 @@
             padding: .1rem;
         }
 
-        .table > tbody > tr > td .btn-sm {
-            padding: .1rem .25rem;
-        }
-
         .table > thead > tr > th,
         .table > tbody > tr > th {
             vertical-align: middle;
@@ -65,13 +61,13 @@
                                 {{ $outcomeGrouped->user->username }}
                             </td>
                             @foreach($rounds as $round)
-                                <th scope="col">
+                                <td>
                                     @if($outcomeGrouped->user->predictionOutcomes->contains('round', $round))
                                        {{ $outcomeGrouped->user->predictionOutcomes->where('round', $round)->first()->total_points }}
                                     @else
                                         -
                                     @endif
-                                </th>
+                                </td>
                             @endforeach
 
                             <td>
@@ -83,6 +79,21 @@
 
                         </tr>
                     @endforeach
+
+                    @foreach($disqualifications as $disqualification)
+                        <tr class="text-muted">
+                            <td>-</td>
+                            <td>
+                                {{ $disqualification->user->username }}
+                            </td>
+                            <td colspan="{{ $rounds->count() + 2 }}">
+                                {{ __('models.predictions.disqualification.name') }} -
+                                {{ __('models.predictions.disqualification_reason._values.' . $disqualification->reason) }}
+                            </td>
+
+                        </tr>
+                    @endforeach
+
                     </tbody>
 
                 </table>

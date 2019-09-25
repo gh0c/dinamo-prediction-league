@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Games\Season;
-use App\Repositories\Predictions;
+use App\Models\Repositories\Disqualifications;
+use App\Models\Repositories\Predictions;
 
 /**
  * Class ResultsController
  * @package App\Http\Controllers
  * @property Predictions $predictions
+ * @property Disqualifications $disqualifications
  */
 class ResultsController
 {
     protected $predictions;
+    protected $disqualifications;
 
-    public function __construct(Predictions $predictions)
+    public function __construct(Predictions $predictions, Disqualifications $disqualifications)
     {
         $this->predictions = $predictions;
+        $this->disqualifications = $disqualifications;
     }
 
     public function showOverallResultsForActiveSeason()
@@ -29,8 +33,10 @@ class ResultsController
         $results = $this->predictions->getOverallResults($season);
         // Rounds for season
         $rounds = $this->predictions->getRoundsForSeason($season);
+        // Disqualified users for season
+        $disqualifications = $this->disqualifications->loadAllDisqualifications($season);
 
-        return view('results.overall-results', compact('results', 'season', 'rounds'));
+        return view('results.overall-results', compact('results', 'disqualifications', 'season', 'rounds'));
     }
 
     public function showRoundResults(Season $season, $round)

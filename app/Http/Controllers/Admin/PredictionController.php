@@ -12,8 +12,8 @@ use App\Models\Games\Game;
 use App\Models\Games\Season;
 use App\Models\Predictions\Prediction;
 use App\Models\Repositories\Games;
+use App\Models\Repositories\Predictions;
 use App\Models\Users\User;
-use App\Repositories\Predictions;
 
 /**
  * Class PredictionController

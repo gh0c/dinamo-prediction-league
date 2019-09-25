@@ -55,7 +55,7 @@ return [
     'predictions' => [
         'disqualification_reason' => [
             '_values' => [
-                'inactivity' => 'Nema aktivnosti'
+                'inactivity' => 'Neaktivnost'
             ],
         ],
         'disqualification'        => [
