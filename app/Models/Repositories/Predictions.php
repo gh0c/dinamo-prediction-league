@@ -15,6 +15,57 @@ class Predictions
 {
 
     /**
+     * @param  Season $season
+     * @return Prediction[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function loadAllPredictions($season)
+    {
+        return Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
+            ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
+            ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
+            ->where('games.season_id', '=', $season->id)
+            ->orderBy('games.round')
+            ->orderBy('games.datetime')
+            ->orderBy('users.username')
+            ->select('predictions.*')
+            ->get();
+    }
+
+    /**
+     * @return Prediction[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function loadAllPredictionsInActiveSeason()
+    {
+        return $this->loadAllPredictions(Season::active());
+    }
+
+    /**
+     * @param  int|string $round
+     * @param  Season $season
+     * @return Prediction[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function loadPredictionsForRound($round, $season)
+    {
+        return Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
+            ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
+            ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
+            ->where('games.round', '=', $round)->where('games.season_id', '=', $season->id)
+            ->orderBy('games.datetime')
+            ->orderBy('users.username')
+            ->select('predictions.*')
+            ->get();
+    }
+
+    /**
+     * @param int|string $round
+     * @return Prediction[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
+     */
+    public function loadPredictionsForRoundInActiveSeason($round)
+    {
+        return $this->loadPredictionsForRound($round, Season::active());
+    }
+
+    /**
      * @param  int|string $round
      * @param  bool $updateTables
      * @throws \Exception
@@ -24,9 +75,7 @@ class Predictions
         DB::beginTransaction();
         try {
 
-            $activeSeason = Season::active();
-
-            $this->setPredictionOutcomesForRound($round, $activeSeason, $updateTables);
+            $this->setPredictionOutcomesForRound($round, Season::active(), $updateTables);
 
             DB::commit();
         } catch (Exception $e) {

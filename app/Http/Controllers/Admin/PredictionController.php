@@ -38,16 +38,22 @@ class PredictionController
      */
     public function index()
     {
-        $predictions = Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
-            ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
-            ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
-            ->orderBy('games.round')
-            ->orderBy('games.datetime')
-            ->orderBy('users.username')
-            ->select('predictions.*')
-            ->get();
+        $predictions = $this->predictions->loadAllPredictionsInActiveSeason();
 
         return view('admin.predictions.index', compact('predictions'));
+    }
+
+    /**
+     * Display a listing of the resource filtered by round.
+     *
+     * @param  int|string $round
+     * @return \Illuminate\Http\Response
+     */
+    public function indexForRound($round)
+    {
+        $predictions = $this->predictions->loadPredictionsForRoundInActiveSeason($round);
+
+        return view('admin.predictions.index-for-round', compact('predictions', 'round'));
     }
 
     /**
@@ -103,31 +109,26 @@ class PredictionController
      * Store a newly created resource in storage.
      *
      * @param  StorePredictionsForRoundRequest $request
-     * @param int $round
+     * @param  int $round
      * @return \Illuminate\Http\Response
      */
     public function storeForRound(StorePredictionsForRoundRequest $request, $round)
     {
         $user = User::find($request->input('user_id'));
 
-        foreach($request->input('predictions') as $predictionData) {
+        foreach ($request->input('predictions') as $predictionData) {
             $predictionData['user_id'] = $user->id;
-
-            $game = Game::find($predictionData['game_id']);
 
             $prediction = new Prediction($predictionData);
             $prediction->points = null;
             $prediction->save();
-
-            flash()->success(__('requests.admin.prediction.successful_store', [
-                'home_team' => $game->homeTeam->name,
-                'away_team' => $game->awayTeam->name,
-                'user'      => $user->username
-            ]));
-
         }
 
-        return redirect()->route('admin.predictions.index');
+        flash()->success(__('requests.admin.prediction.successful_store_for_round', [
+            'round' => $round,
+            'user'  => $user->username
+        ]));
+        return redirect()->route('admin.predictions.index-for-round', ['round' => $round]);
     }
 
     /**

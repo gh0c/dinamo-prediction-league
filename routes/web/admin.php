@@ -19,6 +19,10 @@ Route::prefix('admin')
             ->middleware('role:' . config('roles.names.super_admin'));
 
         Route::resource('predictions', 'Admin\PredictionController')->except('show');
+
+        Route::get('predictions/active-season/round/{round}')
+            ->uses('Admin\PredictionController@indexForRound')
+            ->name('predictions.index-for-round');
         Route::get('predictions/active-season/round/{round}/create')
             ->uses('Admin\PredictionController@createForRound')
             ->name('predictions.create-for-round');
