@@ -44,7 +44,7 @@
                                 @endif
                             </td>
                             <td>{{ $competition->name }}</td>
-                            <td>{{ $competition->sportName() }}</td>
+                            <td>{{ __('models.games.sport._values.' . $competition->sport) }}</td>
 
                             <td class="text-center">
                                 <a href="{{ route('admin.competitions.edit', ['competition' => $competition->id]) }}"

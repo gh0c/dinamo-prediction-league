@@ -4,7 +4,7 @@
         {!! Form::text('name', null, [
             'id' => 'name-input',
             'placeholder' => __('forms.mod.players.name.placeholder'),
-            'class' => 'form-control ' . ($errors->has('name') ? 'is-invalid' : ''),
+            'class' => 'form-control',
             'required' => true,
             'autofocus' => true,
             'autocomplete' => 'off'
@@ -16,8 +16,8 @@
 <div class="form-row">
     <div class="form-group col-12">
         <label for="team_id">{{ __('forms.mod.players.team.label') }}</label>
-        {!! Form::select('team_id', ['' => __('forms.mod.players.team.placeholder')] + $inputTeams, null, [
-            'class' => 'form-control ' . ($errors->has('team_id') ? 'is-invalid' : ''),
+        {!! Form::select('team_id', $inputTeams, null, [
+            'class' => 'form-control',
             ]) !!}
         @include('forms.input-error', ['name' => 'team_id'])
     </div>

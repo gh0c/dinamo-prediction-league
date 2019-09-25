@@ -37,6 +37,12 @@ return [
                 'is_active' => 'Aktivna sezona'
             ]
         ],
+        'sport'       => [
+            '_values' => [
+                'football' => 'Nogomet',
+                'futsal'   => 'Futsal'
+            ]
+        ],
         'team'        => [
             'name'        => 'Klub',
             '_attributes' => [
@@ -47,7 +53,12 @@ return [
     ],
 
     'predictions' => [
-        'prediction' => [
+        'disqualification_reason' => [
+            '_values' => [
+                'inactivity' => 'Nema aktivnosti'
+            ],
+        ],
+        'prediction'               => [
             'name'                 => 'Prognoza',
             'collection'           => 'Prognoze',
             'collection_for_round' => 'Prognoze za :round. kolo',

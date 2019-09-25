@@ -36,11 +36,7 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('mod.games.create', [
-            'inputTeams'        => Team::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all(),
-            'inputCompetitions' => Competition::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all(),
-            'inputSeasons'      => Season::orderBy('name')->pluck('name', 'id')->all(),
-        ]);
+        return view('mod.games.create');
     }
 
     /**
@@ -75,12 +71,7 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('mod.games.edit', [
-            'inputTeams'        => Team::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all(),
-            'inputCompetitions' => Competition::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all(),
-            'inputSeasons'      => Season::orderBy('name')->pluck('name', 'id')->all(),
-            'game'              => $game,
-        ]);
+        return view('mod.games.edit', compact('game'));
     }
 
     /**
@@ -167,8 +158,8 @@ class GameController extends Controller
     }
 
     /**
-     * @param Game $game
-     * @param Request $request
+     * @param  Game $game
+     * @param  Request $request
      */
     protected function saveGoalScorers($game, $request)
     {

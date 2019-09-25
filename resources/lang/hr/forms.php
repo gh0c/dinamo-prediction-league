@@ -2,7 +2,7 @@
 
 return [
     'admin' => [
-        'competitions' => [
+        'competitions'      => [
             'name'           => [
                 'label'       => 'Naziv natjecanja',
                 'placeholder' => 'Natjecanje'
@@ -22,7 +22,29 @@ return [
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabrano natjecanje?'
             ],
         ],
-        'predictions'  => [
+        'disqualifications' => [
+            'user'      => [
+                'label'       => 'Član',
+                'placeholder' => '- Odaberi člana'
+            ],
+            'season'    => [
+                'label'       => 'Sezona',
+                'placeholder' => '- Odaberi sezonu',
+            ],
+            'reason'    => [
+                'label'       => 'Razlog diskvalifikacije',
+                'placeholder' => 'Odaberi razlog diskvalifikacije',
+            ],
+            '_submit'   => 'Spremi',
+            '_headings' => [
+                'create'              => 'Dodaj novu diskvalifikaciju',
+                'store'               => 'Spremi novu diskvalifikaciju',
+                'update'              => 'Uredi postojeću diskvalifikaciju',
+                'destroy'             => 'Izbriši diskvalifikaciju',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu diskvalifikaciju?'
+            ],
+        ],
+        'predictions'       => [
             'name'         => [
                 'label'       => 'Prognoza',
                 'placeholder' => 'Prognoza'
@@ -57,7 +79,7 @@ return [
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu prognozu?'
             ],
         ],
-        'seasons'      => [
+        'seasons'           => [
             'name'             => [
                 'label'       => 'Naziv sezone',
                 'placeholder' => 'Sezona'
@@ -77,7 +99,7 @@ return [
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu sezonu?'
             ],
         ],
-        'teams'        => [
+        'teams'             => [
             'name'           => [
                 'label'       => 'Naziv kluba',
                 'placeholder' => 'Klub'

@@ -10,6 +10,14 @@ return [
             'successful_update'  => 'Promjene na natjecanju <strong>:competition</strong> uspješno pohranjene.',
             'successful_destroy' => 'Natjecanje <strong>:competition</strong> uspješno isbrisano.',
         ],
+        'disqualification'  => [
+            'store'                      => 'Greška kod spremanja nove diskvalifikacije.',
+            'update'                     => 'Greška kod uređivanja postojeće diskvalifikacije.',
+            'delete'                     => 'Greška kod brisanja postojeće diskvalifikacije.',
+            'successful_store'           => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjena.',
+            'successful_update'          => 'Promjene na diskvalifikaciji člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjene.',
+            'successful_destroy'         => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno isbrisana.',
+        ],
         'prediction'  => [
             'store'                      => 'Greška kod spremanja nove prognoze.',
             'update'                     => 'Greška kod uređivanja postojeće prognoze.',

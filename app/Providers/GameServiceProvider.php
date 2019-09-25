@@ -23,7 +23,11 @@ class GameServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('mod.games.result.edit', 'App\Http\ViewComposers\GameComposer@inputScorersForGame');
+        view()->composer('admin.competitions.form', 'App\Http\ViewComposers\GameComposer@inputSports');
+
+        view()->composer('admin.disqualifications.form', 'App\Http\ViewComposers\UserComposer@inputUsers');
+        view()->composer('admin.disqualifications.form', 'App\Http\ViewComposers\GameComposer@inputSeasons');
+        view()->composer('admin.disqualifications.form', 'App\Http\ViewComposers\UserComposer@inputDisqualificationReasons');
 
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\UserComposer@inputUsers');
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputGames');
@@ -32,6 +36,18 @@ class GameServiceProvider extends ServiceProvider
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\UserComposer@inputUsers');
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputGames');
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputScorers');
+
+        view()->composer('admin.teams.form', 'App\Http\ViewComposers\GameComposer@inputSports');
+
+
+        view()->composer('mod.games.form', 'App\Http\ViewComposers\GameComposer@inputCompetitions');
+        view()->composer('mod.games.form', 'App\Http\ViewComposers\GameComposer@inputSeasons');
+        view()->composer('mod.games.form', 'App\Http\ViewComposers\GameComposer@inputHomeTeams');
+        view()->composer('mod.games.form', 'App\Http\ViewComposers\GameComposer@inputAwayTeams');
+
+        view()->composer('mod.players.form', 'App\Http\ViewComposers\GameComposer@inputTeams');
+
+        view()->composer('mod.games.result.edit', 'App\Http\ViewComposers\GameComposer@inputScorersForGame');
 
     }
 }

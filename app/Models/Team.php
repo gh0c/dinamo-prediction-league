@@ -43,20 +43,6 @@ class Team extends Model
     /**
      * @return string
      */
-    public function sportName()
-    {
-        if ($this->sport === 'football') {
-            return 'Nogomet';
-        } elseif ($this->sport === 'futsal') {
-            return 'Futsal';
-        } else {
-            return '-';
-        }
-    }
-
-    /**
-     * @return string
-     */
     public function getLogoFolderName()
     {
         return Str::snake(config('app.name'), '-') .  '/uploads/teams/logos/' . $this->id;

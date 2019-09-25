@@ -32,9 +32,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return view('mod.players.create', [
-            'inputTeams' => Team::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all()
-        ]);
+        return view('mod.players.create');
     }
 
     /**
@@ -62,10 +60,7 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        return view('mod.players.edit', [
-            'inputTeams' => Team::orderBy('sport')->orderBy('name')->pluck('name', 'id')->all(),
-            'player' => $player
-        ]);
+        return view('mod.players.edit', compact('player'));
     }
 
     /**

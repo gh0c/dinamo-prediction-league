@@ -17,4 +17,16 @@ class UserComposer
             'inputUsers' => $inputUsers,
         ]);
     }
+
+    public function inputDisqualificationReasons(View $view)
+    {
+        $inputDisqualificationReasons = [
+            ''           => __('forms.admin.disqualifications.reason.placeholder'),
+            'inactivity' => __('models.predictions.disqualification_reason._values.inactivity')
+        ];
+
+        $view->with([
+            'inputDisqualificationReasons' => $inputDisqualificationReasons,
+        ]);
+    }
 }

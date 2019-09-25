@@ -35,20 +35,6 @@ class Competition extends Model
     /**
      * @return string
      */
-    public function sportName()
-    {
-        if ($this->sport === 'football') {
-            return 'Nogomet';
-        } elseif ($this->sport === 'futsal') {
-            return 'Futsal';
-        } else {
-            return '-';
-        }
-    }
-
-    /**
-     * @return string
-     */
     public function getLogoFolderName()
     {
         return Str::snake(config('app.name'), '-') . '/uploads/competitions/logos/' . $this->id;

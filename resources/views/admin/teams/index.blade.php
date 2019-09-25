@@ -44,7 +44,7 @@
                                 @endif
                             </td>
                             <td>{{ $team->name }}</td>
-                            <td>{{ $team->sportName() }}</td>
+                            <td>{{ __('models.games.sport._values.' . $team->sport) }}</td>
 
                             <td class="text-center">
                                 <a href="{{ route('admin.teams.edit', ['team' => $team->id]) }}"
