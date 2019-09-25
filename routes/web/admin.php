@@ -38,6 +38,8 @@ Route::prefix('admin')
             ->name('predictions.set-prediction-outcomes.active-season.rounds');
 
 
+        Route::resource('disqualifications', 'Admin\DisqualificationController')->except('show');
+
     });
 
 

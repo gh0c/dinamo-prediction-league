@@ -58,7 +58,16 @@ return [
                 'inactivity' => 'Nema aktivnosti'
             ],
         ],
-        'prediction'               => [
+        'disqualification'        => [
+            'name'        => 'Diskvalifikacija',
+            'collection'  => 'Diskvalifikacije',
+            '_attributes' => [
+                'user'   => 'Član',
+                'season' => 'Sezona',
+                'reason' => 'Razlog diskvalifikacije',
+            ]
+        ],
+        'prediction'              => [
             'name'                 => 'Prognoza',
             'collection'           => 'Prognoze',
             'collection_for_round' => 'Prognoze za :round. kolo',
@@ -75,7 +84,7 @@ return [
                 'total_points'    => 'Ukupno',
                 'jokers_used'     => 'Jokera',
             ]
-        ]
+        ],
     ],
 
     'results' => [
