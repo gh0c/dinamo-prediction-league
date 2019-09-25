@@ -38,6 +38,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $predictions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Predictions\PredictionOutcome[] $predictionOutcomes
  * @property-read int|null $prediction_outcomes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Users\Disqualification[] $disqualifications
+ * @property-read int|null $disqualifications_count
  */
 class User extends Authenticatable
 {
@@ -83,5 +85,10 @@ class User extends Authenticatable
     public function predictionOutcomes()
     {
         return $this->hasMany(PredictionOutcome::class)->orderBy('round');
+    }
+
+    public function disqualifications()
+    {
+        return $this->hasMany(Disqualification::class);
     }
 }
