@@ -1,8 +1,13 @@
 <?php
 
 return [
-    'username' => 'Korisničko ime',
-    'password' => 'Lozinka',
+    'username'         => 'Korisničko ime',
+    'password'         => 'Lozinka',
+    'password_confirm' => 'Potvrda lozinke',
+    'email_address'    => 'E-mail adresa',
+
+    'login'    => 'Prijava',
+    'register' => 'Registracija',
 
     /*
     |--------------------------------------------------------------------------
@@ -16,6 +21,6 @@ return [
     */
 
     'failed'   => 'Neispravno korisničko ime ili lozinka.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Previše neuspješnih pokušaja prijave. Pokušajte ponovo nakon isteka :seconds sekundi.',
 
 ];
