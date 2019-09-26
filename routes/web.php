@@ -15,17 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/zimbabve', function () {
-    flash()->info('info 1')->important();
-    flash()->warning('info 2');
-    return redirect('/vanuatu');
-})->name('index.zimbabve');
-
-Route::get('/vanuatu', function () {
-    foreach (session('flash_notification', collect())->toArray() as $message) {
-        dump($message);
-    }
-})->name('index.vanuatu');
 
 Route::get('/results/{season}/round/{round}', 'ResultsController@showRoundResults')
     ->name('results.round');
@@ -34,7 +23,7 @@ Route::get('/results/overall', 'ResultsController@showOverallResultsForActiveSea
     ->name('results.overall');
 
 
-Auth::routes();
+Auth::routes(['reset' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
