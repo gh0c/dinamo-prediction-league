@@ -26,6 +26,8 @@
 
 <div class="text-center">
     <button type="submit" class="btn btn-primary">{{ __('forms.mod.players._submit') }}</button>
+
+    <a href="{{ route('mod.players.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
 

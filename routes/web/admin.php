@@ -2,7 +2,7 @@
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware(['auth', 'role:' . config('roles.names.super_admin') . ',' . config('roles.names.admin')])
+    ->middleware(['auth', 'role:super_admin,admin'])
     ->group(function () {
         // Routes are prefixed with /admin        -- e.g. admin/seasons/create
         // Route names are prefixed with admin.   -- e.g. admin.teams.index
@@ -11,12 +11,16 @@ Route::prefix('admin')
 
         Route::resource('competitions', 'Admin\CompetitionController')->except('show');
 
-        Route::resource('seasons', 'Admin\SeasonController')->except('show');
+        Route::resource('seasons', 'Admin\SeasonController')->except(['show', 'destroy']);
+        Route::delete('seasons/{season}')
+            ->uses('Admin\SeasonController@destroy')
+            ->name('seasons.destroy')
+            ->middleware('role:super_admin');
 
         Route::resource('teams', 'Admin\TeamController')->except('show');
 
         Route::resource('users', 'Admin\UserController')
-            ->middleware('role:' . config('roles.names.super_admin'));
+            ->middleware('role:super_admin');
 
         Route::resource('predictions', 'Admin\PredictionController')->except('show');
 

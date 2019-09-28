@@ -38,6 +38,8 @@
 
 <div class="text-center">
     <button type="submit" class="btn btn-primary">{{ __('forms.admin.seasons._submit') }}</button>
+
+    <a href="{{ route('admin.seasons.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
 

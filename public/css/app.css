@@ -10655,3 +10655,8 @@ a.text-dark:focus {
   background: #00509f !important;
 }
 
+.table-middle-aligned-cells > tbody > tr > td,
+.table-middle-aligned-cells > tbody > tr > th {
+  vertical-align: middle;
+}
+

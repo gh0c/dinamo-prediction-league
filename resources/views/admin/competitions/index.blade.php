@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
-@push('stylesheets')
-    <style>
-        .table > tbody > tr > td {
-            vertical-align: middle;
-        }
-        .table > tbody > tr > th {
-            vertical-align: middle;
-        }
-    </style>
-@endpush
+@section('page_title', __('models.games.competition.collection'))
 
 @section('content')
 
@@ -19,7 +10,7 @@
 
             <div class="col-md-6 offset-md-3">
 
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover table-middle-aligned-cells">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -63,16 +54,16 @@
                     </tbody>
                 </table>
 
-                <div class="row">
-                    <div class="col text-center">
-                        <a href="{{ route('admin.competitions.create') }}" class="btn btn-success">
-                            {{ __('forms.admin.competitions._headings.create') }}
-                        </a>
-                    </div>
-                </div>
-
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="{{ route('admin.competitions.create') }}" class="btn btn-success">
+                    {{ __('forms.admin.competitions._headings.create') }}
+                </a>
+            </div>
         </div>
 
     </div>

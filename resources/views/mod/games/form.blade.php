@@ -72,6 +72,8 @@
 
 <div class="text-center">
     <button type="submit" class="btn btn-primary">{{ __('forms.mod.games._submit') }}</button>
+
+    <a href="{{ route('mod.games.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
 

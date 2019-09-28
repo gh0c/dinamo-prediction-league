@@ -39,6 +39,8 @@
 
 <div class="text-center">
     <button type="submit" class="btn btn-primary">{{ __('forms.admin.teams._submit') }}</button>
+
+    <a href="{{ route('admin.teams.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
 

@@ -208,5 +208,7 @@ return [
         'warning' => 'Upozorenje',
         'success' => 'Uspjeh',
         'info'    => 'Info'
-    ]
+    ],
+
+    'cancel' => 'Odustani',
 ];

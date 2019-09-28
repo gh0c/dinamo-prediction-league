@@ -88,35 +88,35 @@ class RoleMiddleware
      */
     protected function validateUserHasRole($role)
     {
-        if ($role === config('roles.names.super_admin')) {
-            if (Auth::user()->userSetting->is_super_admin) {
+        if ($role === 'super_admin') {
+            if (Auth::user()->is_super_admin) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.super_admin'));
         }
 
-        if ($role === config('roles.names.admin')) {
-            if (Auth::user()->userSetting->is_admin) {
+        if ($role === 'admin') {
+            if (Auth::user()->is_admin) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.admin'));
         }
 
-        if ($role === config('roles.names.mod')) {
-            if (Auth::user()->userSetting->is_moderator) {
+        if ($role === 'mod') {
+            if (Auth::user()->is_mod) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.mod'));
         }
 
-        if ($role === config('roles.names.disqualified')) {
+        if ($role === 'disqualified') {
             if (Auth::user()->userSetting->is_disqualified_from_prediction_league) {
                 return true;
             }
             throw new Exception(__('middleware.roles.errors.disqualified'));
         }
 
-        if ($role === config('roles.names.not_disqualified')) {
+        if ($role === 'not_disqualified') {
             if (!Auth::user()->userSetting->is_disqualified_from_prediction_league) {
                 return true;
             }

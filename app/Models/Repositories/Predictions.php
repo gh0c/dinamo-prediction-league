@@ -143,7 +143,8 @@ class Predictions
     {
         return PredictionOutcome::whereSeasonId($season->id)
             ->orderBy('round')
-            ->select('round')->distinct()
+            ->select('round')
+            ->distinct()
             ->pluck('round');
     }
 

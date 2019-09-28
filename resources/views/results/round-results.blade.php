@@ -2,22 +2,9 @@
 
 @push('stylesheets')
     <style>
-        .table > tbody > tr > td {
-            vertical-align: middle;
+        .table > tbody > tr > * {
             padding: .1rem;
         }
-
-        .table > tbody > tr > td .btn-sm {
-            padding: .1rem .25rem;
-        }
-
-        .table > thead > tr > th,
-        .table > tbody > tr > th {
-            vertical-align: middle;
-            padding-left: .1rem;
-            padding-right: .1rem;
-        }
-
     </style>
 @endpush
 
@@ -33,7 +20,7 @@
 
                 <h3>{{ __('models.predictions.prediction.collection_for_round', ['round' => $round]) }}</h3>
 
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover table-middle-aligned-cells">
 
                     <thead class="thead-dark">
                     <tr>

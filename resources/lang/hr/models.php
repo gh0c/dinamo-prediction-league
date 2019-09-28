@@ -4,6 +4,7 @@ return [
     'games' => [
         'competition' => [
             'name'        => 'Natjecanje',
+            'collection'  => 'Natjecanja',
             '_attributes' => [
                 'name'  => 'Naziv natjecanja',
                 'sport' => 'Sport'
@@ -11,6 +12,7 @@ return [
         ],
         'game'        => [
             'name'        => 'Utakmica',
+            'collection'  => 'Utakmice',
             '_attributes' => [
                 'home_team'   => 'Domaćin',
                 'away_team'   => 'Gost',
@@ -25,6 +27,7 @@ return [
         ],
         'player'      => [
             'name'        => 'Igrač',
+            'collection'  => 'Igrači',
             '_attributes' => [
                 'name' => 'Ime i prezime',
                 'team' => 'Klub',
@@ -32,6 +35,7 @@ return [
         ],
         'season'      => [
             'name'        => 'Sezona',
+            'collection'  => 'Sezone',
             '_attributes' => [
                 'name'      => 'Naziv sezone',
                 'is_active' => 'Aktivna sezona'
@@ -45,6 +49,7 @@ return [
         ],
         'team'        => [
             'name'        => 'Klub',
+            'collection'  => 'Klubovi',
             '_attributes' => [
                 'name'  => 'Naziv kluba',
                 'sport' => 'Sport'

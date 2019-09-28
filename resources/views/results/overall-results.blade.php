@@ -2,18 +2,9 @@
 
 @push('stylesheets')
     <style>
-        .table > tbody > tr > td {
-            vertical-align: middle;
+        .table > tbody > tr > * {
             padding: .1rem;
         }
-
-        .table > thead > tr > th,
-        .table > tbody > tr > th {
-            vertical-align: middle;
-            padding-left: .1rem;
-            padding-right: .1rem;
-        }
-
     </style>
 @endpush
 
@@ -29,8 +20,7 @@
 
                 <h3>{{ __('models.results.overall') }}</h3>
 
-                <table class="table table-sm table-hover">
-
+                <table class="table table-sm table-hover table-middle-aligned-cells">
 
                     <thead class="thead-dark">
                     <tr>

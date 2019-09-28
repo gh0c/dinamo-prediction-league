@@ -1,16 +1,6 @@
 @extends('layouts.app')
 
-@push('stylesheets')
-    <style>
-        .table > tbody > tr > td {
-            vertical-align: middle;
-        }
-
-        .table > tbody > tr > th {
-            vertical-align: middle;
-        }
-    </style>
-@endpush
+@section('page_title', __('models.games.game.collection'))
 
 @section('content')
 
@@ -21,7 +11,7 @@
             <div class="col-md-8 offset-md-2">
 
 
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover table-middle-aligned-cells">
 
                     @foreach($games->groupBy('round') as $round => $gamesRound)
 
@@ -119,17 +109,16 @@
                     @endforeach
                 </table>
 
-
-                <div class="row">
-                    <div class="col text-center">
-                        <a href="{{ route('mod.games.create') }}" class="btn btn-success">
-                            {{ __('forms.mod.games._headings.create') }}
-                        </a>
-                    </div>
-                </div>
-
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="{{ route('mod.games.create') }}" class="btn btn-success">
+                    {{ __('forms.mod.games._headings.create') }}
+                </a>
+            </div>
         </div>
 
     </div>

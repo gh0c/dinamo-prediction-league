@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('page_title', __('models.games.season.collection'))
+
 @section('content')
 
     <div class="container">
@@ -36,7 +38,7 @@
                                     <i class="fa fa-edit"></i>
                                 </a>
 
-                                @if(Auth::user()->userSetting->is_super_admin)
+                                @if(Auth::user()->is_super_admin)
                                     <button class="btn btn-sm btn-danger" data-toggle="modal"
                                             data-target="#delete-confirmation-modal" data-season_id="{{ $season->id }}">
                                         <i class="fa fa-times-circle"></i>
@@ -49,16 +51,16 @@
                     </tbody>
                 </table>
 
-                <div class="row">
-                    <div class="col text-center">
-                        <a href="{{ route('admin.seasons.create') }}" class="btn btn-success">
-                            {{ __('forms.admin.seasons._headings.create') }}
-                        </a>
-                    </div>
-                </div>
-
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="{{ route('admin.seasons.create') }}" class="btn btn-success">
+                    {{ __('forms.admin.seasons._headings.create') }}
+                </a>
+            </div>
         </div>
 
     </div>

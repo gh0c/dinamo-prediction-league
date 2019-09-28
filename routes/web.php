@@ -25,7 +25,7 @@ Route::get('/results/overall', 'ResultsController@showOverallResultsForActiveSea
 
 Auth::routes(['reset' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 
 // Require admin routes
 include_once __DIR__ . '/web/admin.php';

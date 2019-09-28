@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('page_title', __('forms.admin.competitions._headings.store'))
+
 @section('content')
 
     <div class="container">

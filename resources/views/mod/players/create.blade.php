@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('page_title', __('forms.mod.players._headings.store'))
+
 @section('content')
 
     <div class="container">

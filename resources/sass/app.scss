@@ -18,3 +18,13 @@
 .bg-zona-dinamo {
   background: #00509f !important;
 }
+
+// Additions to Bootstrap classes and overwrites
+
+.table-middle-aligned-cells {
+  & > tbody > tr {
+    & > td, & > th {
+      vertical-align: middle;
+    }
+  }
+}

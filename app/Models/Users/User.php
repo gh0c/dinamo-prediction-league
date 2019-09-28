@@ -40,6 +40,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $prediction_outcomes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Users\Disqualification[] $disqualifications
  * @property-read int|null $disqualifications_count
+ * @property-read mixed $is_admin
+ * @property-read mixed $is_mod
+ * @property-read mixed $is_super_admin
  */
 class User extends Authenticatable
 {
@@ -90,5 +93,20 @@ class User extends Authenticatable
     public function disqualifications()
     {
         return $this->hasMany(Disqualification::class);
+    }
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->userSetting && $this->userSetting->is_super_admin;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->userSetting && $this->userSetting->is_admin;
+    }
+
+    public function getIsModAttribute()
+    {
+        return $this->userSetting && $this->userSetting->is_moderator;
     }
 }
