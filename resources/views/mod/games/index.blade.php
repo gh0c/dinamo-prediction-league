@@ -115,7 +115,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('mod.games.create') }}" class="btn btn-success">
+                <a href="{{ route('mod.games.create') }}" class="btn btn-success" tabindex="1">
                     {{ __('forms.mod.games._headings.create') }}
                 </a>
             </div>

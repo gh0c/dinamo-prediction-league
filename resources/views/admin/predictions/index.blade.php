@@ -2,22 +2,13 @@
 
 @push('stylesheets')
     <style>
-        .table > tbody > tr > td {
-            vertical-align: middle;
+        .table > tbody > tr > * {
             padding: .1rem;
         }
 
         .table > tbody > tr > td .btn-sm {
             padding: .1rem .25rem;
         }
-
-        .table > thead > tr > th,
-        .table > tbody > tr > th {
-            vertical-align: middle;
-            padding-left: .1rem;
-            padding-right: .1rem;
-        }
-
     </style>
 @endpush
 
@@ -32,7 +23,7 @@
             <div class="col-md-8 offset-md-2">
 
 
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover table-middle-aligned-cells">
 
                     @foreach($predictions->groupBy('game.round') as $round => $predictionsRound)
 
@@ -112,7 +103,7 @@
 
                 <div class="row">
                     <div class="col text-center">
-                        <a href="{{ route('admin.predictions.create') }}" class="btn btn-success">
+                        <a href="{{ route('admin.predictions.create') }}" class="btn btn-success" tabindex="1">
                             {{ __('forms.admin.predictions._headings.create') }}
                         </a>
                     </div>

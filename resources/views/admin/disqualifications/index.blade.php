@@ -53,7 +53,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('admin.disqualifications.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.disqualifications.create') }}" class="btn btn-success" tabindex="1">
                     {{ __('forms.admin.disqualifications._headings.create') }}
                 </a>
             </div>

@@ -60,7 +60,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('admin.competitions.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.competitions.create') }}" class="btn btn-success" tabindex="1">
                     {{ __('forms.admin.competitions._headings.create') }}
                 </a>
             </div>

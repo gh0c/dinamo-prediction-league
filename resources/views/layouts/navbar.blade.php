@@ -38,6 +38,11 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminNavbarDropdown">
+                                <a class="dropdown-item {{ request()->routeIs('admin.predictions.*')  ? 'active' : '' }}"
+                                   href="{{ route('admin.predictions.index') }}">
+                                    {{ __('models.predictions.prediction.collection') }}
+                                </a>
+
                                 <a class="dropdown-item {{ request()->routeIs('admin.teams.*')  ? 'active' : '' }}"
                                    href="{{ route('admin.teams.index') }}">
                                     {{ __('models.games.team.collection') }}
@@ -46,6 +51,11 @@
                                 <a class="dropdown-item {{ request()->routeIs('admin.competitions.*') ? 'active' : '' }}"
                                    href="{{ route('admin.competitions.index') }}">
                                     {{ __('models.games.competition.collection') }}
+                                </a>
+
+                                <a class="dropdown-item {{ request()->routeIs('admin.disqualifications.*') ? 'active' : '' }}"
+                                   href="{{ route('admin.disqualifications.index') }}">
+                                    {{ __('models.predictions.disqualification.collection') }}
                                 </a>
 
                                 <a class="dropdown-item {{ request()->routeIs('admin.seasons.*') ? 'active' : '' }}"

@@ -57,7 +57,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('admin.seasons.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.seasons.create') }}" class="btn btn-success" tabindex="1">
                     {{ __('forms.admin.seasons._headings.create') }}
                 </a>
             </div>
