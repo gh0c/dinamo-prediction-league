@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Games\Player;
 use Cloudder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\Team
@@ -45,7 +44,7 @@ class Team extends Model
      */
     public function getLogoFolderName()
     {
-        return Str::snake(config('app.name'), '-') .  '/uploads/teams/logos/' . $this->id;
+        return config('cloudder.folder') . '/uploads/teams/logos/' . $this->id;
     }
 
     /**

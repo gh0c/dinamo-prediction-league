@@ -4,7 +4,6 @@ namespace App\Models\Games;
 
 use Cloudder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\Games\Competition
@@ -37,7 +36,7 @@ class Competition extends Model
      */
     public function getLogoFolderName()
     {
-        return Str::snake(config('app.name'), '-') . '/uploads/competitions/logos/' . $this->id;
+        return config('cloudder.folder') . '/uploads/competitions/logos/' . $this->id;
     }
 
     /**
