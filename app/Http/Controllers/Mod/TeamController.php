@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Mod;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\DeleteTeamRequest;
-use App\Http\Requests\Admin\StoreTeamRequest;
-use App\Http\Requests\Admin\UpdateTeamRequest;
-use App\Models\Team;
+use App\Http\Requests\Mod\DeleteTeamRequest;
+use App\Http\Requests\Mod\StoreTeamRequest;
+use App\Http\Requests\Mod\UpdateTeamRequest;
+use App\Models\Games\Team;
 use Cloudder;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::orderBy('sport')->orderBy('name')->get();
-        return view('admin.teams.index', compact('teams'));
+        return view('mod.teams.index', compact('teams'));
     }
 
     /**
@@ -30,7 +30,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('admin.teams.create');
+        return view('mod.teams.create');
     }
 
     /**
@@ -45,8 +45,8 @@ class TeamController extends Controller
         $team->save();
         $this->storeFeaturedImage($request, $team);
 
-        flash()->success(__('requests.admin.team.successful_store', ['team' => $team->name]));
-        return redirect()->route('admin.teams.index');
+        flash()->success(__('requests.mod.team.successful_store', ['team' => $team->name]));
+        return redirect()->route('mod.teams.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        return view('admin.teams.edit', compact('team'));
+        return view('mod.teams.edit', compact('team'));
     }
 
     /**
@@ -72,8 +72,8 @@ class TeamController extends Controller
         $team->update($request->all());
         $this->storeFeaturedImage($request, $team);
 
-        flash()->success(__('requests.admin.team.successful_update', ['team' => $team->name]));
-        return redirect()->route('admin.teams.index');
+        flash()->success(__('requests.mod.team.successful_update', ['team' => $team->name]));
+        return redirect()->route('mod.teams.index');
     }
 
     /**
@@ -89,8 +89,8 @@ class TeamController extends Controller
         $team->delete();
         $this->deleteLogoFolder($team);
 
-        flash()->success(__('requests.admin.team.successful_destroy', ['team' => $team->name]));
-        return redirect()->route('admin.teams.index');
+        flash()->success(__('requests.mod.team.successful_destroy', ['team' => $team->name]));
+        return redirect()->route('mod.teams.index');
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Models\Games;
 
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \App\Models\Team|null $team
+ * @property-read \App\Models\Games\Team|null $team
  * @property int $is_mod_approved
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Player whereIsModApproved($value)
  * @property int|null $is_own_goal_scorer

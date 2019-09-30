@@ -7,7 +7,6 @@ use App\Http\Requests\Mod\DeletePlayerRequest;
 use App\Http\Requests\Mod\StorePlayerRequest;
 use App\Http\Requests\Mod\UpdatePlayerRequest;
 use App\Models\Games\Player;
-use App\Models\Team;
 
 class PlayerController extends Controller
 {

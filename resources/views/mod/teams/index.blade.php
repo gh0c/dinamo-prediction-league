@@ -40,7 +40,7 @@
                                 <td>{{ __('models.games.sport._values.' . $team->sport) }}</td>
 
                                 <td class="text-center">
-                                    <a href="{{ route('admin.teams.edit', ['team' => $team->id]) }}"
+                                    <a href="{{ route('mod.teams.edit', ['team' => $team->id]) }}"
                                        class="btn btn-sm btn-outline-info">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -64,8 +64,8 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('admin.teams.create') }}" class="btn btn-success" tabindex="1">
-                    {{ __('forms.admin.teams._headings.create') }}
+                <a href="{{ route('mod.teams.create') }}" class="btn btn-success" tabindex="1">
+                    {{ __('forms.mod.teams._headings.create') }}
                 </a>
             </div>
         </div>
@@ -76,14 +76,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center">{{ __('forms.admin.teams._headings.destroy') }}</h5>
+                    <h5 class="modal-title text-center">{{ __('forms.mod.teams._headings.destroy') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{ Form::open(['method' => 'DELETE', 'route' => ['admin.teams.destroy', 0] ]) }}
+                {{ Form::open(['method' => 'DELETE', 'route' => ['mod.teams.destroy', 0] ]) }}
                 <div class="modal-body">
-                    {{ __('forms.admin.teams._headings.delete_confirmation') }}
+                    {{ __('forms.mod.teams._headings.delete_confirmation') }}
                     <input type="hidden" name="team_id" id="team_id" value="0">
                 </div>
                 <div class="modal-footer">

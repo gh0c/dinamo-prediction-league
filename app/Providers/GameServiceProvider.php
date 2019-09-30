@@ -37,7 +37,6 @@ class GameServiceProvider extends ServiceProvider
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputGamesForSeason');
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputScorers');
 
-        view()->composer('admin.teams.form', 'App\Http\ViewComposers\GameComposer@inputSports');
 
 
         view()->composer('mod.games.form', 'App\Http\ViewComposers\GameComposer@inputCompetitions');
@@ -49,5 +48,6 @@ class GameServiceProvider extends ServiceProvider
 
         view()->composer('mod.games.result.edit', 'App\Http\ViewComposers\GameComposer@inputScorersForGame');
 
+        view()->composer('mod.teams.form', 'App\Http\ViewComposers\GameComposer@inputSports');
     }
 }

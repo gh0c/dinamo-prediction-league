@@ -8,6 +8,7 @@ Route::prefix('mod')
         // Route names are prefixed with mod.   -- e.g. mod.games.index
 
         // Controllers within the "App\Http\Controllers\Mod" namespace
+        Route::resource('teams', 'Mod\TeamController')->except('show');
 
         Route::resource('games', 'Mod\GameController')->except('show');
         Route::get('games/{game}/result')

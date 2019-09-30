@@ -3,7 +3,6 @@
 namespace App\Models\Games;
 
 use App\Models\Predictions\Prediction;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,9 +30,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Game whereSeasonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Game whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \App\Models\Team|null $awayTeam
+ * @property-read \App\Models\Games\Team|null $awayTeam
  * @property-read \App\Models\Games\Competition|null $competition
- * @property-read \App\Models\Team|null $homeTeam
+ * @property-read \App\Models\Games\Team|null $homeTeam
  * @property-read \App\Models\Games\Season|null $season
  * @property-read \App\Models\Games\Result $result
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Games\GoalScorer[] $goalScorers

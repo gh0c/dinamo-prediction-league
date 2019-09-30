@@ -5,8 +5,8 @@ namespace App\Http\ViewComposers;
 use App\Models\Games\Competition;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
+use App\Models\Games\Team;
 use App\Models\Repositories\Games;
-use App\Models\Team;
 use Illuminate\Contracts\View\View;
 
 /**

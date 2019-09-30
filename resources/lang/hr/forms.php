@@ -99,26 +99,7 @@ return [
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu sezonu?'
             ],
         ],
-        'teams'             => [
-            'name'           => [
-                'label'       => 'Naziv kluba',
-                'placeholder' => 'Klub'
-            ],
-            'sport'          => [
-                'label' => 'Sport',
-            ],
-            'featured_image' => [
-                'label' => 'Klupski grb',
-            ],
-            '_submit'        => 'Spremi',
-            '_headings'      => [
-                'create'              => 'Dodaj novi klub',
-                'store'               => 'Spremi novi klub',
-                'update'              => 'Uredi postojeći klub',
-                'destroy'             => 'Izbriši klub',
-                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabrani klub?'
-            ],
-        ],
+
     ],
     'mod'   => [
         'games'   => [
@@ -191,6 +172,26 @@ return [
                 'update'              => 'Uredi postojećeg igrača',
                 'destroy'             => 'Izbriši igrača',
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranog igrača?'
+            ],
+        ],
+        'teams'   => [
+            'name'           => [
+                'label'       => 'Naziv kluba',
+                'placeholder' => 'Klub'
+            ],
+            'sport'          => [
+                'label' => 'Sport',
+            ],
+            'featured_image' => [
+                'label' => 'Klupski grb',
+            ],
+            '_submit'        => 'Spremi',
+            '_headings'      => [
+                'create'              => 'Dodaj novi klub',
+                'store'               => 'Spremi novi klub',
+                'update'              => 'Uredi postojeći klub',
+                'destroy'             => 'Izbriši klub',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabrani klub?'
             ],
         ],
     ],

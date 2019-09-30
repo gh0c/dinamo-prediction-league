@@ -1,9 +1,9 @@
 <div class="form-row">
     <div class="form-group col-12">
-        <label for="name-input">{{ __('forms.admin.teams.name.label') }}</label>
+        <label for="name-input">{{ __('forms.mod.teams.name.label') }}</label>
         {!! Form::text('name', null, [
             'id' => 'name-input',
-            'placeholder' => __('forms.admin.teams.name.placeholder'),
+            'placeholder' => __('forms.mod.teams.name.placeholder'),
             'class' => 'form-control',
             'required' => true,
             'autofocus' => true,
@@ -15,7 +15,7 @@
 
 <div class="form-row">
     <div class="form-group col-12">
-        <label for="sport">{{ __('forms.admin.teams.sport.label') }}</label>
+        <label for="sport">{{ __('forms.mod.teams.sport.label') }}</label>
         {!! Form::select('sport', $inputSports, null, [
             'class' => 'form-control',
             'required' => true
@@ -26,7 +26,7 @@
 
 <div class="form-row">
     <div class="form-group col-12">
-        <label for="featured_image">{{ __('forms.admin.teams.featured_image.label') }}</label>
+        <label for="featured_image">{{ __('forms.mod.teams.featured_image.label') }}</label>
         <div class="custom-file">
             {!! Form::file('featured_image', [
                 'class' => 'custom-file-input ' . ($errors->has('name') ? 'is-invalid' : '')
@@ -38,9 +38,9 @@
 </div>
 
 <div class="text-center">
-    <button type="submit" class="btn btn-primary">{{ __('forms.admin.teams._submit') }}</button>
+    <button type="submit" class="btn btn-primary">{{ __('forms.mod.teams._submit') }}</button>
 
-    <a href="{{ route('admin.teams.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
+    <a href="{{ route('mod.teams.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
 

@@ -38,14 +38,7 @@ return [
             'successful_update'  => 'Promjene na sezoni <strong>:season</strong> uspješno pohranjene.',
             'successful_destroy' => 'Sezona <strong>:season</strong> uspješno isbrisana.',
         ],
-        'team'        => [
-            'store'              => 'Greška kod spremanja novog kluba.',
-            'update'             => 'Greška kod uređivanja postojećeg kluba.',
-            'delete'             => 'Greška kod brisanja postojećeg kluba.',
-            'successful_store'   => 'Klub <strong>:team</strong> uspješno pohranjen.',
-            'successful_update'  => 'Promjene na klubu <strong>:team</strong> uspješno pohranjene.',
-            'successful_destroy' => 'Klub <strong>:team</strong> uspješno isbrisan.',
-        ],
+
     ],
     'mod'   => [
         'game'   => [
@@ -67,6 +60,14 @@ return [
             'successful_store'   => 'Igrač <strong>:player</strong> uspješno pohranjen.',
             'successful_update'  => 'Promjene igrača <strong>:player</strong> uspješno pohranjene.',
             'successful_destroy' => 'Igrač <strong>:player</strong> uspješno isbrisan.',
+        ],
+        'team'        => [
+            'store'              => 'Greška kod spremanja novog kluba.',
+            'update'             => 'Greška kod uređivanja postojećeg kluba.',
+            'delete'             => 'Greška kod brisanja postojećeg kluba.',
+            'successful_store'   => 'Klub <strong>:team</strong> uspješno pohranjen.',
+            'successful_update'  => 'Promjene na klubu <strong>:team</strong> uspješno pohranjene.',
+            'successful_destroy' => 'Klub <strong>:team</strong> uspješno isbrisan.',
         ],
     ],
 ];

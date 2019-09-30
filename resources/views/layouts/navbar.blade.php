@@ -43,11 +43,6 @@
                                     {{ __('models.predictions.prediction.collection') }}
                                 </a>
 
-                                <a class="dropdown-item {{ request()->routeIs('admin.teams.*')  ? 'active' : '' }}"
-                                   href="{{ route('admin.teams.index') }}">
-                                    {{ __('models.games.team.collection') }}
-                                </a>
-
                                 <a class="dropdown-item {{ request()->routeIs('admin.competitions.*') ? 'active' : '' }}"
                                    href="{{ route('admin.competitions.index') }}">
                                     {{ __('models.games.competition.collection') }}
@@ -61,6 +56,36 @@
                                 <a class="dropdown-item {{ request()->routeIs('admin.seasons.*') ? 'active' : '' }}"
                                    href="{{ route('admin.seasons.index') }}">
                                     {{ __('models.games.season.collection') }}
+                                </a>
+                            </div>
+                        </li>
+
+                    @endif
+
+                    @if(Auth::user()->is_admin || Auth::user()->is_mod)
+
+                        <li class="nav-item dropdown {{ request()->routeIs('mod.*')  ? 'active' : '' }}">
+                            <a id="modNavbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ __('layout.navbar.mod._label') }}
+                                <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="modNavbarDropdown">
+
+                                <a class="dropdown-item {{ request()->routeIs('mod.teams.*')  ? 'active' : '' }}"
+                                   href="{{ route('mod.teams.index') }}">
+                                    {{ __('models.games.team.collection') }}
+                                </a>
+
+                                <a class="dropdown-item {{ request()->routeIs('mod.games.*') ? 'active' : '' }}"
+                                   href="{{ route('mod.games.index') }}">
+                                    {{ __('models.games.game.collection') }}
+                                </a>
+
+                                <a class="dropdown-item {{ request()->routeIs('mod.players.*') ? 'active' : '' }}"
+                                   href="{{ route('mod.players.index') }}">
+                                    {{ __('models.games.player.collection') }}
                                 </a>
                             </div>
                         </li>

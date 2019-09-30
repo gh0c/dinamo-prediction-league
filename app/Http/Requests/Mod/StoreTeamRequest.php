@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Mod;
 
 use App\Http\Requests\BasicPostRequest;
 use Illuminate\Validation\Rule;
 
-/**
- * @property \App\Models\Team $team
- **/
-class UpdateTeamRequest extends BasicPostRequest
+class StoreTeamRequest extends BasicPostRequest
 {
-    protected $defaultMessageLangKey = 'requests.admin.team.update';
+    protected $defaultMessageLangKey = 'requests.admin.mod.store';
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +21,7 @@ class UpdateTeamRequest extends BasicPostRequest
                 'required',
                 'min:2',
                 'max:225',
-                Rule::unique('teams', 'name')->where('sport', $this->input('sport'))->ignore($this->team->id)
+                Rule::unique('teams', 'name')->where('sport', $this->input('sport'))
             ],
             'sport' => 'required|in:football,futsal'
         ];

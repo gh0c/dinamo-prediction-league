@@ -5,7 +5,7 @@ Route::prefix('admin')
     ->middleware(['auth', 'role:super_admin,admin'])
     ->group(function () {
         // Routes are prefixed with /admin        -- e.g. admin/seasons/create
-        // Route names are prefixed with admin.   -- e.g. admin.teams.index
+        // Route names are prefixed with admin.   -- e.g. admin.competitions.index
 
         // Controllers within the "App\Http\Controllers\Admin" namespace
 
@@ -16,8 +16,6 @@ Route::prefix('admin')
             ->uses('Admin\SeasonController@destroy')
             ->name('seasons.destroy')
             ->middleware('role:super_admin');
-
-        Route::resource('teams', 'Admin\TeamController')->except('show');
 
         Route::resource('users', 'Admin\UserController')
             ->middleware('role:super_admin');
