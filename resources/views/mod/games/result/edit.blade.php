@@ -8,7 +8,7 @@
 
         <div class="row">
 
-            <div class="col-md-6 offset-md-3">
+            <div class="col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
 
                 <h3>{{ __('forms.mod.games._headings.result.update') }}</h3>
 
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="text-center mb-2">
-                    <button type="button" class="btn btn-primary add-goal-scorer-input">
+                    <button type="button" class="btn btn-primary btn-sm add-goal-scorer-input">
                         {{ __('forms.mod.games._add_goal_scorer') }}
                     </button>
                 </div>

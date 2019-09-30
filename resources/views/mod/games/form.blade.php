@@ -1,5 +1,5 @@
 <div class="form-row">
-    <div class="form-group col-5">
+    <div class="form-group col-9">
         <label for="season_id">{{ __('forms.mod.games.season.label') }}</label>
         {!! Form::select('season_id', $inputSeasons, null, [
             'class' => 'form-control',
@@ -9,7 +9,7 @@
         @include('forms.input-error', ['name' => 'season_id'])
     </div>
 
-    <div class="form-group col-2">
+    <div class="form-group col-3">
         <label for="round">{{ __('forms.mod.games.round.label') }}</label>
         {!! Form::number('round', null, [
             'class' => 'form-control',
@@ -19,7 +19,7 @@
         @include('forms.input-error', ['name' => 'round'])
     </div>
 
-    <div class="form-group col-5">
+    <div class="form-group col-12">
         <label for="competition_id">{{ __('forms.mod.games.competition.label') }}</label>
         {!! Form::select('competition_id', $inputCompetitions, null, [
             'class' => 'form-control',

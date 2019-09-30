@@ -8,7 +8,7 @@
 
         <div class="row">
 
-            <div class="col-md-6 offset-md-3">
+            <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
 
                 <table class="table table-sm table-hover table-middle-aligned-cells">
                     <thead class="thead-dark">

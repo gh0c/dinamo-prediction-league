@@ -8,7 +8,7 @@
 
         <div class="row">
 
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-10 col-lg-6 offset-md-1 offset-lg-3">
 
                 <h3>{{ __('forms.admin.predictions._headings.store') }}</h3>
 
