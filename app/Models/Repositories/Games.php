@@ -4,34 +4,32 @@ namespace App\Models\Repositories;
 
 use App\Models\Games\Game;
 use App\Models\Games\Player;
+use App\Models\Games\Season;
 use Illuminate\Support\Collection;
 
 class Games
 {
 
     /**
+     * @param  Season $season
      * @return array
      */
-    public function loadGames()
+    public function loadGamesForSeason(Season $season)
     {
         $games = Game::with(['homeTeam', 'awayTeam'])
+            ->where('season_id', '=', $season->id)
             ->orderBy('round')->orderBy('datetime')
             ->get();
 
-        $inputGames = [];
+        return $this->composeGamesGroupedByRound($games);
+    }
 
-        foreach ($games as $game) {
-            /** @var Game $game */
-            $round = $game->round . '. ' . mb_strtolower(__('models.games.game._attributes.round'));
-            if (!isset($inputGames[$round])) {
-                $inputGames[$round] = [];
-            }
-            $inputGames[$round][$game->id] = $game->game_description;
-        }
-
-        $inputGames = ['' => __('forms.admin.predictions.game.placeholder')] + $inputGames;
-
-        return $inputGames;
+    /**
+     * @return array
+     */
+    public function loadGamesForActiveSeasons()
+    {
+        return $this->loadGamesForSeason(Season::active());
     }
 
     /**
@@ -43,9 +41,7 @@ class Games
             ->with('team')
             ->orderBy('name')->get();
 
-        $inputPlayers = $this->composePlayersForOutput($players);
-
-        return $inputPlayers;
+        return $this->composePlayersForOutput($players);
     }
 
     /**
@@ -63,6 +59,26 @@ class Games
         $inputPlayers = $this->composePlayersForOutput($players);
 
         return $inputPlayers;
+    }
+
+    /**
+     * @param Collection|Games[] $games
+     * @return array
+     */
+    private function composeGamesGroupedByRound($games)
+    {
+        $inputGames = [];
+
+        foreach ($games as $game) {
+            /** @var Game $game */
+            $round = $game->round . '. ' . mb_strtolower(__('models.games.game._attributes.round'));
+            if (!isset($inputGames[$round])) {
+                $inputGames[$round] = [];
+            }
+            $inputGames[$round][$game->id] = $game->game_description;
+        }
+
+        return $inputGames;
     }
 
     /**

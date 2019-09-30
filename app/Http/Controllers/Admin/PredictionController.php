@@ -32,55 +32,102 @@ class PredictionController extends Controller
         $this->predictions = $predictions;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $predictions = $this->predictions->loadAllPredictionsInActiveSeason();
 
-        return view('admin.predictions.index', compact('predictions'));
+    public function dashboard()
+    {
+        $season = Season::active();
+        $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
+
+        return view('admin.predictions.dashboard', compact('season', 'rounds'));
     }
 
     /**
-     * Display a listing of the resource filtered by round.
+     * Display a listing of the Predictions filtered by season.
+     *
+     * @param  Season $season
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexForSeason(Season $season)
+    {
+        $predictions = $this->predictions->loadAllPredictions($season);
+
+        return view('admin.predictions.index', compact('predictions', 'season'));
+    }
+
+    /**
+     * Display a listing of the Predictions filtered by currently active season.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexForActiveSeason()
+    {
+        return $this->indexForSeason(Season::active());
+    }
+
+    /**
+     * Display a listing of the Predictions filtered by round in season.
+     *
+     * @param  Season $season
+     * @param  int|string $round
+     * @return \Illuminate\Http\Response
+     */
+    public function indexForRoundForSeason(Season $season, $round)
+    {
+        $predictions = $this->predictions->loadPredictionsForRound($round, $season);
+
+        return view('admin.predictions.index-for-round', compact('predictions', 'round', 'season'));
+    }
+
+    /**
+     * Display a listing of the Predictions filtered by round in currently active season.
      *
      * @param  int|string $round
      * @return \Illuminate\Http\Response
      */
-    public function indexForRound($round)
+    public function indexForRoundForActiveSeason($round)
     {
-        $predictions = $this->predictions->loadPredictionsForRoundInActiveSeason($round);
-
-        return view('admin.predictions.index-for-round', compact('predictions', 'round'));
+        return $this->indexForRoundForSeason(Season::active(), $round);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createForSeason(Season $season)
     {
-        return view('admin.predictions.create');
+        return view('admin.predictions.create', compact('season'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createForActiveSeason()
+    {
+        return $this->createForSeason(Season::active());
+    }
+
+    /**
+     * @param  Season $season
      * @param  int $round
      * @return \Illuminate\Http\Response
      */
-    public function createForRound($round)
+    public function createForRoundForSeason(Season $season, $round)
     {
         $games = Game::whereRound($round)
-            ->where('season_id', '=', Season::active()->id)
+            ->where('season_id', '=', $season->id)
             ->orderBy('datetime')
             ->get();
 
-        return view('admin.predictions.create-for-round', compact('games', 'round'));
+        return view('admin.predictions.create-for-round', compact('games', 'season', 'round'));
+    }
+
+    /**
+     * @param  int $round
+     * @return \Illuminate\Http\Response
+     */
+    public function createForRoundForActiveSeason($round)
+    {
+        return $this->createForRoundForSeason(Season::active(), $round);
     }
 
     /**
@@ -103,7 +150,7 @@ class PredictionController extends Controller
             'away_team' => $game->awayTeam->name,
             'user'      => $user->username
         ]));
-        return redirect()->route('admin.predictions.index');
+        return $this->redirectToIndexPageBasedOnGame($game);
     }
 
     /**
@@ -119,6 +166,7 @@ class PredictionController extends Controller
 
         foreach ($request->input('predictions') as $predictionData) {
             $predictionData['user_id'] = $user->id;
+            $game = Game::find($predictionData['game_id']);
 
             $prediction = new Prediction($predictionData);
             $prediction->points = null;
@@ -129,18 +177,19 @@ class PredictionController extends Controller
             'round' => $round,
             'user'  => $user->username
         ]));
-        return redirect()->route('admin.predictions.index-for-round', ['round' => $round]);
+        return $this->redirectToIndexPageBasedOnGame($game);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  Season $season
      * @param  Prediction $prediction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prediction $prediction)
+    public function editForSeason(Season $season, Prediction $prediction)
     {
-        return view('admin.predictions.edit', compact('prediction'));
+        return view('admin.predictions.edit', compact('season', 'prediction'));
     }
 
     /**
@@ -164,7 +213,7 @@ class PredictionController extends Controller
             'away_team' => $game->awayTeam->name,
             'user'      => $user->username
         ]));
-        return redirect()->route('admin.predictions.index');
+        return $this->redirectToIndexPageBasedOnGame($prediction->game);
     }
 
     /**
@@ -184,7 +233,21 @@ class PredictionController extends Controller
             'away_team' => $prediction->game->awayTeam->name,
             'user'      => $prediction->user->username
         ]));
-        return redirect()->route('admin.predictions.index');
+        return $this->redirectToIndexPageBasedOnGame($prediction->game);
+    }
+
+    /**
+     * @param  Game $game
+     * @return \Illuminate\Http\Response
+     */
+    private function redirectToIndexPageBasedOnGame($game)
+    {
+//        if ($game->season_id == Season::active()->id) {
+//            return redirect()->route('admin.predictions.active-season.rounds.index', ['round' => $game->round]);
+//        } else {
+//            return redirect()->route('admin.predictions.seasons.rounds.index', ['season' => $game->season_id, 'round' => $game->round]);
+//        }
+        return redirect()->route('admin.predictions.seasons.rounds.index', ['season' => $game->season_id, 'round' => $game->round]);
     }
 
     /**

@@ -6,13 +6,15 @@
 
     <div class="container">
 
+        {!! Form::open(['route' => [
+            'admin.predictions.seasons.rounds.store', 'season' => $season->id, 'round' => $round
+        ], 'class' => 'was-validated']) !!}
+
         <div class="row">
 
             <div class="col-12 col-md-6 offset-md-3">
 
                 <h3>{{ __('forms.admin.predictions._headings.store') }}</h3>
-
-                {!! Form::open(['route' => ['admin.predictions.store-for-round', 'round' => $round], 'class' => 'was-validated']) !!}
 
                 <div class="form-row">
                     <div class="form-group col-12">
@@ -26,7 +28,14 @@
                     </div>
                 </div>
 
-                @foreach($games as $index => $game)
+            </div>
+        </div>
+
+        <div class="row">
+
+            @foreach($games as $index => $game)
+
+                <div class="col-12 col-lg-6 col-xl-4 text-center">
 
                     <div class="form-row border-top pt-2">
                         <div class="form-group col-12">
@@ -96,53 +105,58 @@
                         });
                     </script>
 
-
-
-                @endforeach
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">{{ __('forms.admin.predictions._submit') }}</button>
-
-                    <a href="{{ route('admin.predictions.index-for-round', ['round' => $round]) }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
                 </div>
 
-                <script>
+            @endforeach
 
-                    let filteringUrl = '{{ route('admin.predictions.filter.scorers-by-game') }}';
+        </div>
 
-                    function filterInputScorersByGame(index) {
-                        let selectedGameValue = $(':input[name="predictions[' + index + '][game_id]"]').val();
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary">{{ __('forms.admin.predictions._submit') }}</button>
 
-                        let currentScorerSelection = $(':input[name="predictions[' + index + '][first_scorer_id]"]').val();
-
-                        let $cont = $('#input-scorers-' + index + '-container');
-                        let params = {game_id: selectedGameValue};
-
-                        ajaxCall(filteringUrl, params).then(response => {
-                            $cont.html(response);
-
-                            // replace "id", "name" and "for" attributes
-                            $cont.find('label').attr('for', 'predictions[' + index + '][first_scorer_id]');
-                            $cont.find(':input').prop('name', 'predictions[' + index + '][first_scorer_id]');
-
-                            // preserve selection from before filtering
-                            let $scorerInput = $cont.find(':input[name="predictions[' + index + '][first_scorer_id]"]');
-                            if ($scorerInput.find('option[value="' + currentScorerSelection + '"]').length) {
-                                $scorerInput.val(currentScorerSelection);
-                            }
-                        });
-
-                    }
-
-                </script>
-
-
-                {!! Form::close() !!}
-
+                <a href="{{ route('admin.predictions.seasons.rounds.index', ['season' => $season->id, 'round' => $round]) }}"
+                   class="btn btn-danger">
+                    {{ __('forms.cancel') }}
+                </a>
             </div>
         </div>
 
+        {!! Form::close() !!}
     </div>
 
-
 @endsection
+
+@push('scripts-foot')
+
+    <script>
+
+        let filteringUrl = '{{ route('admin.predictions.filter.scorers-by-game') }}';
+
+        function filterInputScorersByGame(index) {
+            let selectedGameValue = $(':input[name="predictions[' + index + '][game_id]"]').val();
+
+            let currentScorerSelection = $(':input[name="predictions[' + index + '][first_scorer_id]"]').val();
+
+            let $cont = $('#input-scorers-' + index + '-container');
+            let params = {game_id: selectedGameValue};
+
+            ajaxCall(filteringUrl, params).then(response => {
+                $cont.html(response);
+
+                // replace "id", "name" and "for" attributes
+                $cont.find('label').attr('for', 'predictions[' + index + '][first_scorer_id]');
+                $cont.find(':input').prop('name', 'predictions[' + index + '][first_scorer_id]');
+
+                // preserve selection from before filtering
+                let $scorerInput = $cont.find(':input[name="predictions[' + index + '][first_scorer_id]"]');
+                if ($scorerInput.find('option[value="' + currentScorerSelection + '"]').length) {
+                    $scorerInput.val(currentScorerSelection);
+                }
+            });
+
+        }
+
+    </script>
+
+@endpush

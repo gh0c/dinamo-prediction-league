@@ -20,7 +20,10 @@ class Predictions
      */
     public function loadAllPredictions($season)
     {
-        return Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
+        return Prediction::with([
+            'user:id,username', 'firstScorer',
+            'game.homeTeam', 'game.awayTeam', 'game.goalScorers.player', 'game.result',
+        ])
             ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
             ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
             ->where('games.season_id', '=', $season->id)
@@ -46,10 +49,13 @@ class Predictions
      */
     public function loadPredictionsForRound($round, $season)
     {
-        return Prediction::with(['game.homeTeam', 'game.awayTeam', 'user:id,username'])
+        return Prediction::with([
+            'user:id,username', 'firstScorer',
+            'game.homeTeam', 'game.awayTeam', 'game.goalScorers.player', 'game.result',
+        ])
             ->leftJoin('games', 'games.id', '=', 'predictions.game_id')
             ->leftJoin('users', 'users.id', '=', 'predictions.user_id')
-            ->where('games.round', '=', $round)->where('games.season_id', '=', $season->id)
+            ->where('games.season_id', '=', $season->id)->where('games.round', '=', $round)
             ->orderBy('games.datetime')
             ->orderBy('users.username')
             ->select('predictions.*')
@@ -139,13 +145,34 @@ class Predictions
      * @param  Season $season
      * @return PredictionOutcome[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Builder[]|\Illuminate\Support\Collection
      */
-    public function getRoundsForSeason($season)
+    public function getRoundsWithOutcomeForSeason($season)
     {
         return PredictionOutcome::whereSeasonId($season->id)
             ->orderBy('round')
             ->select('round')
             ->distinct()
             ->pluck('round');
+    }
+
+    /**
+     * @param  Season $season
+     * @return array
+     */
+    public function getRoundsWithGamesForSeason($season)
+    {
+        return Game::whereSeasonId($season->id)
+            ->groupBy('round')
+            ->orderBy('round')
+            ->select(['round', \DB::raw('COUNT(*) as games_per_round')])
+            ->get()->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoundsWithGamesForActiveSeason()
+    {
+        return $this->getRoundsWithGamesForSeason(Season::active());
     }
 
     /**

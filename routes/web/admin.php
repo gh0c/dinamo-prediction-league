@@ -22,17 +22,86 @@ Route::prefix('admin')
         Route::resource('users', 'Admin\UserController')
             ->middleware('role:super_admin');
 
-        Route::resource('predictions', 'Admin\PredictionController')->except('show');
+
+        // Dashboard
+        Route::get('predictions')
+            ->uses('Admin\PredictionController@dashboard')
+            ->name('predictions.dashboard');
+
+        // Index
+        Route::get('predictions/season/{season}')
+            ->uses('Admin\PredictionController@indexForSeason')
+            ->name('predictions.seasons.index');
+
+        Route::get('predictions/season/{season}/round/{round}')
+            ->uses('Admin\PredictionController@indexForRoundForSeason')
+            ->name('predictions.seasons.rounds.index');
+
+        // Aliases
+        Route::get('predictions/active-season')
+            ->uses('Admin\PredictionController@indexForActiveSeason')
+            ->name('predictions.active-season.index');
 
         Route::get('predictions/active-season/round/{round}')
-            ->uses('Admin\PredictionController@indexForRound')
-            ->name('predictions.index-for-round');
+            ->uses('Admin\PredictionController@indexForRoundForActiveSeason')
+            ->name('predictions.active-season.rounds.index');
+
+
+        // Create
+        Route::get('predictions/season/{season}/create')
+            ->uses('Admin\PredictionController@createForSeason')
+            ->name('predictions.seasons.create');
+
+        Route::get('predictions/season/{season}/round/{round}/create')
+            ->uses('Admin\PredictionController@createForRoundForSeason')
+            ->name('predictions.seasons.rounds.create');
+
+        // Aliases
+        Route::get('predictions/active-season/create')
+            ->uses('Admin\PredictionController@createForActiveSeason')
+            ->name('predictions.active-season.create');
+
         Route::get('predictions/active-season/round/{round}/create')
-            ->uses('Admin\PredictionController@createForRound')
-            ->name('predictions.create-for-round');
-        Route::post('predictions/active-season/round/{round}/')
-            ->uses('Admin\PredictionController@storeForRound')
-            ->name('predictions.store-for-round');
+            ->uses('Admin\PredictionController@createForRoundForActiveSeason')
+            ->name('predictions.active-season.rounds.create');
+
+
+        // Store
+        Route::post('predictions/season/{season}')
+            ->uses('Admin\PredictionController@storeForSeason')
+            ->name('predictions.seasons.store');
+
+        Route::post('predictions/season/{season}/round/{round}')
+            ->uses('Admin\PredictionController@storeForRoundForSeason')
+            ->name('predictions.seasons.rounds.store');
+
+
+        // Edit
+        Route::get('predictions/season/{season}/{prediction}/edit')
+            ->uses('Admin\PredictionController@editForSeason')
+            ->name('predictions.seasons.edit');
+
+//        Route::post('predictions/season/{season}/round/{round}')
+//            ->uses('Admin\PredictionController@storeForRoundForSeason')
+//            ->name('predictions.seasons.rounds.store');
+
+        // Alias
+        Route::get('predictions/active-season/{prediction}/edit')
+            ->uses('Admin\PredictionController@editForActiveSeason')
+            ->name('predictions.active-season.edit');
+
+
+        // Update
+        Route::post('predictions/season/{season}/{prediction}')
+            ->uses('Admin\PredictionController@updateForSeason')
+            ->name('predictions.seasons.update');
+
+
+        // Destroy
+        Route::delete('predictions/{prediction}')
+            ->uses('Admin\PredictionController@destroy')
+            ->name('predictions.destroy');
+
 
         Route::post('predictions/filter-scorers-by-game', 'Admin\PredictionController@filterScorersByGame')
             ->name('predictions.filter.scorers-by-game');

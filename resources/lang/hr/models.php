@@ -13,6 +13,7 @@ return [
         'game'        => [
             'name'        => 'Utakmica',
             'collection'  => 'Utakmice',
+            'count'       => 'Utakmica',
             '_attributes' => [
                 'home_team'   => 'Domaćin',
                 'away_team'   => 'Gost',

@@ -30,11 +30,11 @@ class GameServiceProvider extends ServiceProvider
         view()->composer('admin.disqualifications.form', 'App\Http\ViewComposers\UserComposer@inputDisqualificationReasons');
 
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\UserComposer@inputUsers');
-        view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputGames');
+        view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputGamesForSeason');
         view()->composer('admin.predictions.form', 'App\Http\ViewComposers\GameComposer@inputScorers');
 
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\UserComposer@inputUsers');
-        view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputGames');
+        view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputGamesForSeason');
         view()->composer('admin.predictions.create-for-round', 'App\Http\ViewComposers\GameComposer@inputScorers');
 
         view()->composer('admin.teams.form', 'App\Http\ViewComposers\GameComposer@inputSports');

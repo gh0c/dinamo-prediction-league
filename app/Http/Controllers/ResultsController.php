@@ -32,7 +32,7 @@ class ResultsController
     {
         $results = $this->predictions->getOverallResults($season);
         // Rounds for season
-        $rounds = $this->predictions->getRoundsForSeason($season);
+        $rounds = $this->predictions->getRoundsWithOutcomeForSeason($season);
         // Disqualified users for season
         $disqualifications = $this->disqualifications->loadAllDisqualifications($season);
 

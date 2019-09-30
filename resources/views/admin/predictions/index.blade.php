@@ -22,6 +22,7 @@
 
             <div class="col-md-8 offset-md-2">
 
+                <h3>{{ $season->name }}</h3>
 
                 <table class="table table-sm table-hover table-middle-aligned-cells">
 
@@ -79,7 +80,7 @@
 
                                     <td class="text-center">
 
-                                        <a href="{{ route('admin.predictions.edit', ['prediction' => $prediction->id]) }}"
+                                        <a href="{{ route('admin.predictions.seasons.edit', ['season' => $season->id, 'prediction' => $prediction->id]) }}"
                                            class="btn btn-sm btn-outline-info">
                                             <i class="fa fa-edit"></i>
                                         </a>
@@ -103,7 +104,7 @@
 
                 <div class="row">
                     <div class="col text-center">
-                        <a href="{{ route('admin.predictions.create') }}" class="btn btn-success" tabindex="1">
+                        <a href="{{ route('admin.predictions.seasons.create', ['season' => $season->id]) }}" class="btn btn-success" tabindex="1">
                             {{ __('forms.admin.predictions._headings.create') }}
                         </a>
                     </div>

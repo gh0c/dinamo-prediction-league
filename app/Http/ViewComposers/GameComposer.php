@@ -33,10 +33,19 @@ class GameComposer
         ]);
     }
 
-    public function inputGames(View $view)
+    public function inputGamesForSeason(View $view)
     {
+        if (request()->routeIs('*.active-season.*')) {
+            $season = Season::active();
+        } else {
+            /** @var Season $season*/
+            $season = request()->route()->parameter('season');
+        }
+
+        $inputGames = ['' => __('forms.admin.predictions.game.placeholder')] + $this->games->loadGamesForSeason($season);
+
         $view->with([
-            'inputGames' => $this->games->loadGames(),
+            'inputGames' => $inputGames,
         ]);
     }
 
