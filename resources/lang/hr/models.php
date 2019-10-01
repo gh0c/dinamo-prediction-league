@@ -99,8 +99,19 @@ return [
 
     'users' => [
         'user' => [
-            'name'       => 'Član',
-            'collection' => 'Članovi',
+            'name'        => 'Član',
+            'collection'  => 'Članovi',
+            '_attributes' => [
+                'username' => 'Korisničko ime',
+                'email'    => 'E-mail adresa',
+                'settings' => [
+                    'name'        => 'Postavke',
+                    '_attributes' => [
+                        'is_admin' => '[Admin]',
+                        'is_mod'   => '[Moderator]',
+                    ],
+                ],
+            ],
         ],
     ],
 ];

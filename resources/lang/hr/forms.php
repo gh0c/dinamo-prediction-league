@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'admin' => [
+    'admin'       => [
         'competitions'      => [
             'name'           => [
                 'label'       => 'Naziv natjecanja',
@@ -101,7 +101,7 @@ return [
         ],
 
     ],
-    'mod'   => [
+    'mod'         => [
         'games'   => [
 
             'home_team'         => [
@@ -192,6 +192,18 @@ return [
                 'update'              => 'Uredi postojeći klub',
                 'destroy'             => 'Izbriši klub',
                 'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabrani klub?'
+            ],
+        ],
+    ],
+    'super_admin' => [
+        'users' => [
+            '_submit'   => 'Spremi',
+            '_headings' => [
+                'create'              => 'Dodaj novog člana',
+                'store'               => 'Spremi novog člana',
+                'update'              => 'Uredi postojećeg člana',
+                'destroy'             => 'Izbriši člana',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranog člana?'
             ],
         ],
     ],

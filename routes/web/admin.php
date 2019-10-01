@@ -133,7 +133,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super_admin,ad
 
 Route::group(['prefix' => 'super-admin', 'middleware' => ['auth', 'role:super_admin'], 'as' => 'super-admin.'], function () {
 
-    Route::resource('users', 'Admin\UserController');
+    Route::resource('users', 'SuperAdmin\UserController');
 
 });
 
