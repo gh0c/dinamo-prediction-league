@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\SeasonException;
 use App\Models\Games\Season;
 use App\Models\Repositories\Disqualifications;
 use App\Models\Repositories\Predictions;
@@ -23,13 +24,25 @@ class ResultsController
         $this->disqualifications = $disqualifications;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Exceptions\SeasonException
+     */
     public function showOverallResultsForActiveSeason()
     {
         return $this->showOverallResults(Season::active());
     }
 
+    /**
+     * @param Season $season
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Exceptions\SeasonException
+     */
     public function showOverallResults(Season $season)
     {
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
         $results = $this->predictions->getOverallResults($season);
         // Rounds for season
         $rounds = $this->predictions->getRoundsWithOutcomeForSeason($season);

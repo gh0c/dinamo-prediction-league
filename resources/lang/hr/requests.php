@@ -2,7 +2,7 @@
 
 return [
     'admin' => [
-        'competition' => [
+        'competition'      => [
             'store'              => 'Greška kod spremanja novog natjecanja.',
             'update'             => 'Greška kod uređivanja postojećeg natjecanja.',
             'delete'             => 'Greška kod brisanja postojećeg natjecanja.',
@@ -10,15 +10,15 @@ return [
             'successful_update'  => 'Promjene na natjecanju <strong>:competition</strong> uspješno pohranjene.',
             'successful_destroy' => 'Natjecanje <strong>:competition</strong> uspješno isbrisano.',
         ],
-        'disqualification'  => [
-            'store'                      => 'Greška kod spremanja nove diskvalifikacije.',
-            'update'                     => 'Greška kod uređivanja postojeće diskvalifikacije.',
-            'delete'                     => 'Greška kod brisanja postojeće diskvalifikacije.',
-            'successful_store'           => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjena.',
-            'successful_update'          => 'Promjene na diskvalifikaciji člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjene.',
-            'successful_destroy'         => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno isbrisana.',
+        'disqualification' => [
+            'store'              => 'Greška kod spremanja nove diskvalifikacije.',
+            'update'             => 'Greška kod uređivanja postojeće diskvalifikacije.',
+            'delete'             => 'Greška kod brisanja postojeće diskvalifikacije.',
+            'successful_store'   => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjena.',
+            'successful_update'  => 'Promjene na diskvalifikaciji člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno pohranjene.',
+            'successful_destroy' => 'Diskvalifikacija člana <strong>:user</strong> za sezonu <strong>:season</strong> uspješno isbrisana.',
         ],
-        'prediction'  => [
+        'prediction'       => [
             'store'                      => 'Greška kod spremanja nove prognoze.',
             'update'                     => 'Greška kod uređivanja postojeće prognoze.',
             'delete'                     => 'Greška kod brisanja postojeće prognoze.',
@@ -30,13 +30,15 @@ return [
 
             'successful_set_prediction_outcomes_for_round_in_active_season' => 'Ishodi prognoza za <strong>:round</strong>. kolo uspješno postavljeni',
         ],
-        'season'      => [
+        'season'           => [
             'store'              => 'Greška kod spremanja nove sezone.',
             'update'             => 'Greška kod uređivanja postojeće sezone.',
             'delete'             => 'Greška kod brisanja postojeće sezone.',
             'successful_store'   => 'Sezona <strong>:season</strong> uspješno pohranjena.',
             'successful_update'  => 'Promjene na sezoni <strong>:season</strong> uspješno pohranjene.',
             'successful_destroy' => 'Sezona <strong>:season</strong> uspješno isbrisana.',
+
+            'active_season_not_found' => 'Aktivna sezona ne postoji!',
         ],
 
     ],
@@ -61,7 +63,7 @@ return [
             'successful_update'  => 'Promjene igrača <strong>:player</strong> uspješno pohranjene.',
             'successful_destroy' => 'Igrač <strong>:player</strong> uspješno isbrisan.',
         ],
-        'team'        => [
+        'team'   => [
             'store'              => 'Greška kod spremanja novog kluba.',
             'update'             => 'Greška kod uređivanja postojećeg kluba.',
             'delete'             => 'Greška kod brisanja postojećeg kluba.',

@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Exceptions\SeasonException;
 use App\Models\Games\Competition;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
@@ -33,10 +34,17 @@ class GameComposer
         ]);
     }
 
+    /**
+     * @param View $view
+     * @throws SeasonException
+     */
     public function inputGamesForSeason(View $view)
     {
         if (request()->routeIs('*.active-season.*')) {
             $season = Season::active();
+            if (!$season) {
+                throw SeasonException::activeSeasonNotFound();
+            }
         } else {
             /** @var Season $season*/
             $season = request()->route()->parameter('season');

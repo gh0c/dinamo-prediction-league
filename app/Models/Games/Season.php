@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $jokers_available
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season whereJokersAvailable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season active()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Games\Season isActive()
  */
 class Season extends Model
 {
@@ -46,8 +46,16 @@ class Season extends Model
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeActive($query)
+    public function scopeIsActive($query)
     {
-        return $query->where('is_active', true)->first();
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * @return Season|\Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function active()
+    {
+        return static::isActive()->first();
     }
 }

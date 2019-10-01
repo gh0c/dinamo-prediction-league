@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\SeasonException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeleteDisqualificationRequest;
 use App\Http\Requests\Admin\StoreDisqualificationRequest;
 use App\Http\Requests\Admin\UpdateDisqualificationRequest;
+use App\Models\Games\Season;
 use App\Models\Repositories\Disqualifications;
 use App\Models\Users\Disqualification;
 
@@ -22,14 +24,20 @@ class DisqualificationController extends Controller
     {
         $this->disqualifications = $disqualifications;
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws SeasonException
      */
     public function index()
     {
-        $disqualifications = $this->disqualifications->loadAllDisqualificationsInActiveSeason();
+        $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+        $disqualifications = $this->disqualifications->loadAllDisqualifications($season);
 
         return view('admin.disqualifications.index', compact('disqualifications'));
     }

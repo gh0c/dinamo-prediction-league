@@ -78,17 +78,7 @@ class Predictions
      */
     public function setPredictionOutcomesForRoundInActiveSeason($round, $updateTables = true)
     {
-        DB::beginTransaction();
-        try {
-
-            $this->setPredictionOutcomesForRound($round, Season::active(), $updateTables);
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
-
+        $this->setPredictionOutcomesForRound($round, Season::active(), $updateTables);
     }
 
     /**
@@ -179,105 +169,113 @@ class Predictions
      * @param  int|string $round
      * @param  Season $season
      * @param  bool $updateTables
+     * @throws Exception
      */
     public function setPredictionOutcomesForRound($round, $season, $updateTables = true)
     {
+        DB::beginTransaction();
+        try {
 
-        if ($updateTables == true) {
-            $this->clearPredictionOutcomesForRound($round, $season);
-        }
+            if ($updateTables == true) {
+                $this->clearPredictionOutcomesForRound($round, $season);
+            }
 
-        // Find all games for the given round
-        // Find all predictions for all the games
-        // Determine outcome of each prediction
+            // Find all games for the given round
+            // Find all predictions for all the games
+            // Determine outcome of each prediction
 
 
-        $predictions = Prediction::whereHas('game', function ($query) use ($round) {
-            /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
-            $query->where('round', '=', $round)->whereHas('result');
-        })->get();
+            $predictions = Prediction::whereHas('game', function ($query) use ($round) {
+                /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
+                $query->where('round', '=', $round)->whereHas('result');
+            })->get();
 
-        if ($predictions->isEmpty()) {
-            return;
-        }
+            if ($predictions->isEmpty()) {
+                return;
+            }
 
-        // Store user points for the given round
-        // User(s) with the most points will receive extra bonus points
-        $userPoints = [];
+            // Store user points for the given round
+            // User(s) with the most points will receive extra bonus points
+            $userPoints = [];
 
-        $gamesInRound = $predictions->groupBy('game_id')->count();
-        if ($gamesInRound == 1) {
-            $bonus = 0;
-        } elseif ($gamesInRound == 2) {
-            $bonus = 2;
-        } elseif ($gamesInRound == 3) {
-            $bonus = 4;
-        } elseif ($gamesInRound > 3) {
-            $bonus = 5;
-        } else {
-            $bonus = 0;
-        }
+            $gamesInRound = $predictions->groupBy('game_id')->count();
+            if ($gamesInRound == 1) {
+                $bonus = 0;
+            } elseif ($gamesInRound == 2) {
+                $bonus = 2;
+            } elseif ($gamesInRound == 3) {
+                $bonus = 4;
+            } elseif ($gamesInRound > 3) {
+                $bonus = 5;
+            } else {
+                $bonus = 0;
+            }
 
-        // Store number of jokers used per user
-        $userJokers = [];
+            // Store number of jokers used per user
+            $userJokers = [];
 
-        foreach ($predictions->groupBy('game_id') as $gameId => $gamePredictions) {
-            $game = Game::find($gameId);
+            foreach ($predictions->groupBy('game_id') as $gameId => $gamePredictions) {
+                $game = Game::find($gameId);
 
-            if ($game->result) {
+                if ($game->result) {
 
-                foreach ($gamePredictions as $prediction) {
-                    /** @var Prediction $prediction */
+                    foreach ($gamePredictions as $prediction) {
+                        /** @var Prediction $prediction */
 
-                    $points = $this->calculatePointsForPrediction($prediction, $game);
+                        $points = $this->calculatePointsForPrediction($prediction, $game);
 
-                    if ($updateTables == true) {
-                        $prediction->points = $points;
-                        $prediction->save();
+                        if ($updateTables == true) {
+                            $prediction->points = $points;
+                            $prediction->save();
+                        }
+
+                        if (!array_key_exists($prediction->user_id, $userPoints)) {
+                            $userPoints[$prediction->user_id] = $points;
+                        } else {
+                            $userPoints[$prediction->user_id] += $points;
+                        }
+
+                        // Initialize user jokers
+                        if (!array_key_exists($prediction->user_id, $userJokers)) {
+                            $userJokers[$prediction->user_id] = 0;
+                        }
+                        if ($prediction->joker_used) {
+                            $userJokers[$prediction->user_id] += 1;
+                        }
+
                     }
-
-                    if (!array_key_exists($prediction->user_id, $userPoints)) {
-                        $userPoints[$prediction->user_id] = $points;
-                    } else {
-                        $userPoints[$prediction->user_id] += $points;
-                    }
-
-                    // Initialize user jokers
-                    if (!array_key_exists($prediction->user_id, $userJokers)) {
-                        $userJokers[$prediction->user_id] = 0;
-                    }
-                    if ($prediction->joker_used) {
-                        $userJokers[$prediction->user_id] += 1;
-                    }
-
                 }
             }
-        }
 
-        $maxPoints = max($userPoints);
+            $maxPoints = max($userPoints);
 
 
-        if ($updateTables) {
-            // Store round prediction outcomes
+            if ($updateTables) {
+                // Store round prediction outcomes
 
-            foreach ($userPoints as $userId => $points) {
+                foreach ($userPoints as $userId => $points) {
 
-                // Award user(s) who scored max points with bonus points
-                $bonusPoints = ($points == $maxPoints) ? $bonus : 0;
+                    // Award user(s) who scored max points with bonus points
+                    $bonusPoints = ($points == $maxPoints) ? $bonus : 0;
 
-                $outcome = new PredictionOutcome([
-                    'user_id'      => $userId,
-                    'round'        => $round,
-                    'points'       => $points,
-                    'bonus_points' => $bonusPoints,
-                    'total_points' => $points + $bonusPoints,
-                    'jokers_used'  => $userJokers [$userId],
-                    'season_id'    => $season->id,
-                ]);
-                $outcome->save();
+                    $outcome = new PredictionOutcome([
+                        'user_id'      => $userId,
+                        'round'        => $round,
+                        'points'       => $points,
+                        'bonus_points' => $bonusPoints,
+                        'total_points' => $points + $bonusPoints,
+                        'jokers_used'  => $userJokers [$userId],
+                        'season_id'    => $season->id,
+                    ]);
+                    $outcome->save();
+                }
             }
-        }
 
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 
     /**

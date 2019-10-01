@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\SeasonException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeletePredictionRequest;
 use App\Http\Requests\Admin\FilterScorersByGameRequest;
@@ -32,10 +33,17 @@ class PredictionController extends Controller
         $this->predictions = $predictions;
     }
 
-
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws SeasonException
+     */
     public function dashboard()
     {
         $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+
         $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
 
         return view('admin.predictions.dashboard', compact('season', 'rounds'));
@@ -275,11 +283,16 @@ class PredictionController extends Controller
      */
     public function setPredictionOutcomesForRoundInActiveSeason($round)
     {
-        $this->predictions->setPredictionOutcomesForRoundInActiveSeason($round);
+        $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+
+        $this->predictions->setPredictionOutcomesForRound($round, $season);
         flash()->success(__('requests.admin.prediction.successful_set_prediction_outcomes_for_round_in_active_season', [
             'round' => $round
         ]));
-        return redirect()->route('results.round', ['season' => Season::active()->id, 'round' => $round]);
+        return redirect()->route('results.round', ['season' => $season->id, 'round' => $round]);
     }
 
 }
