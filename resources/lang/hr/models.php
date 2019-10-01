@@ -96,4 +96,11 @@ return [
     'results' => [
         'overall' => 'Ukupni poredak'
     ],
+
+    'users' => [
+        'user' => [
+            'name'       => 'Član',
+            'collection' => 'Članovi',
+        ],
+    ],
 ];

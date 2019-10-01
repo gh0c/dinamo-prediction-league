@@ -2,11 +2,14 @@
 
 return [
     'navbar' => [
-        'admin' => [
+        'admin'       => [
             '_label' => 'Admin',
         ],
-        'mod' => [
+        'mod'         => [
             '_label' => 'Mod',
+        ],
+        'super_admin' => [
+            '_label' => 'SA',
         ],
     ],
 ];

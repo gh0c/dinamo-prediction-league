@@ -92,6 +92,27 @@
 
                     @endif
 
+                        @if(Auth::user()->is_super_admin)
+
+                            <li class="nav-item dropdown {{ request()->routeIs('super-admin.*')  ? 'active' : '' }}">
+                                <a id="superAdminNavbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('layout.navbar.super_admin._label') }}
+                                    <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="superAdminNavbarDropdown">
+
+                                    <a class="dropdown-item {{ request()->routeIs('super-admin.users.*')  ? 'active' : '' }}"
+                                       href="{{ route('super-admin.users.index') }}">
+                                        {{ __('models.users.user.collection') }}
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        @endif
+
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
