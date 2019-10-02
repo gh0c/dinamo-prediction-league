@@ -12,7 +12,7 @@
 
                 <h3>{{ __('forms.admin.seasons._headings.update') }}</h3>
 
-                {!! Form::model($season, ['method' => 'PATCH', 'route' => ['admin.seasons.update', 'season' => $season->id]]) !!}
+                {!! Form::model($season, ['method' => 'PATCH', 'route' => ['admin.seasons.update', 'season' => $season->id], 'class' => 'was-validated']) !!}
 
                 @include('admin.seasons.form')
 
