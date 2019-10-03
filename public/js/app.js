@@ -36774,6 +36774,7 @@ function ajaxCall(url, params) {
       method: 'POST',
       data: params
     }).done(function (response) {
+      handleAjaxResponse(response);
       resolve(response);
     }).fail(function (jqXHR) {
       if (jqXHR['responseJSON'] && jqXHR['responseJSON']['error']) {
@@ -36781,6 +36782,17 @@ function ajaxCall(url, params) {
       }
     });
   });
+}
+
+function handleAjaxResponse(response) {
+  if (response['message']) {
+    $.toast({
+      type: 'success',
+      important: false,
+      title: null,
+      content: response['message']
+    });
+  }
 }
 
 function handleAjaxError(error) {
@@ -36965,12 +36977,13 @@ module.exports.escapeRegEx = escapeRegEx;
   $.toast = function (opts) {
     var important = opts['important'] || false,
         html,
+        headerHtml,
         bgHeaderClass = '',
         fgHeaderClass = '',
-        title = opts['title'] || 'Error!',
-        content = opts['content'] || '',
-        type = opts['type'] || 'info',
-        delay = opts['delay'] || 5000;
+        title = typeof opts['title'] === 'undefined' ? 'Error' : opts['title'],
+        content = typeof opts['content'] === 'undefined' ? '' : opts['content'],
+        type = typeof opts['type'] === 'undefined' ? 'info' : opts['type'],
+        delay = typeof opts['delay'] === 'undefined' ? 5000 : opts['delay'];
 
     switch (type) {
       case 'info':
@@ -36996,7 +37009,13 @@ module.exports.escapeRegEx = escapeRegEx;
         break;
     }
 
-    html = '<div class="toast-header ' + bgHeaderClass + '">' + '<span class="mr-auto ' + fgHeaderClass + '">' + title + '</span>' + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>' + '<div class="toast-body">' + content + '</div>';
+    if (title === null) {
+      headerHtml = '<div class="toast-header ' + bgHeaderClass + '">' + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>';
+    } else {
+      headerHtml = '<div class="toast-header ' + bgHeaderClass + '">' + '<span class="mr-auto ' + fgHeaderClass + '">' + title + '</span>' + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>';
+    }
+
+    html = headerHtml + '<div class="toast-body">' + content + '</div>';
 
     if (important === true) {
       html = '<div class="toast bg-light ml-auto mt-3 mr-2" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">' + html + '</div>';

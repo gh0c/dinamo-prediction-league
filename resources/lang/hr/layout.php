@@ -11,5 +11,8 @@ return [
         'super_admin' => [
             '_label' => 'SA',
         ],
+        'profile'     => [
+            '_label' => 'Profil',
+        ],
     ],
 ];

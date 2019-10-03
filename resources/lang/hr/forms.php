@@ -197,15 +197,42 @@ return [
     ],
     'super_admin' => [
         'users' => [
-            '_submit'   => 'Spremi',
-            '_headings' => [
+            '_submit'                   => 'Spremi',
+            '_headings'                 => [
                 'create'              => 'Dodaj novog člana',
                 'store'               => 'Spremi novog člana',
                 'update'              => 'Uredi postojećeg člana',
                 'destroy'             => 'Izbriši člana',
-                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranog člana?'
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranog člana?',
+                'change_password'     => 'Promijeni lozinku',
+            ],
+            'password'                  => [
+                'label' => 'Lozinka',
+            ],
+            'new_password'              => [
+                'label' => 'Nova lozinka',
+            ],
+            'new_password_confirmation' => [
+                'label' => 'Potvrdi novu lozinku',
             ],
         ],
+    ],
+    'profile'     => [
+        'change_password' => [
+            '_submit'                   => 'Promijeni',
+            '_headings'                 => [
+                'change' => 'Promjena lozinke'
+            ],
+            'old_password'              => [
+                'label' => 'Trenutna lozinka'
+            ],
+            'new_password'              => [
+                'label' => 'Nova lozinka',
+            ],
+            'new_password_confirmation' => [
+                'label' => 'Potvrdi novu lozinku',
+            ],
+        ]
     ],
 
     '_modals' => [

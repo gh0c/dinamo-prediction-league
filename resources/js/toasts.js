@@ -6,13 +6,13 @@
     $.toast = function (opts) {
 
         let important = opts['important'] || false,
-            html,
+            html, headerHtml,
             bgHeaderClass = '',
             fgHeaderClass = '',
-            title = opts['title'] || 'Error!',
-            content = opts['content'] || '',
-            type = opts['type'] || 'info',
-            delay = opts['delay'] || 5000;
+            title = (typeof opts['title'] === 'undefined') ? 'Error' : opts['title'],
+            content = (typeof opts['content'] === 'undefined') ? '' : opts['content'],
+            type = (typeof opts['type'] === 'undefined') ? 'info' : opts['type'],
+            delay = (typeof opts['delay'] === 'undefined') ? 5000 : opts['delay'];
 
         switch (type) {
             case 'info':
@@ -38,14 +38,24 @@
                 break;
         }
 
-        html = '<div class="toast-header ' + bgHeaderClass + '">'
+        if (title === null) {
+            headerHtml = '<div class="toast-header ' + bgHeaderClass + '">'
+                + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'
+                + '<span aria-hidden="true">&times;</span>'
+                + '</button>'
+                + '</div>';
+        } else {
+            headerHtml = '<div class="toast-header ' + bgHeaderClass + '">'
             + '<span class="mr-auto ' + fgHeaderClass + '">'
             + title
             + '</span>'
             + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'
             + '<span aria-hidden="true">&times;</span>'
             + '</button>'
-            + '</div>'
+            + '</div>';
+        }
+
+        html = headerHtml
 
             + '<div class="toast-body">'
             + content

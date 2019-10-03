@@ -7,6 +7,7 @@ function ajaxCall(url, params) {
             data: params
         }).done(response => {
 
+            handleAjaxResponse(response);
             resolve(response);
 
         }).fail(jqXHR => {
@@ -18,6 +19,17 @@ function ajaxCall(url, params) {
         });
     });
 
+}
+
+function handleAjaxResponse(response) {
+    if (response['message']) {
+        $.toast({
+            type: 'success',
+            important: false,
+            title: null,
+            content: response['message'],
+        });
+    }
 }
 
 function handleAjaxError(error) {

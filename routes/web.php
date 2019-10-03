@@ -27,6 +27,9 @@ Auth::routes(['reset' => false]);
 
 Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 
+// Require profile routes
+include_once __DIR__ . '/web/profile.php';
+
 // Require admin routes
 include_once __DIR__ . '/web/admin.php';
 include_once __DIR__ . '/web/mod.php';

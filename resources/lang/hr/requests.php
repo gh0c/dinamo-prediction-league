@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'admin' => [
+    'admin'       => [
         'competition'      => [
             'store'              => 'Greška kod spremanja novog natjecanja.',
             'update'             => 'Greška kod uređivanja postojećeg natjecanja.',
@@ -42,7 +42,7 @@ return [
         ],
 
     ],
-    'mod'   => [
+    'mod'         => [
         'game'   => [
             'store'              => 'Greška kod spremanja nove utakmice.',
             'update'             => 'Greška kod uređivanja postojeće utakmice.',
@@ -72,4 +72,21 @@ return [
             'successful_destroy' => 'Klub <strong>:team</strong> uspješno isbrisan.',
         ],
     ],
+    'super_admin' => [
+        'user' => [
+            'store'                      => 'Greška kod spremanja novog korisnika.',
+            'update'                     => 'Greška kod uređivanja postojećeg korisnika.',
+            'delete'                     => 'Greška kod brisanja postojećeg korisnika.',
+            'successful_store'           => 'Korisnik <strong>:username</strong> uspješno pohranjen.',
+            'successful_update'          => 'Promjene na korisniku <strong>:username</strong> uspješno pohranjene.',
+            'successful_destroy'         => 'Korisnik <strong>:username</strong> uspješno isbrisan.',
+            'change_password'            => 'Greška kod promjene lozinke.',
+            'successful_password_change' => 'Promjena lozinke uspješna za korisnika <strong>:username</strong>.',
+        ],
+    ],
+    'profile'     => [
+        'change_password'            => 'Greška kod promjene lozinke.',
+        'password_change_mismatch'   => 'Neispravna trenutna lozinka.',
+        'successful_password_change' => 'Promjena lozinke uspješna.',
+    ]
 ];

@@ -135,6 +135,11 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth', 'role:super_ad
 
     Route::resource('users', 'SuperAdmin\UserController');
 
+    Route::post('users/change-password', [
+       'uses' => 'SuperAdmin\UserController@changePassword',
+        'as' => 'users.change-password'
+    ]);
+
 });
 
 
