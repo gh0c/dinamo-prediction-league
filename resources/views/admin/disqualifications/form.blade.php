@@ -37,5 +37,3 @@
 
     <a href="{{ route('admin.disqualifications.index') }}" class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
-
-
