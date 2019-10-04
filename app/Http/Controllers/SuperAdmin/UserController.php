@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Requests\SuperAdmin\ChangeUserPasswordRequest;
+use App\Http\Requests\SuperAdmin\UpdateUserRequest;
 use App\Models\Users\User;
+use App\Models\Users\UserSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -55,24 +57,52 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('super-admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  UpdateUserRequest $request
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->fill($request->all());
+        $user->save();
+
+        $this->setUserSetting($request, $user);
+
+        flash()->success(__('requests.super_admin.user.successful_update', [
+            'username' => $user->username,
+        ]));
+        return redirect()->route('super-admin.users.index');
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     */
+    protected function setUserSetting(Request $request, User $user)
+    {
+        $userSettingData = $request->input('userSetting');
+        if ($user->userSetting) {
+            $userSetting = $user->userSetting;
+            $userSetting->fill($userSettingData);
+            $userSetting->user()->associate($user);
+            $userSetting->save();
+        } else {
+            $userSetting = new UserSetting();
+            $userSetting->fill($userSettingData);
+            $userSetting->user()->associate($user);
+            $userSetting->save();
+        }
     }
 
     /**

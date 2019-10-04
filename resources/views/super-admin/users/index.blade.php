@@ -46,7 +46,7 @@
                             </td>
                             <td class="text-center">
                                 @if($user->userSetting)
-                                    @if($user->userSetting->is_mod)
+                                    @if($user->userSetting->is_moderator)
                                         <i class="fa fa-fw fa-check-circle"></i>
                                     @else
                                         <i class="fa fa-fw fa-circle-o"></i>
@@ -132,11 +132,11 @@
                     <div class="form-row">
                         <div class="form-group col-10 col-xl-8 offset-1 offset-xl-2">
                             <label for="new_password">{{ __('forms.super_admin.users.new_password.label') }}</label>
-                            {!! Form::password('new_password', ['class' => 'form-control','required' => true,]) !!}
+                            {!! Form::password('new_password', ['class' => 'form-control','required' => true, 'minlength' => 6]) !!}
                         </div>
                         <div class="form-group col-10 col-xl-8 offset-1 offset-xl-2">
                             <label for="new_password_confirmation">{{ __('forms.super_admin.users.new_password_confirmation.label') }}</label>
-                            {!! Form::password('new_password_confirmation', ['class' => 'form-control','required' => true,]) !!}
+                            {!! Form::password('new_password_confirmation', ['class' => 'form-control','required' => true, 'minlength' => 6]) !!}
                         </div>
                     </div>
                     <input type="hidden" name="user_for_password_change_id" id="user_for_password_change_id" value="0">

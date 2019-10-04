@@ -197,6 +197,20 @@ return [
     ],
     'super_admin' => [
         'users' => [
+            'username'                  => [
+                'label'       => 'Korisničko ime',
+                'placeholder' => 'Korisničko ime'
+            ],
+            'email'                     => [
+                'label'       => 'E-mail adresa',
+                'placeholder' => 'E-mail adresa'
+            ],
+            'is_admin'                  => [
+                'label' => 'Admin?',
+            ],
+            'is_moderator'              => [
+                'label' => 'Moderator?',
+            ],
             '_submit'                   => 'Spremi',
             '_headings'                 => [
                 'create'              => 'Dodaj novog člana',

@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserSetting extends Model
 {
+    protected $fillable = ['is_admin', 'is_moderator'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
