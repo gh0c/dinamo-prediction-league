@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Exceptions\SeasonException;
 use App\Models\Games\Season;
 use App\Models\Repositories\Predictions;
 use Illuminate\Contracts\View\View;
@@ -20,9 +21,16 @@ class ResultsComposer
         $this->predictions = $predictions;
     }
 
+    /**
+     * @param View $view
+     * @throws SeasonException
+     */
     public function personalStats(View $view)
     {
         $activeSeason = Season::active();
+        if (!$activeSeason) {
+            throw SeasonException::activeSeasonNotFound();
+        }
 
         $results = $this->predictions->getOverallResults($activeSeason);
 

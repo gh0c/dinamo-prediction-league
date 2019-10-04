@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 
 Route::get('/results/{season}/round/{round}', 'ResultsController@showRoundResults')

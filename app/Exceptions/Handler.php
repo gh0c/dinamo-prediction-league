@@ -48,9 +48,11 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof SeasonException) {
-            flash()->warning($exception->getMessage());
-            return redirect()->route('home');
+            return response()->view('errors.custom', ['message' => $exception->getMessage()]);
+        } elseif ($exception instanceof \ErrorException && $exception->getPrevious() instanceof SeasonException) {
+            return response()->view('errors.custom', ['message' => $exception->getPrevious()->getMessage()]);
         }
+
         return parent::render($request, $exception);
     }
 
