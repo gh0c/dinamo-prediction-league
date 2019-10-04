@@ -14,12 +14,10 @@
 
                     <div class="card-body">
                         <div class="list-group">
-                            <a href="{{ route('profile.change-password.form') }}" class="list-group-item list-group-item-action">
+                            <a href="{{ route('profile.change-password.form') }}"
+                               class="list-group-item list-group-item-action">
                                 {{ __('pages.profile.index.card_links.password_change.label') }}
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
                         </div>
                     </div>
                 </div>
