@@ -9,6 +9,7 @@ use App\Models\Predictions\PredictionOutcome;
 use DB;
 use Exception;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Predictions
@@ -198,7 +199,7 @@ class Predictions
             $predictions = Prediction::whereHas('game', function ($query) use ($round) {
                 /** @var Builder|\Illuminate\Database\Eloquent\Builder $query */
                 $query->where('round', '=', $round)->whereHas('result');
-            })->get();
+            })->with(['game.goalScorers.player', 'game.result'])->get();
 
             if ($predictions->isEmpty()) {
                 return;
@@ -225,7 +226,8 @@ class Predictions
             $userJokers = [];
 
             foreach ($predictions->groupBy('game_id') as $gameId => $gamePredictions) {
-                $game = Game::find($gameId);
+                /** @var Collection|Prediction[] $gamePredictions */
+                $game = $gamePredictions->first()->game; // Game::find($gameId);
 
                 if ($game->result) {
 
