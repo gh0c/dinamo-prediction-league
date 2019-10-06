@@ -2,6 +2,18 @@
 
 @section('page_title', __('models.users.user.collection'))
 
+@push('stylesheets')
+    <style>
+        .table > tbody > tr > * {
+            padding: .1rem;
+        }
+
+        .table > tbody > tr > td .btn-sm {
+            padding: .1rem .25rem;
+        }
+    </style>
+@endpush
+
 @section('content')
 
     <div class="container-fluid">

@@ -8,10 +8,11 @@
 
         <div class="row">
 
-            <div class="col-xs-12 col-md-4 mt-2 dashboard-sidebar-left">
+            <div class="col-xs-12 col-lg-4 mt-2 dashboard-sidebar-left">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i>&nbsp;{{ Auth::user()->username }}
+                        <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i>&nbsp;
+                        <h5 class="font-weight-bold d-inline">{{ Auth::user()->username }}</h5>
                     </div>
 
                     <ul class="list-group list-group-flush">
@@ -36,7 +37,7 @@
                     <div class="card-body">
                         <div class="list-group">
                             <a href="{{ route('profile.change-password.form') }}"
-                               class="list-group-item list-group-item-action">
+                               class="list-group-item py-1 list-group-item-action">
                                 {{ __('pages.profile.index.card_links.password_change.label') }}
                             </a>
                         </div>
