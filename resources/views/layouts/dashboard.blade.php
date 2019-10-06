@@ -7,13 +7,13 @@
         <div class="row">
             <div class="col-xs-12 col-lg-4 mt-2 dashboard-sidebar-left">
                 <div class="card">
-                    <div class="card-header text-center">{{ __('pages.profile.index.user_card._label') }}</div>
+                    <div class="card-header text-center">{{ Auth::user()->username }}</div>
 
-                    <div class="card-body container-fluid">
+                    <div class="card-body pt-0 container-fluid">
 
                         <div class="row">
                             <div class="col text-center font-weight-bold">
-                                {{ Auth::user()->username }}
+                                {{ __('pages.profile.index.user_card._label') }}
                             </div>
                         </div>
                         <div class="row border-top border-bottom">

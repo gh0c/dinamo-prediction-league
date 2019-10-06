@@ -14,6 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Find last round games exist for
+
         return view('home');
     }
 }
