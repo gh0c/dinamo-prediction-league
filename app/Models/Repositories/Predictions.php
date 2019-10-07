@@ -201,7 +201,8 @@ class Predictions
             ->groupBy('round')
             ->orderBy('round')
             ->select(['round', \DB::raw('COUNT(*) as games_per_round')])
-            ->get()->toArray();
+            ->get()
+            ->toArray();
     }
 
     /**

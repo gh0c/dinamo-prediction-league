@@ -12,7 +12,7 @@
                     <div class="card-body pt-0 container-fluid">
 
                         <div class="row">
-                            <div class="col font-weight-bold py-1">
+                            <div class="col font-weight-bold py-1 text-center">
                                 {{ __('pages.profile.index.user_card._label') }}
                             </div>
                         </div>
@@ -48,16 +48,16 @@
 
                             @else
                                 @if($personalStats['disqualification'])
-                                    <span class="col-12 pt-2 font-weight-bold text-danger">
+                                    <span class="col-12 pt-2 font-weight-bold text-danger text-center">
                                         <i class="fa fa-fw fa-exclamation-triangle"></i>&nbsp;
                                         {{ __('pages.profile.index.disqualified') }}
                                     </span>
-                                    <span class="col-12 py-1">
+                                    <span class="col-12 py-1 text-center">
                                         {{ __('pages.profile.index.disqualification_reason') }}:&nbsp;
                                         {{ __('models.predictions.disqualification_reason._values.' . $personalStats['disqualification']->reason) }}
                                     </span>
                                 @else
-                                    <span class="col-12 py-2">
+                                    <span class="col-12 py-2 text-center">
                                         <i class="fa fa-fw fa-exclamation-triangle text-warning"></i>&nbsp;
                                         {{ __('pages.profile.index.no_stats') }}
                                     </span>

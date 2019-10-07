@@ -2,6 +2,9 @@
 
 return [
     'navbar' => [
+        'home'        => [
+            '_label' => 'Početna',
+        ],
         'admin'       => [
             '_label' => 'Admin',
         ],
