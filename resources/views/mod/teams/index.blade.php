@@ -10,7 +10,7 @@
 
             @foreach($teams->groupBy('sport') as $teamsBySport)
 
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 offset-lg-3">
 
                     <table class="table table-sm table-hover table-middle-aligned-cells">
                         <thead class="thead-dark">

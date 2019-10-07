@@ -3,22 +3,25 @@
 return [
     'profile' => [
         'index' => [
-            'title'      => 'Moj profil - :username',
-            'user_card'  => [
-                'admin' => 'Admin',
-                'mod'   => 'Mod',
-                '_label' => 'Aktualna sezona',
-                'ranking' => [
+            'title'                   => 'Moj profil - :username',
+            'user_card'               => [
+                'admin'            => 'Admin',
+                'mod'              => 'Mod',
+                '_label'           => 'Aktualna sezona',
+                'ranking'          => [
                     '_label' => 'Poredak',
                 ],
-                'points' => [
+                'points'           => [
                     '_label' => 'Bodovi',
                 ],
                 'remaining_jokers' => [
                     '_label' => 'Preostalo jokera',
                 ],
             ],
-            'card_links' => [
+            'no_stats'                => 'Nema rezultata za aktualnu sezonu',
+            'disqualified'            => 'Diskvalificirani ste za aktualnu sezonu',
+            'disqualification_reason' => 'Razlog diskvalifikacije',
+            'card_links'              => [
                 'password_change' => [
                     'label' => 'Promjena lozinke',
                 ],

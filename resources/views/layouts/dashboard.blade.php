@@ -12,7 +12,7 @@
                     <div class="card-body pt-0 container-fluid">
 
                         <div class="row">
-                            <div class="col text-center font-weight-bold">
+                            <div class="col font-weight-bold py-1">
                                 {{ __('pages.profile.index.user_card._label') }}
                             </div>
                         </div>
@@ -47,7 +47,21 @@
                                 </div>
 
                             @else
-                                -Nema statsa
+                                @if($personalStats['disqualification'])
+                                    <span class="col-12 pt-2 font-weight-bold text-danger">
+                                        <i class="fa fa-fw fa-exclamation-triangle"></i>&nbsp;
+                                        {{ __('pages.profile.index.disqualified') }}
+                                    </span>
+                                    <span class="col-12 py-1">
+                                        {{ __('pages.profile.index.disqualification_reason') }}:&nbsp;
+                                        {{ __('models.predictions.disqualification_reason._values.' . $personalStats['disqualification']->reason) }}
+                                    </span>
+                                @else
+                                    <span class="col-12 py-2">
+                                        <i class="fa fa-fw fa-exclamation-triangle text-warning"></i>&nbsp;
+                                        {{ __('pages.profile.index.no_stats') }}
+                                    </span>
+                                @endif
                             @endunless
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Models\Games\Game;
 use App\Models\Games\Season;
 use App\Models\Predictions\Prediction;
 use App\Models\Predictions\PredictionOutcome;
+use App\Models\Users\User;
 use DB;
 use Exception;
 use Illuminate\Database\Query\Builder;
@@ -139,6 +140,41 @@ class Predictions
             ]);
 
         return $results;
+
+    }
+
+    /**
+     * @param User $user
+     * @param Season $season
+     * @return array|mixed
+     */
+    public function getOverallScoreAndPositionForUser($user, $season)
+    {
+        $results = $this->getOverallResults($season);
+
+        // Find grouped outcomes for user (overall score)
+        $overallScore = $results->first(function ($result) use ($user) {
+            /** @var $result \App\Models\Predictions\PredictionOutcome */
+            return $result->user_id == $user->id;
+        });
+
+        if ($overallScore === null) {
+
+            return [null, null];
+
+        } else {
+            // Find position
+            $position = $results->search(function ($result) {
+                /** @var $result \App\Models\Predictions\PredictionOutcome */
+                return $result->user_id == \Auth::user()->id;
+            });
+
+            if ($position !== false) {
+                $position++; // collection is 0-indexed
+            }
+
+            return [$overallScore, $position];
+        }
 
     }
 
