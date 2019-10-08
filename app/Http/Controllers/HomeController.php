@@ -6,6 +6,7 @@ use App\Exceptions\SeasonException;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
 use App\Models\Repositories\Predictions;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -27,6 +28,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      * @throws SeasonException
+     * @throws \Exception
      */
     public function index()
     {
@@ -34,7 +36,6 @@ class HomeController extends Controller
         if (!$season) {
             throw SeasonException::activeSeasonNotFound();
         }
-
 
         $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
 
@@ -54,8 +55,17 @@ class HomeController extends Controller
             ->orderBy('datetime')
             ->get();
 
-        dump(\Carbon\Carbon::now()->diffInMinutes($games->first()->datetime));
-        dd(\Carbon\Carbon::now()->diffInMinutes($games->first()->datetime) > config('predictions.locking_time'));
+        /** @var Game $firstGame ordered by datetime */
+        $firstGame = $games->first();
+
+        // If there's less than N (e.g. 60) minutes between now and the first game of the round, predictions are not allowed
+        $predictionsForLastRoundEnabled = Carbon::now()->diffInMinutes($firstGame->datetime, false) > config('predictions.locking_time');
+
+        if ($predictionsForLastRoundEnabled) {
+            $nextRound = ['round' => $lastRound, 'games' => $games];
+
+            return view('home', compact('nextRound', 'predictionsForLastRoundEnabled'));
+        }
 
 //        if (\Carbon\Carbon::now()->diffInMinutes($games->first()->datetime)
 

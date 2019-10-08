@@ -28,4 +28,12 @@ return [
             ],
         ],
     ],
+
+    'dashboard' => [
+        'next_round' => [
+            'card' => [
+                '_label' => 'Sljedeće kolo',
+            ],
+        ],
+    ],
 ];
