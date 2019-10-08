@@ -201,6 +201,15 @@ class PredictionController extends Controller
     }
 
     /**
+     * @param Prediction $prediction
+     * @return \Illuminate\Http\Response
+     */
+    public function editForActiveSeason(Prediction $prediction)
+    {
+        return $this->editForSeason(Season::active(), $prediction);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  UpdatePredictionRequest $request

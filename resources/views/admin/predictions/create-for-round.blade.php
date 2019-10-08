@@ -7,7 +7,7 @@
     <div class="container">
 
         {!! Form::open(['route' => [
-            'admin.predictions.seasons.rounds.store', 'season' => $season->id, 'round' => $round
+            'admin.predictions.rounds.store', 'round' => $round
         ], 'class' => 'was-validated']) !!}
 
         <div class="row">

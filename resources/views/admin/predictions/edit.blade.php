@@ -13,7 +13,7 @@
                 <h3>{{ __('forms.admin.predictions._headings.update') }}</h3>
 
                 {!! Form::model($prediction, ['method' => 'PATCH', 'route' => [
-                    'admin.predictions.seasons.update', 'season' => $season->id, 'prediction' => $prediction->id
+                    'admin.predictions.update', 'prediction' => $prediction->id
                 ], 'class' => 'was-validated']) !!}
 
                 @include('admin.predictions.form')

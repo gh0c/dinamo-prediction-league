@@ -12,7 +12,7 @@
 
                 <h3>{{ __('forms.admin.predictions._headings.store') }}</h3>
 
-                {!! Form::open(['route' => ['admin.predictions.seasons.store', 'season' => $season->id], 'class' => 'was-validated']) !!}
+                {!! Form::open(['route' => 'admin.predictions.store', 'class' => 'was-validated']) !!}
 
                 @include('admin.predictions.form')
 

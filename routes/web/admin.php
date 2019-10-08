@@ -78,14 +78,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super_admin,ad
 
 
     // Store
-    Route::post('predictions/season/{season}', [
-        'uses' => 'Admin\PredictionController@storeForSeason',
-        'as'   => 'predictions.seasons.store',
+    Route::post('predictions/', [
+        'uses' => 'Admin\PredictionController@store',
+        'as'   => 'predictions.store',
     ]);
 
-    Route::post('predictions/season/{season}/round/{round}', [
-        'uses' => 'Admin\PredictionController@storeForRoundForSeason',
-        'as'   => 'predictions.seasons.rounds.store',
+    Route::post('predictions/round/{round}', [
+        'uses' => 'Admin\PredictionController@storeForRound',
+        'as'   => 'predictions.rounds.store',
     ]);
 
 
@@ -103,9 +103,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super_admin,ad
 
 
     // Update
-    Route::post('predictions/season/{season}/{prediction}', [
-        'uses' => 'Admin\PredictionController@updateForSeason',
-        'as'   => 'predictions.seasons.update',
+    Route::patch('predictions/{prediction}', [
+        'uses' => 'Admin\PredictionController@update',
+        'as'   => 'predictions.update',
     ]);
 
 
