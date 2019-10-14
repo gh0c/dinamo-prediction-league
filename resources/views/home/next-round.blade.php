@@ -5,54 +5,32 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-sm">
-            <tbody>
 
+        <ul class="list-group">
             @foreach($round['games'] as $game)
-                <tr>
-                    <td>{{ $game->datetime->format('d.m.Y. H:i') }}</td>
+                <li class="list-group-item">
 
-                    <td>
-                        @if($game->homeTeam)
-                            <span>
-                                @if($game->homeTeam->featured_image)
-                                    <img src="{{ $game->homeTeam->logoThumbnailUrl() }}"
-                                         style="width: 22px; height: 22px; object-fit: contain"
-                                         alt="{{ $game->homeTeam->name }}"
-                                         class="img-fluid m-auto">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-xl-4 text-center">
+                                {{ $game->datetime->format('d.m.Y. H:i') }}
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                @if($game->homeTeam)
+                                    @include('home.display-partials.team', ['team' => $game->homeTeam])
                                 @endif
-                            </span>
-                            <span class="ml-1">{{ $game->homeTeam->name }}</span>
-                        @endif
-                    </td>
-
-                    <td>
-                        @if($game->awayTeam)
-                            <span>
-                                @if($game->awayTeam->featured_image)
-                                    <img src="{{ $game->awayTeam->logoThumbnailUrl() }}"
-                                         style="width: 22px; height: 22px; object-fit: contain"
-                                         alt="{{ $game->awayTeam->name }}"
-                                         class="img-fluid m-auto">
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                @if($game->awayTeam)
+                                    @include('home.display-partials.team', ['team' => $game->awayTeam])
                                 @endif
-                            </span>
-                            <span class="ml-1">{{ $game->awayTeam->name }}</span>
-                        @endif
-                    </td>
+                            </div>
+                        </div>
+                    </div>
 
-                    <td>
-                        @if($game->result)
-                            @if(!is_null($game->result->home_team_score) && !is_null($game->result->away_team_score))
-                                <span>{{ $game->result->home_team_score }}:{{ $game->result->away_team_score }}</span>
-                            @endif
-                        @endif
-                    </td>
-
-                </tr>
+                </li>
             @endforeach
+        </ul>
 
-
-            </tbody>
-        </table>
     </div>
 </div>

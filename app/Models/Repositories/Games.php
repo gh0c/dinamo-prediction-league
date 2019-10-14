@@ -33,6 +33,19 @@ class Games
     }
 
     /**
+     * @param  int|string $round
+     * @param  Season $season
+     * @return Game[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection
+     */
+    public function loadGamesForRoundForSeason($round, $season)
+    {
+        return Game::whereSeasonId($season->id)->where('round', $round)
+            ->with(['homeTeam', 'awayTeam', 'season', 'competition'])
+            ->orderBy('datetime')->orderBy('competition_id')
+            ->get();
+    }
+
+    /**
      * @return array
      */
     public function loadPlayers()
@@ -62,7 +75,7 @@ class Games
     }
 
     /**
-     * @param Collection|Games[] $games
+     * @param  Collection|Games[] $games
      * @return array
      */
     private function composeGamesGroupedByRound($games)
@@ -82,7 +95,7 @@ class Games
     }
 
     /**
-     * @param Collection|Player[] $players
+     * @param  Collection|Player[] $players
      * @return array
      */
     private function composePlayersForOutput($players)
