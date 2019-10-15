@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container-fluid text-center">
-        {!! Html::image('/img/dinamo-predictor-banner.jpg', 'Banner', ['class' => 'img-fluid']) !!}
+        <a href="{{ route('home') }}">
+            {!! Html::image('/img/dinamo-predictor-banner.jpg', 'Banner', ['class' => 'img-fluid']) !!}
+        </a>
     </div>
 @endsection
