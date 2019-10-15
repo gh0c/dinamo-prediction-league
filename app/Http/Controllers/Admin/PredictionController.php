@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeletePredictionRequest;
@@ -118,13 +119,15 @@ class PredictionController extends Controller
      * @param  Season $season
      * @param  int $round
      * @return \Illuminate\Http\Response
+     * @throws GameException
      */
     public function createForRoundForSeason(Season $season, $round)
     {
-        $games = Game::whereRound($round)
-            ->where('season_id', '=', $season->id)
-            ->orderBy('datetime')
-            ->get();
+        $games = $this->games->loadGamesForRoundForSeason($round, $season);
+
+        if ($games->isEmpty()) {
+            throw GameException::noGamesFoundForRound();
+        }
 
         return view('admin.predictions.create-for-round', compact('games', 'season', 'round'));
     }
@@ -132,6 +135,7 @@ class PredictionController extends Controller
     /**
      * @param  int $round
      * @return \Illuminate\Http\Response
+     * @throws GameException
      */
     public function createForRoundForActiveSeason($round)
     {

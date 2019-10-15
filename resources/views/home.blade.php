@@ -3,27 +3,31 @@
 @section('dashboard-content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 py-1">
+            <div class="col py-1">
+                @if(empty($nextRounds) && empty($currentRound) && empty($previousRounds))
+                    {{ __('pages.dashboard.no_rounds_for_season._label') }}
+                @else
 
-                @if(isset($nextRound))
+                    @if(!empty($previousRounds))
 
-                    @include('home.next-round', ['round' => $nextRound])
+                        @include('home.previous-rounds', ['rounds' => $previousRounds])
+
+                    @endif
+
+                    @if(!empty($currentRound))
+
+                        @include('home.current-round', ['roundDetails' => $currentRound])
+
+                    @endif
+
+                    @if(!empty($nextRounds))
+
+                        @include('home.next-rounds', ['rounds' => $nextRounds])
+
+                    @endif
 
                 @endif
 
-                <div class="card">
-                    <div class="card-header">{{ __('pages.profile.index.user_card._label') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are logged in!
-                    </div>
-                </div>
             </div>
         </div>
     </div>

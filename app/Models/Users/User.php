@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Games\Game;
 use App\Models\Predictions\Prediction;
 use App\Models\Predictions\PredictionOutcome;
 use Illuminate\Notifications\Notifiable;
@@ -108,5 +109,14 @@ class User extends Authenticatable
     public function getIsModAttribute()
     {
         return $this->userSetting && $this->userSetting->is_moderator;
+    }
+
+    /**
+     * @param Game $game
+     * @return bool
+     */
+    public function hasPredictionForGame($game)
+    {
+        return $this->predictions()->where('game_id', '=', $game->id)->count() > 0;
     }
 }

@@ -54,6 +54,8 @@ return [
                 'update'            => 'Greška kod spremanja rezultata utakmice',
                 'successful_update' => 'Rezultat utakmice <strong>:home_team - :away_team</strong> uspješno pohranjen.',
             ],
+
+            'games_not_found_for_round' => 'Ne postoje utakmice za odabrano kolo!',
         ],
         'player' => [
             'store'              => 'Greška kod spremanja novog igrača.',

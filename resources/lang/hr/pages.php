@@ -30,9 +30,22 @@ return [
     ],
 
     'dashboard' => [
-        'next_round' => [
+        'no_rounds_for_season' => [
+            '_label' => 'Nema kola za aktualnu sezonu'
+        ],
+        'next_round'           => [
             'card' => [
                 '_label' => 'Sljedeće kolo',
+            ],
+        ],
+        'current_round'        => [
+            'card' => [
+                '_label' => 'Aktualno kolo',
+            ],
+        ],
+        'previous_round'       => [
+            'card' => [
+                '_label' => 'Prošlo kolo',
             ],
         ],
     ],

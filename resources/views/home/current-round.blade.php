@@ -1,13 +1,13 @@
 <div class="card">
     <div class="card-header text-center">
-        {{ __('pages.dashboard.next_round.card._label') }}
-        - {{ $round['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
+        {{ __('pages.dashboard.previous_round.card._label') }}
+        - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
     </div>
 
     <div class="card-body">
 
         <ul class="list-group">
-            @foreach($round['games'] as $game)
+            @foreach($roundDetails['games'] as $game)
                 <li class="list-group-item">
 
                     <div class="container-fluid">

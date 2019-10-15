@@ -41,17 +41,6 @@ class HomeController extends Controller
             throw SeasonException::activeSeasonNotFound();
         }
 
-        $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
-
-        if (empty($rounds)) {
-
-            // TODO - implement
-            return false;
-
-        }
-
-        dd($rounds);
-
         // Determine and group rounds
         // a) Next round(s)
         // b) current round
@@ -65,49 +54,64 @@ class HomeController extends Controller
         // c) All games have result set
         $previousRounds = [];
 
-        $round = end($rounds)['round'];
-//
-//        do {
-//
-//        } while ($round = prev($));
-//
-//        while ()
 
+        $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
 
-
-        $kola = [1,2,3,4,5];
-
-        dump(end($kola));
-        dump(prev($kola));
-        dump(prev($kola));
-        dump(prev($kola));
-        dump(prev($kola));
-        dump(prev($kola));
-        dd(prev($kola));
-
-        // Find the last round games exist for
-        $lastRound = end($rounds)['round'];
-
-        // Fetch the games for it
-        $games = $this->games->loadGamesForRoundForSeason($round, $season);
-
-        /** @var Game $firstGame ordered by datetime */
-        $firstGame = $games->first();
-
-        // If there's less than N (e.g. 60) minutes between now and the first game of the round, predictions are not allowed
-        $predictionsForLastRoundEnabled = Carbon::now()->diffInMinutes($firstGame->datetime, false) > config('predictions.locking_time');
-
-        if ($predictionsForLastRoundEnabled) {
-            $nextRound = ['round' => $lastRound, 'games' => $games];
-
-            return view('home', compact('nextRound', 'predictionsForLastRoundEnabled'));
+        if (empty($rounds)) {
+            // Return view right away
+            return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
         }
 
-//        if (\Carbon\Carbon::now()->diffInMinutes($games->first()->datetime)
 
-        dd($games);
+        // Iterate through all the rounds as long as number of rounds flagged as "previous" is not >=2
 
+        // Round info will be an array structure like:
 
-        return view('home');
+        // array:2 [
+        //  "round" => 12
+        //  "games_per_round" => 3
+        //]
+
+        $roundInfo = end($rounds);
+
+        do {
+            $round = $roundInfo['round'];
+
+            // Fetch the games for the round
+            $games = $this->games->loadGamesForRoundForSeason($round, $season);
+
+            // Compose round details
+            $roundDetails = [
+                'round' => $round,
+                'games' => $games,
+            ];
+
+            // Games are ordered by the datetime
+
+            /** @var Game $firstGame */
+            $firstGame = $games->first();
+            /** @var Game $lastGame */
+            $lastGame = $games->last();
+
+            // Check if predictions for the round are still open
+            // If there's less than 60 minutes between now and the first game of the round, predictions are not allowed
+
+            // Pass "false" as the 2nd argument to diffInMinutes() method not to get absolute values
+            $predictionsOpen = Carbon::now()->diffInMinutes($firstGame->datetime, false) > config('predictions.locking_time');
+
+            if ($predictionsOpen) {
+                $nextRounds[] = $roundDetails;
+            } else {
+                if (!$lastGame->result) {
+                    $currentRound = $roundDetails;
+                } else {
+                    $previousRounds[] = $roundDetails;
+                }
+            }
+
+        } while (($roundInfo = prev($rounds)) !== false && sizeof($previousRounds) < 2);
+
+        return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
+
     }
 }
