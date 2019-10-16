@@ -16,12 +16,22 @@
                                 <div class="col-12 col-xl-4 text-center">
                                     {{ $game->datetime->format('d.m.Y. H:i') }}
                                 </div>
-                                <div class="col-6 col-xl-4">
+                                <div class="col-5 col-xl-4">
                                     @if($game->homeTeam)
                                         @include('home.display-partials.team', ['team' => $game->homeTeam])
                                     @endif
                                 </div>
-                                <div class="col-6 col-xl-4">
+                                <div class="col-1">
+                                    @if($game->result)
+                                        <span>{{ $game->result->home_team_score }}</span>
+                                    @endif
+                                </div>
+                                <div class="col-1">
+                                    @if($game->result)
+                                        <span>{{ $game->result->away_team_score }}</span>
+                                    @endif
+                                </div>
+                                <div class="col-5 col-xl-4">
                                     @if($game->awayTeam)
                                         @include('home.display-partials.team', ['team' => $game->awayTeam])
                                     @endif
