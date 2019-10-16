@@ -8,23 +8,27 @@
                     {{ __('pages.dashboard.no_rounds_for_season._label') }}
                 @else
 
-                    @if(!empty($previousRounds))
+                    <div class="row">
+                        @if(!empty($nextRounds))
+                            <div class="col-12 col-lg-4 alert alert-info">
+                                @include('home.next-rounds', ['rounds' => $nextRounds])
+                            </div>
+                        @endif
 
-                        @include('home.previous-rounds', ['rounds' => $previousRounds])
+                        @if(!empty($currentRound))
+                            <div class="col-12 col-lg-4">
+                                @include('home.current-round', ['roundDetails' => $currentRound])
+                            </div>
 
-                    @endif
+                        @endif
 
-                    @if(!empty($currentRound))
+                        @if(!empty($previousRounds))
+                            <div class="col-12 col-lg-4">
+                                @include('home.previous-rounds', ['rounds' => $previousRounds])
+                            </div>
+                        @endif
+                    </div>
 
-                        @include('home.current-round', ['roundDetails' => $currentRound])
-
-                    @endif
-
-                    @if(!empty($nextRounds))
-
-                        @include('home.next-rounds', ['rounds' => $nextRounds])
-
-                    @endif
 
                 @endif
 

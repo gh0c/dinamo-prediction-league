@@ -7,6 +7,6 @@
     @endif
 </div>
 
-<div class="row">
+<div class="row text-center">
     <span class="font-weight-bold m-auto">{{ $team->name }}</span>
 </div>

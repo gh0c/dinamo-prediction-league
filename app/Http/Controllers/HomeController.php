@@ -43,13 +43,13 @@ class HomeController extends Controller
 
         // Determine and group rounds
         // a) Next round(s)
-        // b) current round
-        // c) previous round(s)
+        // b) Current round
+        // c) Previous round(s)
 
         // a) - The first game in the round hasn't started yet and predictions for it are still open
         $nextRounds = [];
         // b) - The first game in the round has started or predictions are closed
-        // and the last game in the round doesn't have result set yet
+        // and the last game in the round doesn't have a result set yet
         $currentRound = null;
         // c) All games have result set
         $previousRounds = [];
@@ -58,12 +58,12 @@ class HomeController extends Controller
         $rounds = $this->predictions->getRoundsWithGamesForSeason($season);
 
         if (empty($rounds)) {
-            // Return view right away
+            // Return the "home" view right away
             return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
         }
 
 
-        // Iterate through all the rounds as long as number of rounds flagged as "previous" is not >=2
+        // Iterate through all the rounds as long as the number of rounds flagged as "previous" is not >=2
 
         // Round info will be an array structure like:
 
@@ -110,6 +110,22 @@ class HomeController extends Controller
             }
 
         } while (($roundInfo = prev($rounds)) !== false && sizeof($previousRounds) < 2);
+
+        // Expected output looks like:
+
+        // Rounds
+
+        // Next round:      12
+        // Next round:      13
+        // Active round:    11
+        // Previous round:  10
+        // Previous round:  9
+
+        // To achieve this, reverse the order of next rounds
+
+        if (!empty($nextRounds)) {
+            $nextRounds = array_reverse($nextRounds);
+        }
 
         return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
 
