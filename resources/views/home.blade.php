@@ -22,7 +22,7 @@
 {{--                        @endif--}}
 
                         @if(!empty($previousRounds))
-                            <div class="col-12 col-lg-4 px-1">
+                            <div class="col-12 px-1">
                                 @include('home.previous-rounds', ['rounds' => $previousRounds])
                             </div>
                         @endif

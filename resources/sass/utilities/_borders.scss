@@ -1,0 +1,56 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .border#{$infix}-0 {
+      border: 0 !important;
+    }
+    .border-top#{$infix}-0 {
+      border-top: 0 !important;
+    }
+    .border-right#{$infix}-0 {
+      border-right: 0 !important;
+    }
+    .border-bottom#{$infix}-0 {
+      border-bottom: 0 !important;
+    }
+    .border-left#{$infix}-0 {
+      border-left: 0 !important;
+    }
+
+
+    .border#{$infix} {
+      border: $border-width solid $border-color !important;
+    }
+    .border-top#{$infix} {
+      border-top: $border-width solid $border-color !important;
+    }
+    .border-right#{$infix} {
+      border-right: $border-width solid $border-color !important;
+    }
+    .border-bottom#{$infix} {
+      border-bottom: $border-width solid $border-color !important;
+    }
+    .border-left#{$infix} {
+      border-left: $border-width solid $border-color !important;
+    }
+
+
+    .border#{$infix}-dashed {
+      border-style: dashed !important;
+    }
+    .border-top#{$infix}-dashed {
+      border-top-style: dashed !important;
+    }
+    .border-right#{$infix}-dashed {
+      border-right-style: dashed !important;
+    }
+    .border-bottom#{$infix}-dashed {
+      border-bottom-style: dashed !important;
+    }
+    .border-left#{$infix}-dashed {
+      border-left-style: dashed !important;
+    }
+
+  }
+}

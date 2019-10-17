@@ -68,8 +68,7 @@
                                     </td>
                                     <td>
                                         @if($prediction->joker_used)
-                                            <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/joker-61-563878.png"
-                                                 alt="" style="contain: content; width: 20px;">
+                                            {!! Html::image('/img/jester_32_neutral.png', 'Joker', ['style' => 'contain: content; width: 18px;']) !!}
                                         @else
                                             @if($prediction->firstScorer)
                                                 {{ $prediction->firstScorer->name }}

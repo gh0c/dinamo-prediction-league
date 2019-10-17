@@ -60,7 +60,7 @@ class RoleMiddleware
         }
 
         flash()->warning($message)->important();
-        return redirect()->back();
+        return redirect()->route('home');
     }
 
 

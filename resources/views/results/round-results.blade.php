@@ -62,8 +62,7 @@
                             </td>
                             <td>
                                 @for($i = 0; $i < $outcome->jokers_used; $i++)
-                                    <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/joker-61-563878.png"
-                                         alt="" style="contain: content; width: 18px;">
+                                    {!! Html::image('/img/jester_32.png', 'Joker', ['style' => 'contain: content; width: 18px;']) !!}
                                 @endfor
                             </td>
 
