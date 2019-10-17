@@ -1,48 +1,39 @@
 @foreach($rounds as $roundDetails)
-    <div class="card">
-        <div class="card-header text-center">
+
+    <ul class="list-group py-2">
+
+        <li class="list-group-item bg-primary text-white text-center">
             {{ __('pages.dashboard.next_round.card._label') }}
             - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
-        </div>
+        </li>
 
-        <div class="card-body">
+        @foreach($roundDetails['games'] as $game)
+            <li class="list-group-item py-1">
+                <div class="row align-items-center">
 
-            <ul class="list-group">
-                @foreach($roundDetails['games'] as $game)
-                    <li class="list-group-item">
+                    <div class="col-12 col-lg-2 text-center small">
+                        {{ $game->datetime->format('d.m.Y. H:i') }}
+                    </div>
 
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-xl-4 text-center">
-                                    {{ $game->datetime->format('d.m.Y. H:i') }}
-                                </div>
-                                <div class="col-5 col-xl-4">
-                                    @if($game->homeTeam)
-                                        @include('home.display-partials.team', ['team' => $game->homeTeam])
-                                    @endif
-                                </div>
-                                <div class="col-1">
-                                    @if($game->result)
-                                        <span>{{ $game->result->home_team_score }}</span>
-                                    @endif
-                                </div>
-                                <div class="col-1">
-                                    @if($game->result)
-                                        <span>{{ $game->result->away_team_score }}</span>
-                                    @endif
-                                </div>
-                                <div class="col-5 col-xl-4">
-                                    @if($game->awayTeam)
-                                        @include('home.display-partials.team', ['team' => $game->awayTeam])
-                                    @endif
-                                </div>
+                    <div class="col-12 col-lg-6">
+                        @include('home.display-partials.game', ['game' => $game])
+                    </div>
+
+                    {{-- Prediction --}}
+                    <div class="col-12 col-lg-4 pt-1 pt-lg-0 border-top border-top-dashed border-top-lg-0 border-left-lg border-left-lg-dashed">
+                        @if(Auth::user()->hasPredictionForGame($game))
+                            @include('home.display-partials.old-prediction', ['prediction' => Auth::user()->getPredictionForGame($game)])
+                        @else
+                            <div class="row ">
+                                <span class="col text-muted m-auto">
+                                    {{ __('pages.home.prediction.no_prediction._label') }}
+                                </span>
                             </div>
-                        </div>
+                        @endif
+                    </div>
+                </div>
+            </li>
+        @endforeach
+    </ul>
 
-                    </li>
-                @endforeach
-            </ul>
-
-        </div>
-    </div>
 @endforeach

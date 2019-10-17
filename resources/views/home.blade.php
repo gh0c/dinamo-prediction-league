@@ -9,11 +9,11 @@
                 @else
 
                     <div class="row">
-{{--                        @if(!empty($nextRounds))--}}
-{{--                            <div class="col-12 col-lg-4 alert alert-info">--}}
-{{--                                @include('home.next-rounds', ['rounds' => $nextRounds])--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                        @if(!empty($nextRounds))
+                            <div class="col-12 px-1">
+                                @include('home.next-rounds', ['rounds' => $nextRounds])
+                            </div>
+                        @endif
 
 {{--                        @if(!empty($currentRounds))--}}
 {{--                            <div class="col-12 col-lg-4">--}}

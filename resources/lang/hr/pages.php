@@ -57,6 +57,9 @@ return [
             ],
             'points' => [
                 '_label' => 'Bodovi:'
+            ],
+            'no_prediction' => [
+                '_label' => 'Nemaš prognozu za ovu utakmicu!'
             ]
         ]
     ]
