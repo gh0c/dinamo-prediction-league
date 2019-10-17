@@ -110,10 +110,10 @@ class HomeController extends Controller
             }
 
             // Rules: Show 2 previous rounds only if there are no next rounds and no current round
-        } while (($roundInfo = prev($rounds)) !== false /*&& (
+        } while (($roundInfo = prev($rounds)) !== false && (
             sizeof($previousRounds) < 1 ||
             (sizeof($previousRounds) < 2 && sizeof($currentRounds) && sizeof($nextRounds) == 0)
-        )*/);
+        ));
 
         // Expected output looks like:
 
