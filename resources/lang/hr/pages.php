@@ -49,4 +49,15 @@ return [
             ],
         ],
     ],
+
+    'home' => [
+        'prediction' => [
+            'prediction' => [
+                '_label' => 'Prognoza',
+            ],
+            'points' => [
+                '_label' => 'Bodovi:'
+            ]
+        ]
+    ]
 ];

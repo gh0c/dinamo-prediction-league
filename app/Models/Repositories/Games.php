@@ -40,7 +40,7 @@ class Games
     public function loadGamesForRoundForSeason($round, $season)
     {
         return Game::whereSeasonId($season->id)->where('round', $round)
-            ->with(['homeTeam', 'awayTeam', 'season', 'competition'])
+            ->with(['homeTeam', 'awayTeam', 'season', 'competition', 'result'])
             ->orderBy('datetime')->orderBy('competition_id')
             ->get();
     }

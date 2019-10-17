@@ -9,18 +9,17 @@
                 @else
 
                     <div class="row">
-                        @if(!empty($nextRounds))
-                            <div class="col-12 col-lg-4 alert alert-info">
-                                @include('home.next-rounds', ['rounds' => $nextRounds])
-                            </div>
-                        @endif
+{{--                        @if(!empty($nextRounds))--}}
+{{--                            <div class="col-12 col-lg-4 alert alert-info">--}}
+{{--                                @include('home.next-rounds', ['rounds' => $nextRounds])--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
 
-                        @if(!empty($currentRound))
-                            <div class="col-12 col-lg-4">
-                                @include('home.current-round', ['roundDetails' => $currentRound])
-                            </div>
-
-                        @endif
+{{--                        @if(!empty($currentRounds))--}}
+{{--                            <div class="col-12 col-lg-4">--}}
+{{--                                @include('home.current-rounds', ['rounds' => $currentRounds])--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
 
                         @if(!empty($previousRounds))
                             <div class="col-12 col-lg-4 px-1">

@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header text-center">
-        {{ __('pages.dashboard.previous_round.card._label') }}
+        {{ __('pages.dashboard.current_round.card._label') }}
         - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
     </div>
 

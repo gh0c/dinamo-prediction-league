@@ -117,6 +117,15 @@ class User extends Authenticatable
      */
     public function hasPredictionForGame($game)
     {
-        return $this->predictions()->where('game_id', '=', $game->id)->count() > 0;
+        return $this->predictions->where('game_id', '=', $game->id)->count() > 0;
+    }
+
+    /**
+     * @param Game $game
+     * @return Prediction
+     */
+    public function getPredictionForGame($game)
+    {
+        return $this->predictions->where('game_id', '=', $game->id)->first();
     }
 }

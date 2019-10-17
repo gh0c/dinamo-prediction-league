@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \App\Models\Games\Game $game
  * @property-read mixed $result
+ * @property-read boolean $result_is_set
  */
 class Result extends Model
 {
@@ -38,5 +39,10 @@ class Result extends Model
     public function getResultAttribute()
     {
         return $this->home_team_score . ':' . $this->away_team_score;
+    }
+
+    public function getResultIsSetAttribute()
+    {
+        return $this->home_team_score !== null && $this->away_team_score !== null;
     }
 }

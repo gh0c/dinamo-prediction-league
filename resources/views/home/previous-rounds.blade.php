@@ -2,13 +2,13 @@
 
     <ul class="list-group py-2">
 
-        <li class="list-group-item active text-center">
+        <li class="list-group-item bg-light text-dark text-center">
             {{ __('pages.dashboard.previous_round.card._label') }}
             - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
         </li>
 
         @foreach($roundDetails['games'] as $game)
-            <li class="list-group-item px-0">
+            <li class="list-group-item px-0 py-1">
 
                 <div class="container-fluid">
                     <div class="row align-items-center">
@@ -21,12 +21,12 @@
                             @endif
                         </div>
                         <div class="col-2 text-right game-result-col">
-                            @if($game->result)
+                            @if($game->result && $game->result->result_is_set)
                                 <h5 class="font-weight-bold m-auto">{{ $game->result->home_team_score }}</h5>
                             @endif
                         </div>
                         <div class="col-2 text-left game-result-col">
-                            @if($game->result)
+                            @if($game->result && $game->result->result_is_set)
                                 <h5 class="font-weight-bold m-auto">{{ $game->result->away_team_score }}</h5>
                             @endif
                         </div>
@@ -37,6 +37,47 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Prediction --}}
+                @if(Auth::user()->hasPredictionForGame($game) && $prediction = Auth::user()->getPredictionForGame($game))
+                    <div class="container-fluid pt-1 border-top border-top-dashed">
+                        <div class="row align-items-center">
+
+                            <div class="col-4 text-right">
+                                <span class="text-muted small">{{ __('pages.home.prediction.prediction._label') }}</span><br>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-6 text-right game-result-col">
+                                        <h5 class="font-weight-bold m-auto">{{ $prediction->home_team_score }}</h5>
+                                    </div>
+                                    <div class="col-6 text-left game-result-col">
+                                        <h5 class="font-weight-bold m-auto">{{ $prediction->away_team_score }}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @if($prediction->firstScorer)
+                                        <span class="m-auto small">{{ $prediction->firstScorer->name }}</span>
+                                    @elseif($prediction->joker_user)
+                                        :JOKER
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                @if($prediction->points !== null)
+                                    <div class="d-inline-block text-center">
+                                        <span class="text-muted small">{{ __('pages.home.prediction.points._label') }}</span>
+                                        <br>
+                                        <span>{{ $prediction->points}}</span>
+                                    </div>
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>
+                @endif
 
             </li>
         @endforeach

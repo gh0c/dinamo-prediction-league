@@ -43,14 +43,14 @@ class HomeController extends Controller
 
         // Determine and group rounds
         // a) Next round(s)
-        // b) Current round
+        // b) Current round(s)
         // c) Previous round(s)
 
         // a) - The first game in the round hasn't started yet and predictions for it are still open
         $nextRounds = [];
         // b) - The first game in the round has started or predictions are closed
         // and the last game in the round doesn't have a result set yet
-        $currentRound = null;
+        $currentRounds = [];
         // c) All games have result set
         $previousRounds = [];
 
@@ -59,7 +59,7 @@ class HomeController extends Controller
 
         if (empty($rounds)) {
             // Return the "home" view right away
-            return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
+            return view('home', compact('nextRounds', 'currentRounds', 'previousRounds'));
         }
 
 
@@ -102,8 +102,8 @@ class HomeController extends Controller
             if ($predictionsOpen) {
                 $nextRounds[] = $roundDetails;
             } else {
-                if (!$lastGame->result) {
-                    $currentRound = $roundDetails;
+                if (!$lastGame->result || !$lastGame->result->result_is_set) {
+                    $currentRounds[] = $roundDetails;
                 } else {
                     $previousRounds[] = $roundDetails;
                 }
@@ -112,7 +112,7 @@ class HomeController extends Controller
             // Rules: Show 2 previous rounds only if there are no next rounds and no current round
         } while (($roundInfo = prev($rounds)) !== false && (
             sizeof($previousRounds) < 1 ||
-            (sizeof($previousRounds) < 2 && is_null($currentRound) && sizeof($nextRounds) == 0)
+            (sizeof($previousRounds) < 2 && sizeof($currentRounds) && sizeof($nextRounds) == 0)
         ));
 
         // Expected output looks like:
@@ -131,7 +131,7 @@ class HomeController extends Controller
             $nextRounds = array_reverse($nextRounds);
         }
 
-        return view('home', compact('nextRounds', 'currentRound', 'previousRounds'));
+        return view('home', compact('nextRounds', 'currentRounds', 'previousRounds'));
 
     }
 }
