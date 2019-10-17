@@ -20,8 +20,8 @@
                             @unless(is_null($personalStats['overallScore']))
 
                                 <div class="col-4">
-                                    <div class="row text-center">
-                                        <span class="col text-muted small">{{ __('pages.profile.index.user_card.ranking._label') }}</span>
+                                    <div class="row">
+                                        <span class="text-muted small m-auto">{{ __('pages.profile.index.user_card.ranking._label') }}</span>
                                     </div>
                                     <div class="row text-center">
                                         <h4 class="col">{{ $personalStats['position'] }}.</h4>
@@ -29,8 +29,8 @@
                                 </div>
 
                                 <div class="col-4 border-left border-right">
-                                    <div class="row text-center">
-                                        <span class="col text-muted small">{{ __('pages.profile.index.user_card.points._label') }}</span>
+                                    <div class="row">
+                                        <span class="text-muted small m-auto">{{ __('pages.profile.index.user_card.points._label') }}</span>
                                     </div>
                                     <div class="row text-center">
                                         <h4 class="col">{{ $personalStats['overallScore']['total_points'] }}</h4>
@@ -38,8 +38,8 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <div class="row text-center">
-                                        <span class="col text-muted small">{{ __('pages.profile.index.user_card.remaining_jokers._label') }}</span>
+                                    <div class="row">
+                                        <span class="text-muted small m-auto">{{ __('pages.profile.index.user_card.remaining_jokers._label') }}</span>
                                     </div>
                                     <div class="row text-center">
                                         <h4 class="col">{{ $personalStats['remaining_jokers'] }}</h4>
