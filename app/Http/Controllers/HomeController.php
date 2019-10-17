@@ -59,8 +59,15 @@ class HomeController extends Controller
 
         if (empty($rounds)) {
             // Return the "home" view right away
-            return view('home', compact('nextRounds', 'currentRounds', 'previousRounds'));
+            return view('home', compact('nextRounds', 'currentRounds', 'previousRounds', 'season'));
         }
+
+        // User prediction outcomes for rounds
+        $predictionOutcomes = \Auth::user()->predictionOutcomes()
+            ->whereIn('round', collect($rounds)->pluck('round'))
+            ->where('season_id', '=', $season->id)
+            ->orderBy('round')
+            ->get();
 
 
         // Iterate through all the rounds as long as the number of rounds flagged as "previous" is not >=2
@@ -82,8 +89,9 @@ class HomeController extends Controller
 
             // Compose round details
             $roundDetails = [
-                'round' => $round,
-                'games' => $games,
+                'round'                   => $round,
+                'games'                   => $games,
+                'user_prediction_outcome' => $predictionOutcomes->where('round', '=', $round)->first()
             ];
 
             // Games are ordered by the datetime
@@ -111,8 +119,8 @@ class HomeController extends Controller
 
             // Rules: Show 2 previous rounds only if there are no next rounds and no current round
         } while (($roundInfo = prev($rounds)) !== false && (
-            sizeof($previousRounds) < 1 ||
-            (sizeof($previousRounds) < 2 && sizeof($currentRounds) && sizeof($nextRounds) == 0)
+            sizeof($previousRounds) < 4 ||
+            (sizeof($previousRounds) < 5 && sizeof($currentRounds) && sizeof($nextRounds) == 0)
         ));
 
         // Expected output looks like:
@@ -131,7 +139,7 @@ class HomeController extends Controller
             $nextRounds = array_reverse($nextRounds);
         }
 
-        return view('home', compact('nextRounds', 'currentRounds', 'previousRounds'));
+        return view('home', compact('nextRounds', 'currentRounds', 'previousRounds', 'season'));
 
     }
 }

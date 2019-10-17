@@ -52,13 +52,16 @@ return [
 
     'home' => [
         'prediction' => [
-            'prediction' => [
+            'prediction'         => [
                 '_label' => 'Prognoza',
             ],
-            'points' => [
+            'points'             => [
                 '_label' => 'Bodovi:'
             ],
-            'no_prediction' => [
+            'total_round_points' => [
+                '_label' => 'Bodovi:'
+            ],
+            'no_prediction'      => [
                 '_label' => 'Nemaš prognozu za ovu utakmicu!'
             ]
         ]
