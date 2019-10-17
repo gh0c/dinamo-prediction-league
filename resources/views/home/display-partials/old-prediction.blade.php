@@ -1,11 +1,11 @@
 <div class="row align-items-center">
 
-    <div class="col-4 text-right">
+    <div class="col-3 text-right">
         <span class="text-muted small d-lg-none d-xl-inline-block">{{ __('pages.home.prediction.prediction._label') }}</span>
         <i class="fa fa-fw text-muted fa-ticket d-none d-lg-inline-block d-xl-none"></i>
     </div>
 
-    <div class="col-4">
+    <div class="col-5">
         <div class="row">
             <div class="col-6 text-right game-result-col">
                 <h5 class="font-weight-bold m-auto">{{ $prediction->home_team_score }}</h5>

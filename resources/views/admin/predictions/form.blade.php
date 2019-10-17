@@ -65,7 +65,7 @@
 <div class="text-center">
     <button type="submit" class="btn btn-primary">{{ __('forms.admin.predictions._submit') }}</button>
 
-    <a href="{{ route('admin.predictions.seasons.index', ['season' => $season->id]) }}"
+    <a href="{{ route('admin.predictions.dashboard') }}"
        class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
