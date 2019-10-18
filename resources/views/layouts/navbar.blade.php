@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-zona-dinamo text-white shadow-sm">
     <div class="container">
         <a class="navbar-brand text-white" href="{{ url('/') }}">
-            {{ config('app.name', 'Prediction league') }}
+            {!! Html::image('/img/logo.png', config('app.name', 'Prediction league')) !!}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
