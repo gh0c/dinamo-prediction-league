@@ -5,7 +5,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-$resource-images-path: '../../public/img' !default;
+$resource-images-path: '../img' !default;
 
 .toasts-container {
   top: 74px;
