@@ -43,7 +43,7 @@
                     {{-- Prediction --}}
                     <div class="col-12 col-lg-4 pt-1 pt-lg-0 border-top border-top-dashed border-top-lg-0 border-left-lg border-left-lg-dashed">
                         @if(Auth::user()->hasPredictionForGame($game))
-                            @include('home.display-partials.old-prediction', ['prediction' => Auth::user()->getPredictionForGame($game)])
+                            @include('home.display-partials.old-prediction', ['prediction' => Auth::user()->getPredictionForGame($game), 'game' => $game])
                         @else
                             <div class="row ">
                                 <span class="col text-muted m-auto">

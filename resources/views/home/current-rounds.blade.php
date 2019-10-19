@@ -1,36 +1,45 @@
-<div class="card">
-    <div class="card-header text-center">
-        {{ __('pages.dashboard.current_round.card._label') }}
-        - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
-    </div>
+@foreach($rounds as $roundDetails)
 
-    <div class="card-body">
+    <ul class="list-group py-2">
 
-        <ul class="list-group">
-            @foreach($roundDetails['games'] as $game)
-                <li class="list-group-item">
+        <li class="list-group-item bg-light text-dark text-center">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    {{ __('pages.dashboard.current_round.card._label') }}
+                    - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
+                </div>
+            </div>
+        </li>
 
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-xl-4 text-center">
-                                {{ $game->datetime->format('d.m.Y. H:i') }}
-                            </div>
-                            <div class="col-6 col-xl-4">
-                                @if($game->homeTeam)
-                                    @include('home.display-partials.team', ['team' => $game->homeTeam])
-                                @endif
-                            </div>
-                            <div class="col-6 col-xl-4">
-                                @if($game->awayTeam)
-                                    @include('home.display-partials.team', ['team' => $game->awayTeam])
-                                @endif
-                            </div>
-                        </div>
+        @foreach($roundDetails['games'] as $game)
+            <li class="list-group-item py-1">
+                <div class="row align-items-center">
+
+                    <div class="col-12 col-lg-2 text-center small">
+                        {{ $game->datetime->format('d.m.Y. H:i') }}
                     </div>
 
-                </li>
-            @endforeach
-        </ul>
+                    <div class="col-12 col-lg-6">
+                        @include('home.display-partials.game', ['game' => $game])
+                    </div>
 
-    </div>
-</div>
+                    {{-- Prediction --}}
+                    <div class="col-12 col-lg-4 pt-1 pt-lg-0 border-top border-top-dashed border-top-lg-0 border-left-lg border-left-lg-dashed">
+                        @if(Auth::user()->hasPredictionForGame($game))
+                            @include('home.display-partials.old-prediction', ['prediction' => Auth::user()->getPredictionForGame($game), 'game' => $game])
+                        @else
+                            <div class="row">
+                                <span class="col text-muted m-auto">
+                                    {{ __('pages.home.prediction.no_prediction._label') }}
+                                </span>
+                                <br>
+                                <span><i class="fa fa-fw fa-2x fa-lock text-muted"></i></span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </li>
+        @endforeach
+    </ul>
+
+@endforeach

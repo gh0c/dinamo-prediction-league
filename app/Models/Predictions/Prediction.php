@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Predictions\Prediction whereUserId($value)
  * @property-read mixed $predicted_result
+ * @property-read string|null $joker_outcome
  */
 class Prediction extends Model
 {
@@ -65,5 +66,19 @@ class Prediction extends Model
     public function getPredictedResultAttribute()
     {
         return $this->home_team_score . ':' . $this->away_team_score;
+    }
+
+    public function getJokerOutcomeAttribute()
+    {
+        if ($this->points !== null) {
+            if ($this->points == 0) {
+                return 'neutral';
+            } elseif ($this->points < 0) {
+                return 'negative';
+            } else {
+                return 'positive';
+            }
+        }
+        return null;
     }
 }

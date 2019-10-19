@@ -15,11 +15,11 @@
                             </div>
                         @endif
 
-{{--                        @if(!empty($currentRounds))--}}
-{{--                            <div class="col-12 col-lg-4">--}}
-{{--                                @include('home.current-rounds', ['rounds' => $currentRounds])--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                        @if(!empty($currentRounds))
+                            <div class="col-12 px-1">
+                                @include('home.current-rounds', ['rounds' => $currentRounds])
+                            </div>
+                        @endif
 
                         @if(!empty($previousRounds))
                             <div class="col-12 px-1">
