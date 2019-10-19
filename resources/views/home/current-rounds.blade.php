@@ -32,8 +32,7 @@
                                 <span class="col text-muted m-auto">
                                     {{ __('pages.home.prediction.no_prediction._label') }}
                                 </span>
-                                <br>
-                                <span><i class="fa fa-fw fa-2x fa-lock text-muted"></i></span>
+                                <span><i class="fa fa-fw fa-lg fa-lock text-muted"></i></span>
                             </div>
                         @endif
                     </div>

@@ -62,6 +62,9 @@ class HomeController extends Controller
             return view('home', compact('nextRounds', 'currentRounds', 'previousRounds', 'season'));
         }
 
+        // Eager load user predictions wiht scorers
+        \Auth::user()->load('predictions.firstScorer.team');
+
         // User prediction outcomes for rounds
         $predictionOutcomes = \Auth::user()->predictionOutcomes()
             ->whereIn('round', collect($rounds)->pluck('round'))

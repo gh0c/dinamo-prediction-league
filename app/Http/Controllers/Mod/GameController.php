@@ -10,11 +10,23 @@ use App\Models\Games\Game;
 use App\Models\Games\GoalScorer;
 use App\Models\Games\Result;
 use App\Http\Controllers\Controller;
+use App\Models\Repositories\Predictions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * Class GameController
+ * @package App\Http\Controllers\Mod
+ * @property Predictions $predictions
+ */
 class GameController extends Controller
 {
+    protected $predictions;
+
+    public function __construct(Predictions $predictions)
+    {
+        $this->predictions = $predictions;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -135,6 +147,7 @@ class GameController extends Controller
      * @param  UpdateGameResultRequest $request
      * @param  Game $game
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function updateResult(UpdateGameResultRequest $request, Game $game)
     {
@@ -151,6 +164,13 @@ class GameController extends Controller
             'home_team' => $game->homeTeam->name,
             'away_team' => $game->awayTeam->name,
         ]));
+
+        // Update predictions for this round
+        $this->predictions->setPredictionOutcomesForRound($game->round, $game->season);
+        flash()->success(__('requests.admin.prediction.successful_set_prediction_outcomes_for_round_in_active_season', [
+            'round' => $game->round
+        ]));
+
         return redirect()->route('mod.games.index');
     }
 
