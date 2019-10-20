@@ -16,27 +16,20 @@ Route::get('/', function () {
 })->name('welcome');
 
 
-Route::get('/results/{season}/round/{round}', [
-    'uses' => 'ResultsController@showRoundResults',
-    'as'   => 'results.round',
-]);
-
-Route::get('/results/overall', [
-    'uses' => 'ResultsController@showOverallResultsForActiveSeason',
-    'as'   => 'results.overall',
-]);
-
-
 Auth::routes(['reset' => false]);
 
-Route::get('/home', [
-    'uses'       => 'HomeController@index',
-    'middleware' => ['auth'],
-    'as'         => 'home'
-]);
+
+// Require home routes
+include_once __DIR__ . '/web/home.php';
+
+// Require results routes
+include_once __DIR__ . '/web/results.php';
 
 // Require profile routes
 include_once __DIR__ . '/web/profile.php';
+
+// Require filtering routes
+include_once __DIR__ . '/web/filters.php';
 
 // Require admin routes
 include_once __DIR__ . '/web/admin.php';

@@ -1,35 +1,24 @@
 @extends('layouts.app')
 
-@section('page_title', __('forms.admin.predictions._headings.store'))
+@section('page_title', __('forms.home.predictions._headings.store_for_round', ['round' => $round]))
 
 @section('content')
 
     <div class="container">
 
         {!! Form::open(['route' => [
-            'admin.predictions.rounds.store', 'round' => $round
+            'home.predictions.rounds.store', 'round' => $round
         ], 'class' => 'was-validated']) !!}
 
+
         <div class="row">
+            <div class="col-12 col-md-6 offset-md-3 text-center">
 
-            <div class="col-12 col-md-6 offset-md-3">
-
-                <h3>{{ __('forms.admin.predictions._headings.store') }}</h3>
-
-                <div class="form-row">
-                    <div class="form-group col-12">
-                        <label for="user_id">{{ __('forms.admin.predictions.user.label') }}</label>
-                        {!! Form::select('user_id', $inputUsers, null, [
-                            'class' => 'form-control',
-                            'autofocus' => true,
-                            'required' => true,
-                            ]) !!}
-                        @include('forms.input-error', ['name' => 'user_id'])
-                    </div>
-                </div>
+                <h3>{{ __('forms.home.predictions._headings.store_for_round', ['round' => $round]) }}</h3>
 
             </div>
         </div>
+
 
         <div class="row">
 
@@ -111,12 +100,14 @@
 
         </div>
 
+
+
+
         <div class="row">
             <div class="col text-center">
-                <button type="submit" class="btn btn-primary">{{ __('forms.admin.predictions._submit') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('forms.home.predictions._submit') }}</button>
 
-                <a href="{{ route('admin.predictions.seasons.rounds.index', ['season' => $season->id, 'round' => $round]) }}"
-                   class="btn btn-danger">
+                <a href="{{ route('home.index') }}" class="btn btn-danger">
                     {{ __('forms.cancel') }}
                 </a>
             </div>
@@ -140,7 +131,7 @@
 
             let $cont = $('#input-scorers-' + index + '-container');
             let params = {game_id: selectedGameValue};
-
+            console.log('ajaxCall');
             ajaxCall(filteringUrl, params).then(response => {
                 $cont.html(response);
 

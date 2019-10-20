@@ -3,8 +3,22 @@
     <ul class="list-group py-2">
 
         <li class="list-group-item bg-primary text-white text-center">
-            {{ __('pages.dashboard.next_round.card._label') }}
-            - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
+            <div class="row align-items-center">
+                <div class="col-10">
+                    {{ __('pages.dashboard.next_round.card._label') }}
+                    - {{ $roundDetails['round'] }}. {{ mb_strtolower(__('models.games.game._attributes.round')) }}
+                </div>
+                @if($roundDetails['user_has_no_predictions_for_round'] == true)
+                    <div class="col-2">
+
+                        <a href="{{ route('home.predictions.seasons.rounds.create', ['season' => $season->id, 'round' => $roundDetails['round']]) }}"
+                           class="btn btn-sm btn-light"
+                           title="{{ __('pages.dashboard.next_round.button.add_predictions_for_round._title', ['round' => $roundDetails['round']]) }}">
+                            <i class="fa fa-plus-square fa-lg"></i>
+                        </a>
+                    </div>
+                @endif
+            </div>
         </li>
 
         @foreach($roundDetails['games'] as $game)
@@ -22,7 +36,7 @@
                     {{-- Prediction --}}
                     <div class="col-12 col-lg-4 pt-1 pt-lg-0 border-top border-top-dashed border-top-lg-0 border-left-lg border-left-lg-dashed">
                         @if(Auth::user()->hasPredictionForGame($game))
-                            @include('home.display-partials.old-prediction', ['prediction' => Auth::user()->getPredictionForGame($game), 'game' => $game])
+                            @include('home.display-partials.new-prediction', ['prediction' => Auth::user()->getPredictionForGame($game), 'game' => $game])
                         @else
                             <div class="row ">
                                 <span class="col text-muted m-auto">

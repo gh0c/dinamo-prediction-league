@@ -21,7 +21,8 @@
                 </div>
                 <div class="col-2">
                     <a href="{{ route('results.round', ['season' => $season->id, 'round' => $roundDetails['round']]) }}"
-                       class="btn btn-sm btn-outline-info" target="_blank">
+                       class="btn btn-sm btn-outline-info" target="_blank"
+                       title="{{ __('pages.dashboard.previous_round.button.show_round_results._title', ['round' => $roundDetails['round']]) }}">
                         <i class="fa fa-list-ol fa-lg"></i>
                     </a>
                 </div>

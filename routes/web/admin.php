@@ -116,11 +116,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:super_admin,ad
     ]);
 
 
-    Route::post('predictions/filter-scorers-by-game', [
-        'uses' => 'Admin\PredictionController@filterScorersByGame',
-        'as'   => 'predictions.filter.scorers-by-game'
-    ]);
-
     Route::get('/predictions/set-prediction-outcomes/active-season/round/{round}', [
         'uses' => 'Admin\PredictionController@setPredictionOutcomesForRoundInActiveSeason',
         'as'   => 'predictions.set-prediction-outcomes.active-season.rounds',

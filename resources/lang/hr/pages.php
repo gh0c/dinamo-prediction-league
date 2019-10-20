@@ -34,8 +34,13 @@ return [
             '_label' => 'Nema kola za aktualnu sezonu'
         ],
         'next_round'           => [
-            'card' => [
+            'card'   => [
                 '_label' => 'Sljedeće kolo',
+            ],
+            'button' => [
+                'add_predictions_for_round' => [
+                    '_title' => 'Unos prognoza za :round. kolo'
+                ]
             ],
         ],
         'current_round'        => [
@@ -44,8 +49,13 @@ return [
             ],
         ],
         'previous_round'       => [
-            'card' => [
+            'card'   => [
                 '_label' => 'Prošlo kolo',
+            ],
+            'button' => [
+                'show_round_results' => [
+                    '_title' => 'Pregled rezultata za :round. kolo'
+                ]
             ],
         ],
     ],
@@ -64,6 +74,6 @@ return [
             'no_prediction'      => [
                 '_label' => 'Nemaš prognozu za ovu utakmicu!'
             ]
-        ]
+        ],
     ]
 ];

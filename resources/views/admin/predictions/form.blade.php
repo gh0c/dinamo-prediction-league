@@ -58,7 +58,7 @@
 
 <div class="form-row">
     <div class="form-group col-12" id="input-scorers-container">
-        @include('admin.predictions._scorers')
+        @include('filters.filter.scorers-by-game._scorers')
     </div>
 </div>
 
@@ -74,7 +74,7 @@
         filterInputScorersByGame();
     });
 
-    let filteringUrl = '{{ route('admin.predictions.filter.scorers-by-game') }}';
+    let filteringUrl = '{{ route('filters.filter.scorers-by-game') }}';
 
     function filterInputScorersByGame() {
         let selectedGameValue = $(':input[name="game_id"]').val();

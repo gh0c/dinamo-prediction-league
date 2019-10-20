@@ -57,10 +57,6 @@ return [
                 'label'       => 'Utakmica',
                 'placeholder' => '- Odaberi utakmicu'
             ],
-            'first_scorer' => [
-                'label'       => 'Prvi strijelac',
-                'placeholder' => ' - Odaberi strijelca prvog gola'
-            ],
             'home_team'    => [
                 'label' => 'Domaćin',
             ],
@@ -230,6 +226,30 @@ return [
                 'label' => 'Potvrdi novu lozinku',
             ],
         ],
+    ],
+    'filters'     => [
+        'partials' => [
+            'scorers' => [
+                'first_scorer' => [
+                    '_label' => '',
+                    '_placeholder' => ' - Odaberi strijelca prvog gola'
+                ],
+            ],
+        ],
+    ],
+    'home'        => [
+        'predictions' => [
+            '_submit'   => 'Spremi',
+            '_headings' => [
+                'create'              => 'Dodaj novu prognozu',
+                'create_for_round'    => 'Dodaj novu prognozu',
+                'store'               => 'Spremi novu prognozu',
+                'store_for_round'     => 'Spremi prognoze za :round. kolo',
+                'update'              => 'Uredi postojeću prognozu',
+                'destroy'             => 'Izbriši prognozu',
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu prognozu?'
+            ],
+        ]
     ],
     'profile'     => [
         'change_password' => [

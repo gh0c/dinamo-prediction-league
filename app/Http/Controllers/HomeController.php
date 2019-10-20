@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
@@ -62,7 +63,7 @@ class HomeController extends Controller
             return view('home', compact('nextRounds', 'currentRounds', 'previousRounds', 'season'));
         }
 
-        // Eager load user predictions wiht scorers
+        // Eager load user predictions with scorers
         \Auth::user()->load('predictions.firstScorer.team');
 
         // User prediction outcomes for rounds
@@ -111,6 +112,16 @@ class HomeController extends Controller
             $predictionsOpen = Carbon::now()->diffInMinutes($firstGame->datetime, false) > config('predictions.locking_time');
 
             if ($predictionsOpen) {
+                // Additional attribute for next round
+                // If user has no predictions for the round, display a link to the form for adding all round predictions
+                $noUserPredictionsForRound = true;
+                foreach ($games as $game) {
+                    if (\Auth::user()->hasPredictionForGame($game)) {
+                        $noUserPredictionsForRound = false;
+                        break;
+                    }
+                }
+                $roundDetails['user_has_no_predictions_for_round'] = $noUserPredictionsForRound;
                 $nextRounds[] = $roundDetails;
             } else {
                 if (!$lastGame->result || !$lastGame->result->result_is_set) {
@@ -143,6 +154,36 @@ class HomeController extends Controller
         }
 
         return view('home', compact('nextRounds', 'currentRounds', 'previousRounds', 'season'));
+
+    }
+
+    /**
+     * @param  Season $season
+     * @param  int $round
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws GameException
+     */
+    public function createPredictionsForRoundForSeason(Season $season, $round)
+    {
+        $games = $this->games->loadGamesForRoundForSeason($round, $season);
+
+        if ($games->isEmpty()) {
+            throw GameException::noGamesFoundForRound();
+        }
+
+        /** @var Game $firstGame */
+        $firstGame = $games->first();
+
+        // Pass "false" as the 2nd argument to diffInMinutes() method not to get absolute values
+        $predictionsOpen = Carbon::now()->diffInMinutes($firstGame->datetime, false) > config('predictions.locking_time');
+
+        if (!$predictionsOpen) {
+            flash()->error(__('requests.home.predictions.create.predictions_locked', ['round' => $round]))->important();
+            return redirect()->route('home.index');
+        }
+
+        return view('home.predictions.create-for-round', compact('games', 'season', 'round'));
+        dump('ii');
 
     }
 }

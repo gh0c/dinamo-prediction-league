@@ -56,11 +56,13 @@ class RoleMiddleware
         }
 
         if ($request->ajax()) {
-            return response()->json(['error' => $message]);
+            throw new \Illuminate\Http\Exceptions\HttpResponseException(response()->json([
+                'error' => $message
+            ], 401));
         }
 
         flash()->warning($message)->important();
-        return redirect()->route('home');
+        return redirect()->route('home.index');
     }
 
 

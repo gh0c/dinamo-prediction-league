@@ -13,7 +13,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">{{ __('layout.navbar.home._label') }}</a>
+                    <a class="nav-link" href="{{ route('home.index') }}">{{ __('layout.navbar.home._label') }}</a>
                 </li>
             </ul>
 

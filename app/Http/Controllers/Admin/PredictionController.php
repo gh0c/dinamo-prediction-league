@@ -6,7 +6,6 @@ use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeletePredictionRequest;
-use App\Http\Requests\Admin\FilterScorersByGameRequest;
 use App\Http\Requests\Admin\StorePredictionRequest;
 use App\Http\Requests\Admin\StorePredictionsForRoundRequest;
 use App\Http\Requests\Admin\UpdatePredictionRequest;
@@ -269,24 +268,6 @@ class PredictionController extends Controller
 //            return redirect()->route('admin.predictions.seasons.rounds.index', ['season' => $game->season_id, 'round' => $game->round]);
 //        }
         return redirect()->route('admin.predictions.seasons.rounds.index', ['season' => $game->season_id, 'round' => $game->round]);
-    }
-
-    /**
-     * @param  FilterScorersByGameRequest $request
-     * @return array|string
-     * @throws \Throwable
-     */
-    public function filterScorersByGame(FilterScorersByGameRequest $request)
-    {
-        $game = Game::find($request->input('game_id'));
-
-        if ($game) {
-            $inputPlayers = $this->games->loadPlayersForGame($game);
-        } else {
-            $inputPlayers = $this->games->loadPlayers();
-        }
-
-        return view('admin.predictions._scorers', ['inputScorers' => $inputPlayers])->render();
     }
 
     /**
