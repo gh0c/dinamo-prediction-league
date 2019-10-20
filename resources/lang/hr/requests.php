@@ -98,6 +98,7 @@ return [
             ],
             'store_for_round'            => [
                 'default_message'                   => 'Greška kod spremanja prognoza',
+                'duplicate_prediction'              => 'Prognoza već postoji',
                 'number_of_jokers_exceeded'         => 'Zbroj iskorištenih jokera veći je od broja jokera dostupnih u sezoni',
                 'scorer_for_scoreless_game_exists'  => 'Odabir strijelca nije moguć za prognozu rezultata 0:0',
                 'scorer_from_scoreless_team_exists' => 'Odabran strijelac iz ekipe za koju je prognozirano da neće zabiti gol',

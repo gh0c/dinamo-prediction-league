@@ -49,6 +49,8 @@
                                     @endif
                                 </div>
                             </div>
+
+                            @include('forms.input-error', ['name' => 'predictions[' . $index . '][game_id]'])
                         </div>
                     </div>
 

@@ -169,4 +169,11 @@ class StorePredictionsForRoundRequest extends BasicPostRequest
         return false;
     }
 
+    public function messages()
+    {
+        return [
+            'predictions.*.game_id.unique' => __('requests.home.predictions.store_for_round.duplicate_prediction')
+        ];
+    }
+
 }
