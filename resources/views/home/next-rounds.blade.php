@@ -11,7 +11,7 @@
                 @if($roundDetails['user_has_no_predictions_for_round'] == true)
                     <div class="col-2">
 
-                        <a href="{{ route('home.predictions.seasons.rounds.create', ['season' => $season->id, 'round' => $roundDetails['round']]) }}"
+                        <a href="{{ route('home.predictions.active-season.rounds.create', ['round' => $roundDetails['round']]) }}"
                            class="btn btn-sm btn-light"
                            title="{{ __('pages.dashboard.next_round.button.add_predictions_for_round._title', ['round' => $roundDetails['round']]) }}">
                             <i class="fa fa-plus-square fa-lg"></i>

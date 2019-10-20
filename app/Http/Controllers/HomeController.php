@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
+use App\Http\Requests\Home\StorePredictionsForRoundRequest;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
+use App\Models\Predictions\Prediction;
 use App\Models\Repositories\Games;
 use App\Models\Repositories\Predictions;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -64,10 +67,10 @@ class HomeController extends Controller
         }
 
         // Eager load user predictions with scorers
-        \Auth::user()->load('predictions.firstScorer.team');
+        Auth::user()->load('predictions.firstScorer.team');
 
         // User prediction outcomes for rounds
-        $predictionOutcomes = \Auth::user()->predictionOutcomes()
+        $predictionOutcomes = Auth::user()->predictionOutcomes()
             ->whereIn('round', collect($rounds)->pluck('round'))
             ->where('season_id', '=', $season->id)
             ->orderBy('round')
@@ -116,7 +119,7 @@ class HomeController extends Controller
                 // If user has no predictions for the round, display a link to the form for adding all round predictions
                 $noUserPredictionsForRound = true;
                 foreach ($games as $game) {
-                    if (\Auth::user()->hasPredictionForGame($game)) {
+                    if (Auth::user()->hasPredictionForGame($game)) {
                         $noUserPredictionsForRound = false;
                         break;
                     }
@@ -158,13 +161,18 @@ class HomeController extends Controller
     }
 
     /**
-     * @param  Season $season
      * @param  int $round
      * @return \Illuminate\Http\RedirectResponse
      * @throws GameException
+     * @throws SeasonException
      */
-    public function createPredictionsForRoundForSeason(Season $season, $round)
+    public function createPredictionsForRound($round)
     {
+        $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+
         $games = $this->games->loadGamesForRoundForSeason($round, $season);
 
         if ($games->isEmpty()) {
@@ -183,7 +191,24 @@ class HomeController extends Controller
         }
 
         return view('home.predictions.create-for-round', compact('games', 'season', 'round'));
-        dump('ii');
+
+    }
+
+    public function storePredictionsForRound(StorePredictionsForRoundRequest $request, $round)
+    {
+        foreach ($request->input('predictions') as $predictionData) {
+            $predictionData['user_id'] = Auth::user()->id;
+
+            $prediction = new Prediction($predictionData);
+            $prediction->points = null;
+            $prediction->save();
+        }
+
+        flash()->success(__('requests.home.predictions.successful_store_for_round', [
+            'round' => $round,
+        ]));
+
+        return redirect()->route('home.index');
 
     }
 }

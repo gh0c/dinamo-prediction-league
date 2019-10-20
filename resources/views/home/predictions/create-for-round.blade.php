@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('page_title', __('forms.home.predictions._headings.store_for_round', ['round' => $round]))
 
-@section('content')
+@section('dashboard-content')
 
-    <div class="container">
+    <div class="container-fluid py-1">
 
         {!! Form::open(['route' => [
             'home.predictions.rounds.store', 'round' => $round
@@ -12,7 +12,7 @@
 
 
         <div class="row">
-            <div class="col-12 col-md-6 offset-md-3 text-center">
+            <div class="col-12 text-center">
 
                 <h3>{{ __('forms.home.predictions._headings.store_for_round', ['round' => $round]) }}</h3>
 
@@ -20,41 +20,56 @@
         </div>
 
 
-        <div class="row">
+        <div class="row justify-content-center">
 
             @foreach($games as $index => $game)
 
-                <div class="col-12 col-lg-6 col-xl-4 text-center">
+                <div class="col-12 col-md-6 col-xxl-4 text-center">
 
+                    {{-- Game display --}}
                     <div class="form-row border-top pt-2">
                         <div class="form-group col-12">
-                            <label for="predictions[{{ $index }}][game_id]">{{ __('forms.admin.predictions.game.label') }}</label>
-                            {!! Form::select('predictions[' . $index . '][game_id]', $inputGames, $game->id, [
-                                'class' => 'form-control',
-                                'readonly' => 'readonly',
-                                'disabled' => true
-                                ]) !!}
+
                             {!! Form::hidden('predictions[' . $index . '][game_id]', $game->id) !!}
-                            @include('forms.input-error', ['name' => 'predictions[' . $index . '][game_id]'])
+
+                            <div class="row align-items-center">
+                                <div class="col-12 text-center small">
+                                    {{ $game->datetime->format('d.m.Y. H:i') }}
+                                </div>
+
+                                <div class="col-6">
+                                    @if($game->homeTeam)
+                                        @include('home.display-partials.team', ['team' => $game->homeTeam])
+                                    @endif
+                                </div>
+
+                                <div class="col-6">
+                                    @if($game->awayTeam)
+                                        @include('home.display-partials.team', ['team' => $game->awayTeam])
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-row">
 
-                        <div class="form-group col-4 offset-1">
+                        <div class="form-group col-6">
                             <label for="predictions[{{ $index }}][home_team_score]">{{ __('forms.admin.predictions.home_team.label') }}</label>
                             {!! Form::number('predictions[' . $index . '][home_team_score]', null, [
                                 'class' => 'form-control text-center form-control-lg',
                                 'required' => true,
+                                'min' => 0,
                             ]) !!}
                             @include('forms.input-error', ['name' => 'predictions[' . $index . '][home_team_score]'])
                         </div>
 
-                        <div class="form-group col-4 offset-2">
+                        <div class="form-group col-6">
                             <label for="away_team_score">{{ __('forms.admin.predictions.away_team.label') }}</label>
                             {!! Form::number('predictions[' . $index . '][away_team_score]', null, [
                                 'class' => 'form-control text-center form-control-lg',
                                 'required' => true,
+                                'min' => 0,
                             ]) !!}
                             @include('forms.input-error', ['name' => 'predictions[' . $index . '][away_team_score]'])
                         </div>
@@ -62,7 +77,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-12">
+                        <div class="form-group col-12 mb-0">
                             <div class="form-check">
                                 <input type="hidden" name="predictions[{{ $index }}][joker_used]" value="0">
                                 {!! Form::checkbox('predictions[' . $index . '][joker_used]', 1, null, [
@@ -70,22 +85,25 @@
                                     ]) !!}
                                 <label class="form-check-label"
                                        for="predictions[{{ $index }}][joker_used-input]">{{ __('forms.admin.predictions.joker_used.label') }}</label>
+                                @include('forms.input-error', ['name' => 'predictions[' . $index . '][joker_used]'])
                             </div>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-12" id="input-scorers-{{ $index }}-container">
-                            <label for="predictions[{{ $index }}][first_scorer_id]">
-                                {{ __('forms.filters.partials.scorers.first_scorer._label') }}
-                            </label>
+                        <div class="form-group col-12">
+                            <div id="input-scorers-{{ $index }}-container">
+                                <label for="predictions[{{ $index }}][first_scorer_id]">
+                                    {{ __('forms.filters.partials.scorers.first_scorer._label') }}
+                                </label>
 
-                            {!! Form::select('predictions[' . $index . '][first_scorer_id]', $inputScorers, null, [
-                                'class' => 'form-control',
-                            ]) !!}
-
+                                {!! Form::select('predictions[' . $index . '][first_scorer_id]', $inputScorers, null, [
+                                    'class' => 'form-control',
+                                ]) !!}
+                            </div>
                             @include('forms.input-error', ['name' => 'predictions[' . $index . '][first_scorer_id]'])
                         </div>
+
                     </div>
 
                     <script>
@@ -99,8 +117,6 @@
             @endforeach
 
         </div>
-
-
 
 
         <div class="row">
@@ -131,7 +147,6 @@
 
             let $cont = $('#input-scorers-' + index + '-container');
             let params = {game_id: selectedGameValue};
-            console.log('ajaxCall');
             ajaxCall(filteringUrl, params).then(response => {
                 $cont.html(response);
 

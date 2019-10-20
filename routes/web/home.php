@@ -7,9 +7,9 @@ Route::group(['prefix' => 'home', 'middleware' => ['auth'], 'as' => 'home.'], fu
         'as'   => 'index'
     ]);
 
-    Route::get('predictions/season/{season}/round/{round}/create', [
-        'uses' => 'HomeController@createPredictionsForRoundForSeason',
-        'as'   => 'predictions.seasons.rounds.create',
+    Route::get('predictions/round/{round}/create', [
+        'uses' => 'HomeController@createPredictionsForRound',
+        'as'   => 'predictions.active-season.rounds.create',
     ]);
 
     // Store

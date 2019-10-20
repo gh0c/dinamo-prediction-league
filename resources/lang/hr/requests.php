@@ -92,10 +92,21 @@ return [
     ],
     'home'        => [
         'predictions' => [
-            'create' => [
+            'create'                     => [
                 'default_message'    => 'Greška kod otvaranja forme za unos prognoza',
                 'predictions_locked' => 'Isteklo je vrijeme za unos prognoza za :round. kolo'
             ],
+            'store_for_round'            => [
+                'default_message'                   => 'Greška kod spremanja prognoza',
+                'number_of_jokers_exceeded'         => 'Zbroj iskorištenih jokera veći je od broja jokera dostupnih u sezoni',
+                'scorer_for_scoreless_game_exists'  => 'Odabir strijelca nije moguć za prognozu rezultata 0:0',
+                'scorer_from_scoreless_team_exists' => 'Odabran strijelac iz ekipe za koju je prognozirano da neće zabiti gol',
+                'scorer_for_game_with_joker_exists' => 'Odabir strijelca nije moguć za prognozu u kojoj je korišten joker',
+                'predictions_locked'                => 'Isteklo je vrijeme za unos prognoza',
+            ],
+            'successful_store'           => 'Prognoza utakmice <strong>:home_team - :away_team</strong> uspješno pohranjena.',
+            'successful_store_for_round' => 'Prognoze utakmica za <strong>:round. kolo</strong> uspješno pohranjene.',
+
         ],
     ],
     'profile'     => [
