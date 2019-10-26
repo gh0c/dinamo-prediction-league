@@ -32,23 +32,7 @@
 
                             {!! Form::hidden('predictions[' . $index . '][game_id]', $game->id) !!}
 
-                            <div class="row align-items-center">
-                                <div class="col-12 text-center small">
-                                    {{ $game->datetime->format('d.m.Y. H:i') }}
-                                </div>
-
-                                <div class="col-6">
-                                    @if($game->homeTeam)
-                                        @include('home.display-partials.team', ['team' => $game->homeTeam])
-                                    @endif
-                                </div>
-
-                                <div class="col-6">
-                                    @if($game->awayTeam)
-                                        @include('home.display-partials.team', ['team' => $game->awayTeam])
-                                    @endif
-                                </div>
-                            </div>
+                            @include('home.display-partials.prediction-game')
 
                             @include('forms.input-error', ['name' => 'predictions[' . $index . '][game_id]'])
                         </div>
@@ -67,7 +51,7 @@
                         </div>
 
                         <div class="form-group col-6">
-                            <label for="away_team_score">{{ __('forms.admin.predictions.away_team.label') }}</label>
+                            <label for="predictions[{{ $index }}][away_team_score]">{{ __('forms.admin.predictions.away_team.label') }}</label>
                             {!! Form::number('predictions[' . $index . '][away_team_score]', null, [
                                 'class' => 'form-control text-center form-control-lg',
                                 'required' => true,

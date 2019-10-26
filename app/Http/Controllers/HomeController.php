@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
+use App\Http\Requests\Home\StorePredictionRequest;
 use App\Http\Requests\Home\StorePredictionsForRoundRequest;
+use App\Http\Requests\Home\UpdatePredictionRequest;
 use App\Models\Games\Game;
 use App\Models\Games\Season;
 use App\Models\Predictions\Prediction;
@@ -161,6 +163,42 @@ class HomeController extends Controller
     }
 
     /**
+     * @param  Game $game
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createPrediction(Game $game)
+    {
+        return view('home.predictions.create', compact('game'));
+    }
+
+    /**
+     * @param  StorePredictionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storePrediction(StorePredictionRequest $request)
+    {
+        $game = Game::find($request->input('game_id'));
+
+        $prediction = new Prediction();
+
+        $prediction->user()->associate(Auth::user());
+        $prediction->game()->associate($game);
+
+        $prediction->home_team_score = $request->input('home_team_score');
+        $prediction->away_team_score = $request->input('away_team_score');
+        $prediction->first_scorer_id = $request->input('first_scorer_id');
+        $prediction->joker_used = $request->input('joker_used');
+        $prediction->points = null;
+        $prediction->save();
+
+        flash()->success(__('requests.home.predictions.successful_store', [
+            'home_team' => $game->homeTeam->name,
+            'away_team' => $game->awayTeam->name,
+        ]));
+        return redirect()->route('home.index');
+    }
+
+    /**
      * @param  int $round
      * @return \Illuminate\Http\RedirectResponse
      * @throws GameException
@@ -194,6 +232,11 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * @param  StorePredictionsForRoundRequest $request
+     * @param  int $round
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storePredictionsForRound(StorePredictionsForRoundRequest $request, $round)
     {
         foreach ($request->input('predictions') as $predictionData) {
@@ -210,5 +253,38 @@ class HomeController extends Controller
 
         return redirect()->route('home.index');
 
+    }
+
+    /**
+     * @param  Prediction $prediction
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editPrediction(Prediction $prediction)
+    {
+        return view('home.predictions.edit', ['prediction' => $prediction, 'game' => $prediction->game]);
+    }
+
+    /**
+     * @param  UpdatePredictionRequest $request
+     * @param  Prediction $prediction
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePrediction(UpdatePredictionRequest $request, Prediction $prediction)
+    {
+        $game = $prediction->game;
+
+        $prediction->home_team_score = $request->input('home_team_score');
+        $prediction->away_team_score = $request->input('away_team_score');
+        $prediction->first_scorer_id = $request->input('first_scorer_id');
+        $prediction->joker_used = $request->input('joker_used');
+        $prediction->points = null;
+        $prediction->save();
+
+        flash()->success(__('requests.home.predictions.successful_update', [
+            'home_team' => $game->homeTeam->name,
+            'away_team' => $game->awayTeam->name,
+        ]));
+
+        return redirect()->route('home.index');
     }
 }

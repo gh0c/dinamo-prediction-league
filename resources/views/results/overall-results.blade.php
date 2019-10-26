@@ -20,73 +20,75 @@
 
                 <h3>{{ __('models.results.overall') }}</h3>
 
-                <table class="table table-sm table-hover table-middle-aligned-cells">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover table-middle-aligned-cells">
 
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">
-                            {{ __('models.predictions.prediction._attributes.user') }}
-                        </th>
-                        @foreach($rounds as $round)
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
                             <th scope="col">
-                                {{ $round }}.
+                                {{ __('models.predictions.prediction._attributes.user') }}
                             </th>
-                        @endforeach
-                        <th scope="col">
-                            {{ __('models.predictions.prediction._attributes.total_points') }}
-                        </th>
-                        <th scope="col">
-                            {{ __('models.predictions.prediction._attributes.jokers_used') }}
-                        </th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    @foreach($results as $outcomeGrouped)
-
-                        <tr @if(Auth::user() && Auth::user()->id == $outcomeGrouped->user->id) class="bg-primary text-white" @endif>
-                            <td>{{ $loop->iteration }}.</td>
-                            <td>
-                                {{ $outcomeGrouped->user->username }}
-                            </td>
                             @foreach($rounds as $round)
-                                <td>
-                                    @if($outcomeGrouped->user->predictionOutcomes->contains('round', $round))
-                                       {{ $outcomeGrouped->user->predictionOutcomes->where('round', $round)->first()->total_points }}
-                                    @else
-                                        -
-                                    @endif
-                                </td>
+                                <th scope="col">
+                                    {{ $round }}.
+                                </th>
                             @endforeach
-
-                            <td>
-                                <strong>{{ $outcomeGrouped->total_points }}</strong>
-                            </td>
-                            <td>
-                                {{ $outcomeGrouped->jokers_used }}
-                            </td>
-
+                            <th scope="col">
+                                {{ __('models.predictions.prediction._attributes.total_points') }}
+                            </th>
+                            <th scope="col">
+                                {{ __('models.predictions.prediction._attributes.jokers_used') }}
+                            </th>
                         </tr>
-                    @endforeach
+                        </thead>
 
-                    @foreach($disqualifications as $disqualification)
-                        <tr class="text-muted">
-                            <td>-</td>
-                            <td>
-                                {{ $disqualification->user->username }}
-                            </td>
-                            <td colspan="{{ $rounds->count() + 2 }}">
-                                {{ __('models.predictions.disqualification.name') }} -
-                                {{ __('models.predictions.disqualification_reason._values.' . $disqualification->reason) }}
-                            </td>
+                        <tbody>
+                        @foreach($results as $outcomeGrouped)
 
-                        </tr>
-                    @endforeach
+                            <tr @if(Auth::user() && Auth::user()->id == $outcomeGrouped->user->id) class="bg-primary text-white" @endif>
+                                <td>{{ $loop->iteration }}.</td>
+                                <td>
+                                    {{ $outcomeGrouped->user->username }}
+                                </td>
+                                @foreach($rounds as $round)
+                                    <td>
+                                        @if($outcomeGrouped->user->predictionOutcomes->contains('round', $round))
+                                            {{ $outcomeGrouped->user->predictionOutcomes->where('round', $round)->first()->total_points }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                @endforeach
 
-                    </tbody>
+                                <td>
+                                    <strong>{{ $outcomeGrouped->total_points }}</strong>
+                                </td>
+                                <td>
+                                    {{ $outcomeGrouped->jokers_used }}
+                                </td>
 
-                </table>
+                            </tr>
+                        @endforeach
+
+                        @foreach($disqualifications as $disqualification)
+                            <tr class="text-muted">
+                                <td>-</td>
+                                <td>
+                                    {{ $disqualification->user->username }}
+                                </td>
+                                <td colspan="{{ $rounds->count() + 2 }}">
+                                    {{ __('models.predictions.disqualification.name') }} -
+                                    {{ __('models.predictions.disqualification_reason._values.' . $disqualification->reason) }}
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+
+                    </table>
+                </div>
 
 
             </div>

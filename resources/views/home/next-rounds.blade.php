@@ -10,7 +10,6 @@
                 </div>
                 @if($roundDetails['user_has_no_predictions_for_round'] == true)
                     <div class="col-2">
-
                         <a href="{{ route('home.predictions.active-season.rounds.create', ['round' => $roundDetails['round']]) }}"
                            class="btn btn-sm btn-light"
                            title="{{ __('pages.dashboard.next_round.button.add_predictions_for_round._title', ['round' => $roundDetails['round']]) }}">
@@ -38,10 +37,16 @@
                         @if(Auth::user()->hasPredictionForGame($game))
                             @include('home.display-partials.new-prediction', ['prediction' => Auth::user()->getPredictionForGame($game), 'game' => $game])
                         @else
-                            <div class="row ">
-                                <span class="col text-muted m-auto">
+                            <div class="row align-items-center">
+                                <span class="col-9 col-xl-8 text-muted m-auto">
                                     {{ __('pages.home.prediction.no_prediction._label') }}
                                 </span>
+                                <div class="col-3 col-xl-4 px-0 text-right">
+                                    <a href="{{ route('home.predictions.active-season.create', ['game' => $game->id]) }}"
+                                       class="btn btn-sm btn-outline-info">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                </div>
                             </div>
                         @endif
                     </div>

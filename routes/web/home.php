@@ -7,6 +7,12 @@ Route::group(['prefix' => 'home', 'middleware' => ['auth'], 'as' => 'home.'], fu
         'as'   => 'index'
     ]);
 
+    // Create
+    Route::get('predictions/create/game/{game}', [
+        'uses' => 'HomeController@createPrediction',
+        'as'   => 'predictions.active-season.create',
+    ]);
+
     Route::get('predictions/round/{round}/create', [
         'uses' => 'HomeController@createPredictionsForRound',
         'as'   => 'predictions.active-season.rounds.create',
@@ -21,6 +27,18 @@ Route::group(['prefix' => 'home', 'middleware' => ['auth'], 'as' => 'home.'], fu
     Route::post('predictions/round/{round}', [
         'uses' => 'HomeController@storePredictionsForRound',
         'as'   => 'predictions.rounds.store',
+    ]);
+
+    // Edit
+    Route::get('predictions/{prediction}/edit', [
+        'uses' => 'HomeController@editPrediction',
+        'as'   => 'predictions.edit',
+    ]);
+
+    // Update
+    Route::patch('predictions/{prediction}', [
+        'uses' => 'HomeController@updatePrediction',
+        'as'   => 'predictions.update',
     ]);
 
 });
