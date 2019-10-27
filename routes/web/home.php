@@ -41,4 +41,10 @@ Route::group(['prefix' => 'home', 'middleware' => ['auth'], 'as' => 'home.'], fu
         'as'   => 'predictions.update',
     ]);
 
+    // Destroy
+    Route::delete('predictions/{prediction}', [
+        'uses' => 'HomeController@destroyPrediction',
+        'as'   => 'predictions.destroy',
+    ]);
+
 });

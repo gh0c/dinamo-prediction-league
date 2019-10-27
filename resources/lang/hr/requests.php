@@ -105,7 +105,7 @@ return [
                 'scorer_for_game_with_joker_exists' => 'Odabir strijelca nije moguć za prognozu u kojoj je korišten joker',
                 'predictions_locked'                => 'Isteklo je vrijeme za unos prognoza',
             ],
-            'store'                     => [
+            'store'                      => [
                 'default_message'                   => 'Greška kod spremanja nove prognoze.',
                 'duplicate_prediction'              => 'Prognoza već postoji',
                 'number_of_jokers_exceeded'         => 'Zbroj iskorištenih jokera veći je od broja jokera dostupnih u sezoni',
@@ -116,6 +116,7 @@ return [
             ],
             'update'                     => [
                 'default_message'                   => 'Greška kod uređivanja postojeće prognoze.',
+                'not_owned_by'                      => 'Nemaš pravo pristupa traženoj prognozi',
                 'duplicate_prediction'              => 'Prognoza već postoji',
                 'number_of_jokers_exceeded'         => 'Zbroj iskorištenih jokera veći je od broja jokera dostupnih u sezoni',
                 'scorer_for_scoreless_game_exists'  => 'Odabir strijelca nije moguć za prognozu rezultata 0:0',
@@ -123,11 +124,14 @@ return [
                 'scorer_for_game_with_joker_exists' => 'Odabir strijelca nije moguć za prognozu u kojoj je korišten joker',
                 'predictions_locked'                => 'Isteklo je vrijeme za uređivanje prognoze',
             ],
-            'delete'                     => 'Greška kod brisanja postojeće prognoze.',
+            'delete'                     => [
+                'default_message' => 'Greška kod brisanja postojeće prognoze.',
+                'not_owned_by'    => 'Nemaš pravo pristupa traženoj prognozi',
+            ],
             'successful_store'           => 'Prognoza utakmice <strong>:home_team - :away_team</strong> uspješno pohranjena.',
             'successful_store_for_round' => 'Prognoze utakmica za <strong>:round. kolo</strong> uspješno pohranjene.',
             'successful_update'          => 'Promjene na prognozi utakmice <strong>:home_team - :away_team</strong> uspješno pohranjene.',
-
+            'successful_destroy'         => 'Prognoza utakmice <strong>:home_team - :away_team</strong> uspješno isbrisana.',
         ],
     ],
     'profile'     => [

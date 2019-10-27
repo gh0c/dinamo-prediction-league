@@ -55,4 +55,39 @@
         @endforeach
     </ul>
 
+    <div class="modal fade" id="delete-prediction-confirmation-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">{{ __('forms.home.predictions._headings.destroy') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{ Form::open(['method' => 'DELETE', 'route' => ['home.predictions.destroy', 0] ]) }}
+                <div class="modal-body">
+                    {{ __('forms.home.predictions._headings.delete_confirmation') }}
+                    <input type="hidden" name="prediction_id" id="prediction_id" value="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">{{ __('forms._modals.buttons.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('forms._modals.buttons.confirm') }}</button>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $('#delete-prediction-confirmation-modal').on('show.bs.modal', function (e) {
+            let $modal = $(this);
+            let $button = $(e.relatedTarget);
+            let predictionId = $button.data('prediction_id');
+
+            $modal.find('.modal-body #prediction_id').val(predictionId);
+        });
+    </script>
+
 @endforeach

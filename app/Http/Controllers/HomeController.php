@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
+use App\Http\Requests\Home\DeletePredictionRequest;
 use App\Http\Requests\Home\StorePredictionRequest;
 use App\Http\Requests\Home\StorePredictionsForRoundRequest;
 use App\Http\Requests\Home\UpdatePredictionRequest;
@@ -261,6 +262,10 @@ class HomeController extends Controller
      */
     public function editPrediction(Prediction $prediction)
     {
+        if (!Auth::user()->predictions()->find($prediction->id)) {
+            flash()->error(__('requests.home.predictions.update.not_owned_by'))->important();
+            return redirect()->route('home.index');
+        }
         return view('home.predictions.edit', ['prediction' => $prediction, 'game' => $prediction->game]);
     }
 
@@ -285,6 +290,23 @@ class HomeController extends Controller
             'away_team' => $game->awayTeam->name,
         ]));
 
+        return redirect()->route('home.index');
+    }
+
+    /**
+     * @param  DeletePredictionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroyPrediction(DeletePredictionRequest $request)
+    {
+        $prediction = Prediction::find($request->input('prediction_id'));
+        $prediction->delete();
+
+        flash()->success(__('requests.home.predictions.successful_destroy', [
+            'home_team' => $prediction->game->homeTeam->name,
+            'away_team' => $prediction->game->awayTeam->name,
+        ]));
         return redirect()->route('home.index');
     }
 }

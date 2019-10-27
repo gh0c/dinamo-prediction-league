@@ -63,6 +63,10 @@ class UpdatePredictionRequest extends BasicPostRequest
         $validator->after(function ($validator) {
             /** @var \Illuminate\Validation\Validator $validator */
 
+            if (!Auth::user()->predictions()->find($this->prediction->id)) {
+                $validator->errors()->add('field', __('requests.home.predictions.delete.not_owned_by'));
+            }
+
             $this->checkIfNumberOfJokersIsExceeded($validator);
 
             $this->checkValidScorers($validator);

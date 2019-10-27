@@ -14,6 +14,12 @@
            class="btn btn-sm btn-outline-info">
             <i class="fa fa-edit"></i>
         </a>
+
+        <button class="btn btn-xs btn-danger" data-toggle="modal"
+                data-target="#delete-prediction-confirmation-modal"
+                data-prediction_id="{{ $prediction->id }}">
+            <i class="fa fa-times-circle"></i>
+        </button>
     </div>
 
 </div>
