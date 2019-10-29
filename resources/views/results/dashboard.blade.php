@@ -22,7 +22,7 @@
                                     </h5>
                                     <a href="{{ route('results.round', ['season' => $season->id, 'round' => $round]) }}"
                                        class="btn btn-primary">
-                                        {{ __('models.predictions.prediction.collection_for_round', ['round' => $round]) }}
+                                        {{ __('models.results.collection_for_round', ['round' => $round]) }}
                                     </a>
                                 </div>
                             </div>
