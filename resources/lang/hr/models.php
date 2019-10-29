@@ -94,7 +94,8 @@ return [
     ],
 
     'results' => [
-        'overall' => 'Ukupni poredak'
+        'overall' => 'Ukupni poredak',
+        'round'   => 'Kolo',
     ],
 
     'users' => [

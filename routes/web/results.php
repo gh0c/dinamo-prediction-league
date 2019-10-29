@@ -1,5 +1,10 @@
 <?php
 
+Route::get('/results/by-round', [
+    'uses' => 'ResultsController@dashboardByRound',
+    'as'   => 'results.dashboard.by-round',
+]);
+
 Route::get('/results/{season}/round/{round}', [
     'uses' => 'ResultsController@showRoundResults',
     'as'   => 'results.round',

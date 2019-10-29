@@ -29,14 +29,14 @@
                             <th scope="col">
                                 {{ __('models.predictions.prediction._attributes.user') }}
                             </th>
+                            <th scope="col">
+                                {{ __('models.predictions.prediction._attributes.total_points') }}
+                            </th>
                             @foreach($rounds as $round)
                                 <th scope="col">
                                     {{ $round }}.
                                 </th>
                             @endforeach
-                            <th scope="col">
-                                {{ __('models.predictions.prediction._attributes.total_points') }}
-                            </th>
                             <th scope="col">
                                 {{ __('models.predictions.prediction._attributes.jokers_used') }}
                             </th>
@@ -51,6 +51,9 @@
                                 <td>
                                     {{ $outcomeGrouped->user->username }}
                                 </td>
+                                <td>
+                                    <strong>{{ $outcomeGrouped->total_points }}</strong>
+                                </td>
                                 @foreach($rounds as $round)
                                     <td>
                                         @if($outcomeGrouped->user->predictionOutcomes->contains('round', $round))
@@ -61,9 +64,6 @@
                                     </td>
                                 @endforeach
 
-                                <td>
-                                    <strong>{{ $outcomeGrouped->total_points }}</strong>
-                                </td>
                                 <td>
                                     {{ $outcomeGrouped->jokers_used }}
                                 </td>

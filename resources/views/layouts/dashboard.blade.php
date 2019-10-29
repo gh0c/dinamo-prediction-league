@@ -64,6 +64,33 @@
                                 @endif
                             @endunless
                         </div>
+
+                        <div class="row">
+                            <div class="col font-weight-bold py-1 text-center">
+                                {{ __('pages.profile.index.results_card._label') }}
+                            </div>
+                        </div>
+                        <div class="row border-top border-bottom">
+
+                            <div class="col-6">
+                                <div class="row p-1">
+                                    <a href="{{ route('results.overall') }}" class="btn btn-sm btn-primary m-auto">
+                                        {{ __('pages.profile.index.results_card.links.overall_results._label') }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-6 border-left border-left-dashed">
+                                <div class="row p-1">
+                                    <a href="{{ route('results.dashboard.by-round') }}" class="btn btn-sm btn-primary m-auto">
+                                        {{ __('pages.profile.index.results_card.links.results_by_round._label') }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
                     </div>
 
 
