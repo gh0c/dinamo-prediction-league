@@ -48,8 +48,8 @@
     </div>
 </div>
 
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="form-row align-items-center">
+    <div class="form-group col-10">
         <div id="input-scorers-container">
             <label for="first_scorer_id">
                 {{ __('forms.filters.partials.scorers.first_scorer._label') }}
@@ -61,6 +61,11 @@
         </div>
         @include('forms.input-error', ['name' => 'first_scorer_id'])
     </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#add-player-modal">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
 
 </div>
 
@@ -71,9 +76,12 @@
        class="btn btn-danger">{{ __('forms.cancel') }}</a>
 </div>
 
+
 <script>
 
     let filteringUrl = '{{ route('filters.filter.scorers-by-game') }}';
+
+    let addingPlayerUrl = '{{ route('home.players.create') }}';
 
     function filterInputScorersByGame() {
         let selectedGameValue = $(':input[name="game_id"]').val();
@@ -98,5 +106,70 @@
     $(document).ready(function () {
         filterInputScorersByGame();
     });
+
 </script>
 
+
+@push('scripts-foot')
+    <div class="modal fade" id="add-player-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">{{ __('forms.home.predictions._headings.add_player') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!! Form::open(['class' => 'add-player-form was-validated']) !!}
+                <div class="modal-body">
+                    <p class="text-left">
+                        {{ __('forms.home.predictions._headings.add_player_info') }}
+                    </p>
+
+                    <div class="form-row">
+                        <div class="form-check form-check-inline">
+                            {!! Form::radio('player_team_id', $game->home_team_id, null,
+                            ['required' => true, 'id' => 'team-' . $game->home_team_id]) !!}
+                            <label class="form-check-label"
+                                   for="team-{{ $game->home_team_id }}">{{ $game->homeTeam->name }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            {!! Form::radio('player_team_id', $game->away_team_id, null,
+                            ['required' => true, 'id' => 'team-' . $game->away_team_id]) !!}
+                            <label class="form-check-label"
+                                   for="team-{{ $game->away_team_id }}">{{ $game->awayTeam->name }}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-10 col-xl-8 offset-1 offset-xl-2">
+                            <label for="player_name">{{ __('forms.mod.players.name.label') }}</label>
+                            {!! Form::text('player_name', null, ['class' => 'form-control','required' => true, 'autocomplete' => 'off']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">{{ __('forms._modals.buttons.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('forms._modals.buttons.confirm') }}</button>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).on('submit', '.add-player-form', function (e) {
+            e.preventDefault();
+            let $form = $(this);
+
+            ajaxCall(addingPlayerUrl, $form.serializeArray()).then(() => {
+                $form[0].reset();
+                $form.closest('.modal').modal('hide');
+                filterInputScorersByGame();
+            });
+        });
+    </script>
+
+@endpush

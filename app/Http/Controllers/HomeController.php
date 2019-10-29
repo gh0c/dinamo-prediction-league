@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Exceptions\GameException;
 use App\Exceptions\SeasonException;
 use App\Http\Requests\Home\DeletePredictionRequest;
+use App\Http\Requests\Home\StorePlayerRequest;
 use App\Http\Requests\Home\StorePredictionRequest;
 use App\Http\Requests\Home\StorePredictionsForRoundRequest;
 use App\Http\Requests\Home\UpdatePredictionRequest;
 use App\Models\Games\Game;
+use App\Models\Games\Player;
 use App\Models\Games\Season;
 use App\Models\Predictions\Prediction;
 use App\Models\Repositories\Games;
@@ -308,5 +310,23 @@ class HomeController extends Controller
             'away_team' => $prediction->game->awayTeam->name,
         ]));
         return redirect()->route('home.index');
+    }
+
+    /**
+     * @param  StorePlayerRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storePlayer(StorePlayerRequest $request)
+    {
+        $player = new Player();
+        $player->team_id = $request->input('player_team_id');
+        $player->name = $request->input('player_name');
+        $player->is_mod_approved = false;
+        $player->is_own_goal_scorer = false;
+        $player->save();
+
+        return response()->json([
+            'message' => __('requests.home.players.successful_store', ['player' => $player->name])
+        ]);
     }
 }

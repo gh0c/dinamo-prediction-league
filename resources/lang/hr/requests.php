@@ -133,6 +133,10 @@ return [
             'successful_update'          => 'Promjene na prognozi utakmice <strong>:home_team - :away_team</strong> uspješno pohranjene.',
             'successful_destroy'         => 'Prognoza utakmice <strong>:home_team - :away_team</strong> uspješno isbrisana.',
         ],
+        'players'     => [
+            'store'            => 'Greška kod spremanja novog igrača.',
+            'successful_store' => 'Igrač <strong>:player</strong> uspješno pohranjen.',
+        ],
     ],
     'profile'     => [
         'change_password'            => 'Greška kod promjene lozinke.',

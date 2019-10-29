@@ -186,9 +186,7 @@
 
         $(document).on('submit', '.change-password-form', function (e) {
             e.preventDefault();
-            ajaxCall(changePasswordUrl, $(this).serialize()).then(response => {
-                console.log('done');
-                console.log(response);
+            ajaxCall(changePasswordUrl, $(this).serialize()).then(() => {
                 $(this).closest('.modal').modal('hide');
             });
         });
