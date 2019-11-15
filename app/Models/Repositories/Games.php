@@ -52,6 +52,7 @@ class Games
     {
         $players = Player::realPlayers()
             ->with('team')
+            ->whereNotNull('team_id')
             ->orderBy('name')->get();
 
         return $this->composePlayersForOutput($players);
