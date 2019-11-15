@@ -18,6 +18,17 @@ return [
                     '_label' => 'Preostalo jokera',
                 ],
             ],
+            'results_card'            => [
+                '_label' => 'Rezultati',
+                'links'  => [
+                    'overall_results'  => [
+                        '_label' => 'Ukupno',
+                    ],
+                    'results_by_round' => [
+                        '_label' => 'Po kolima',
+                    ],
+                ]
+            ],
             'no_stats'                => 'Nema rezultata za aktualnu sezonu',
             'disqualified'            => 'Diskvalificirani ste za aktualnu sezonu',
             'disqualification_reason' => 'Razlog diskvalifikacije',

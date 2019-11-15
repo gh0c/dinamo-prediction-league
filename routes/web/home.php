@@ -47,4 +47,9 @@ Route::group(['prefix' => 'home', 'middleware' => ['auth'], 'as' => 'home.'], fu
         'as'   => 'predictions.destroy',
     ]);
 
+    // Add player manually
+    Route::post('/players', [
+        'uses' => 'HomeController@storePlayer',
+        'as'   => 'players.create',
+    ]);
 });

@@ -45,29 +45,29 @@ return [
             ],
         ],
         'predictions'       => [
-            'name'         => [
+            'name'       => [
                 'label'       => 'Prognoza',
                 'placeholder' => 'Prognoza'
             ],
-            'user'         => [
+            'user'       => [
                 'label'       => 'Član',
                 'placeholder' => '- Odaberi člana'
             ],
-            'game'         => [
+            'game'       => [
                 'label'       => 'Utakmica',
                 'placeholder' => '- Odaberi utakmicu'
             ],
-            'home_team'    => [
+            'home_team'  => [
                 'label' => 'Domaćin',
             ],
-            'away_team'    => [
+            'away_team'  => [
                 'label' => 'Gost',
             ],
-            'joker_used'   => [
+            'joker_used' => [
                 'label' => 'Joker?',
             ],
-            '_submit'      => 'Spremi',
-            '_headings'    => [
+            '_submit'    => 'Spremi',
+            '_headings'  => [
                 'create'              => 'Dodaj novu prognozu',
                 'store'               => 'Spremi novu prognozu',
                 'update'              => 'Uredi postojeću prognozu',
@@ -231,7 +231,7 @@ return [
         'partials' => [
             'scorers' => [
                 'first_scorer' => [
-                    '_label' => '',
+                    '_label'       => '',
                     '_placeholder' => ' - Odaberi strijelca prvog gola'
                 ],
             ],
@@ -247,7 +247,9 @@ return [
                 'store_for_round'     => 'Spremi prognoze za :round. kolo',
                 'update'              => 'Uredi postojeću prognozu',
                 'destroy'             => 'Izbriši prognozu',
-                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu prognozu?'
+                'delete_confirmation' => 'Jeste li sigurni da želite izbrisati odabranu prognozu?',
+                'add_player'          => 'Dodaj igrača',
+                'add_player_info'     => 'Ukoliko igrač kojeg želiš odabrati kao prvog strijelca ne postoji na listi, dodaj ga!'
             ],
         ]
     ],

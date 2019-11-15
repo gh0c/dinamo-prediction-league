@@ -68,4 +68,21 @@ class ResultsController
 
         return view('results.round-results', compact('results', 'round', 'season'));
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws SeasonException
+     */
+    public function dashboardByRound()
+    {
+        $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+
+        $rounds = $this->predictions->getRoundsWithOutcomeForSeason($season);
+
+        return view('results.dashboard', compact('season', 'rounds'));
+
+    }
 }

@@ -94,7 +94,9 @@ return [
     ],
 
     'results' => [
-        'overall' => 'Ukupni poredak'
+        'overall'              => 'Ukupni poredak',
+        'round'                => 'Kolo',
+        'collection_for_round' => 'Rezultati za :round. kolo',
     ],
 
     'users' => [
