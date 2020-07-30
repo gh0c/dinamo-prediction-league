@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mod;
 
+use App\Exceptions\SeasonException;
 use App\Http\Requests\Mod\DeleteGameRequest;
 use App\Http\Requests\Mod\StoreGameRequest;
 use App\Http\Requests\Mod\UpdateGameResultRequest;
@@ -10,6 +11,7 @@ use App\Models\Games\Game;
 use App\Models\Games\GoalScorer;
 use App\Models\Games\Result;
 use App\Http\Controllers\Controller;
+use App\Models\Games\Season;
 use App\Models\Repositories\Predictions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,14 +29,23 @@ class GameController extends Controller
     {
         $this->predictions = $predictions;
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws SeasonException
      */
     public function index()
     {
-        $games = Game::with(['homeTeam', 'awayTeam', 'season', 'competition'])->orderBy('round')->orderBy('datetime')->get();
+        $season = Season::active();
+        if (!$season) {
+            throw SeasonException::activeSeasonNotFound();
+        }
+
+        $games = Game::with(['homeTeam', 'awayTeam', 'season', 'competition'])
+            ->where('season_id', $season->id)
+            ->orderBy('round')->orderBy('datetime')->get();
         return view('mod.games.index', compact('games'));
     }
 
