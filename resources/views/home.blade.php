@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col py-1">
-                @if(empty($nextRounds) && empty($currentRound) && empty($previousRounds))
+                @if(empty($nextRounds) && empty($currentRounds) && empty($previousRounds))
                     {{ __('pages.dashboard.no_rounds_for_season._label') }}
                 @else
 
